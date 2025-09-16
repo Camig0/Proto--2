@@ -1,0 +1,18 @@
+{
+  "1": {
+    "A_moves": "L U' D' L U F U D F L' L B' F L U L' U' F' F R B B D B L' R L D' L' F' U' B D B' F' R' B U' R L' R D D' B' F' R F F' F' B",
+    "encrypted_message": "G4Cpx0raDqj8kb5HIzfs9LAtBon3K67eFg21uvmydwhciJlE"
+  },
+  "2": {
+    "A_moves": "D' D D' D R' R' L U' F U L B' F' U' B U' B D' U' F' F' R' R D' F' D B' D' L' D F' B' L' U U' D' D' F' B' B U' R L' F R R F' D D U'",
+    "encrypted_message": "CJ5K6h9jpune3frcabq2FsDHIwygm1B0Gilx7tLk8vEozA4d"
+  },
+  "3": {
+    "A_moves": "B U B' L U D F' B L' F L D' B L L' B' R' D D B D D' F' B' L B' D R' F U' R' R' D R L' U U D' B U' L' U B' R B L B' D R R",
+    "encrypted_message": "04jianD9skAfp8uG2lCKJt7wcmy3E1hF6erdxzbovIB5qLHg"
+  },
+  "4": {
+    "A_moves": "F D L' R' U' B' L' D' U U U' B F' B' L' U' U' L D F L' F' L B' R L R F F' D' R R R B' U' L' L' D L' B U R' L L' B R L' R' F F",
+    "encrypted_message": "k8lHBqI2pbyFi6wLGndAufKDjm4E51vthzJers0o9xc7agC3"
+  }
+}
