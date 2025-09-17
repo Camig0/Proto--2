@@ -1,8 +1,12 @@
 import math
-from rubik.cube import Cube 
+from rubik.cube import Cube as rCube
+from magiccube import Cube as mCube
 import random
 
 SOLVED_CUBE_STR = "OOOOOOOOOYYYWWWGGGBBBYYYWWWGGGBBBYYYWWWGGGBBBRRRRRRRRR"
+SOLVED_KEY_CUBE = "YYYYYYYYYRRRRRRRRRGGGGGGGGGOOOOOOOOOBBBBBBBBBWWWWWWWWW"
+KEY_CUBE1 =       "BYGWYYBBRYGWRRGORGRRWYGOYWBGRYGOWOYORBROBWBOGOBYGWOWBW"
+KEY_CUBE2 =       "BYWWYOBBBYGWRRGORGRRYYGOYWWOGGYOROWYRBRYBWGOGOBBGWOWBR" #shifted 1 move R
 
 ELEMENTS = [
     "0","1","2","3","4","5","6","7","8","9",
@@ -80,17 +84,35 @@ def perm_to_str_with_len(perm: list, encoding="utf-8"):
     payload = padded.lstrip(b"\x00")     # remove left padding
     return payload.decode(encoding)
 
+# ---- int helpers ----
+def int_to_perm(plainInt):
+    if 0 <= plainInt <= FACT:
+        return unrank_permutation(plainInt, ELEMENTS)
+    raise ValueError("int: {plaintInt} must be > 0 and <48! adjust your plain text.")
+ 
+def perm_to_int(perm):
+    return rank_permutation(perm, ELEMENTS)
 
-# ---- random cube helper (unchanged) ----
-def random_cube() -> Cube:
+# ---- byte helpers ----
+def byte_to_perm(plainBytes):
+    return int_to_perm(int.from_bytes(plainBytes, "big"))
+
+def perm_to_byte(perm):
+    rank = perm_to_int(perm)
+    length = (rank.bit_length() + 7) // 8  
+    return rank.to_bytes(length, "big")
+
+
+
+# ---- random cube helper ----
+def random_cube() -> rCube:
     scramble_moves = " ".join(random.choices(MOVES, k=200))
-    a = Cube(SOLVED_CUBE_STR)
+    a = rCube(SOLVED_CUBE_STR)
     a.sequence(scramble_moves)
     return a
 
 
 if __name__ == "__main__":
-    perm = str_to_perm_with_len("abcdefghi ")   # <= 25 bytes payload
-    print("perm:", perm)                  # list of 48 symbols
-    restored = perm_to_str_with_len(perm)
-    print("restored:", restored)
+    key = mCube(3, KEY_CUBE1)
+    key.rotate("R")
+    print(key.get())

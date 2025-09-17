@@ -2,6 +2,7 @@ import magiccube
 from magiccube import Cube as mCube
 from rubik.cube import Cube as rCube
 from helper import str_to_perm_with_len, perm_to_str_with_len
+from helper import int_to_perm, perm_to_int, byte_to_perm, perm_to_byte
 from magiccube import BasicSolver
 
 
@@ -26,7 +27,9 @@ from magiccube import BasicSolver
 
 
 class CryptoCube:
-    def __init__(self, key_cube: mCube):
+    def __init__(self, key_cube: mCube, mode="utf-8"):
+        #mode tells the cipher what the expected plaintext and ciphertext is
+        self.mode = mode
         self.key_cube = key_cube
 
     def reverse_moves(self, moves: list):
@@ -49,17 +52,24 @@ class CryptoCube:
                     inverse.append(move + "i")  
             return inverse
 
-    def encrypt(self, plaintext: str) -> str:
+    def encrypt(self, plaintext: str|int|bytes) -> str:
         """
-        
-
         Input: plaintext string
         Output: ciphertext encoded as a permutatuion of 48 symbols
         """
-        permutation = str_to_perm_with_len(plaintext)
-            #insert middles in indexes 4, 22, 25, 28, 31, 49
-        for i in (4,22,25,28,31,49):
-            permutation.insert(i, '$')
+        try:
+            if self.mode == "bytes":
+                permutation = byte_to_perm(plaintext)
+            if self.mode == "int":
+                permutation = int_to_perm(plaintext)
+            if self.mode not in ("bytes", "int"):
+                permutation = str_to_perm_with_len(plaintext, self.mode)
+                
+            for i in (4,22,25,28,31,49):
+                #insert middles in indexes 4, 22, 25, 28, 31, 49
+                permutation.insert(i, '$')
+        except:
+            raise ValueError("plaintext: {plaintext} is in the wrong format or mismatched modes")
 
         permutation = "".join(permutation)
 
@@ -93,8 +103,7 @@ class CryptoCube:
         
         ...
 
-
-    def decrypt(self, A_moves: str, ciphertext: str) -> str:
+    def decrypt(self, A_moves: str, ciphertext: str) -> str|int|bytes:
         key_cube = mCube(3, str(self.key_cube.get()))
         permutation = list(ciphertext)
         for i in (4,22,25,28,31,49):
@@ -115,7 +124,17 @@ class CryptoCube:
 
         perm_cube.sequence(decrypt_moves)
         plaintext = perm_cube.flat_str().replace("$", "")
-        plaintext = perm_to_str_with_len(list(plaintext))
+        
+        try:
+            if self.mode == "bytes":
+                plaintext = perm_to_byte(plaintext)
+            if self.mode == "int":
+                plaintext = perm_to_int(plaintext)
+            if self.mode not in ("bytes", "int"):
+                plaintext = perm_to_str_with_len(plaintext, self.mode)
+        except:
+            raise ValueError("plaintext: {plaintext} is in the wrong format or mismatched modes")
+
 
         return plaintext
 
@@ -123,9 +142,9 @@ class CryptoCube:
 def main():
     key_cube = mCube(3, "BYGWYYBBRYGWRRGORGRRWYGOYWBGRYGOWOYORBROBWBOGOBYGWOWBW")
 
-    cryptic_cube = CryptoCube(key_cube)
+    cryptic_cube = CryptoCube(key_cube, "bytes")
 
-    A_moves, ciphertext = cryptic_cube.encrypt("hide message ")   # <= 25 bytes payload
+    A_moves, ciphertext = cryptic_cube.encrypt(b"\x00\x00\x01")   # <= 25 bytes payload
 
     print(A_moves,ciphertext)   # <= 25 bytes payload
 
