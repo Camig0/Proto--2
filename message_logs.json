@@ -14,5 +14,21 @@
   "4": {
     "A_moves": "F D L' R' U' B' L' D' U U U' B F' B' L' U' U' L D F L' F' L B' R L R F F' D' R R R B' U' L' L' D L' B U R' L L' B R L' R' F F",
     "encrypted_message": "k8lHBqI2pbyFi6wLGndAufKDjm4E51vthzJers0o9xc7agC3"
+  },
+  "5": {
+    "A_moves": "D' B' B' L' U' R L' L' D B' F' B' F R' L L' L' B D' R L' U L' D D' F D D U' F D U R' U U R' D' L' U' U R' D F' U' F' U F' L' B' U'",
+    "encrypted_message": "yAx4nk9hHfwo32gpCKJsE1ic6lmIdq8jBuLF5bGe0rztv7Da"
+  },
+  "6": {
+    "A_moves": "U F F D' F' D' L D R R B' L D' F' U' R D' D B' B' L F F' B D' R' B B' U' F' U' B' L' B' R B R' D' F' U F' D L' D U' L' U D L F'",
+    "encrypted_message": "2f8numiChABl1qyt0j4gExIHLKJvec5bzps3rGk7awF69doD"
+  },
+  "7": {
+    "A_moves": "F F B L' D D' D' D' F' L' B' D R' F B D U R' L L' B L' L L L R' L L U' L B' U' D' R D U D B' F' L' B' B L' B F D U R' R R'",
+    "encrypted_message": "loeu4pJgBtFsKh2f7dkmw93nALHz8iDrE5b6yqI0Gva1cjxC"
+  },
+  "8": {
+    "A_moves": "B' F D' R' B B' U D L L F' R L F U L' R' B' R' R B U B' D' D' D' U' F F' D U U' B L B' U B L F D B D' L' L' R' F' L B' F U'",
+    "encrypted_message": "6Eq0BAio2CpkIg5LyFuwjbHKf8dDl7rs4vthzJaG3m91xnec"
   }
 }
