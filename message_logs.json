@@ -30,5 +30,9 @@
   "8": {
     "A_moves": "B' F D' R' B B' U D L L F' R L F U L' R' B' R' R B U B' D' D' D' U' F F' D U U' B L B' U B L F D B D' L' L' R' F' L B' F U'",
     "encrypted_message": "6Eq0BAio2CpkIg5LyFuwjbHKf8dDl7rs4vthzJaG3m91xnec"
+  },
+  "9": {
+    "A_moves": "B' U' U F' D B R' F' D L U' U' L' F' R U' R L F' R' R' B F D B' F' B L R U U F L' U D U B' L D F L R F' U' R' L' D' R R B",
+    "encrypted_message": "7LjxnKr5eHyJkabo80Adcf4wF1i6IphglDs9vEBz2mGq3Ctu"
   }
 }

@@ -2,9 +2,13 @@ import argparse
 from logger import log_to_file, print_log, reset_log, load_json
 from magiccube import Cube as mCube
 from crypto_engine import CryptoCube  # Replace with actual file name where CryptoCube lives
+from tests import ConfusionDiffusionTest, MoveDistributionTest, PositionalDivergence
+from datetime import datetime
+from pprint import pprint
 
 #CONSTANTS
 MESSAGE_LOG_FILE = "message_logs.json"
+TESTS_LOG_FILE = "test_logs.json"
 
 def get_key_cube(key_string=None):
     # Default cube state if user doesn't provide one
@@ -33,6 +37,25 @@ def decrypt_command(args):
     plaintext = cryptic.decrypt(A_moves, ciphertext)
     print(f"Notice: Decryption complete!")
     print(f"Plaintext: {plaintext}")
+
+def test_command(args):
+    test = args.test
+    runs = args.runs
+    trials = args.trials
+
+    if test == "confusion_diffusion":
+        tester = ConfusionDiffusionTest(runs=runs, trials=trials)
+    if test == "move_distribution":
+        tester = MoveDistributionTest(runs=runs, trials=trials)
+    if test == "positional_kl_divergence":
+        tester = PositionalDivergence(runs=runs, trials=trials)
+    results = tester.do_test()
+    pprint(results)
+    time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    data = {time : results,
+            "runs" : runs}
+    log_to_file(TESTS_LOG_FILE, data)
+
 
 def help_command(args):
     print("""
@@ -89,16 +112,23 @@ def main():
     dec.set_defaults(func=decrypt_command)
 
     # Help
-    dec = subparsers.add_parser("help", help="Help information")
-    dec.set_defaults(func=help_command)
+    help = subparsers.add_parser("help", help="Help information")
+    help.set_defaults(func=help_command)
 
     # Reset
-    dec = subparsers.add_parser("reset_log", help="Reset log")
-    dec.set_defaults(func=reset_command)
+    reset = subparsers.add_parser("reset_log", help="Reset log")
+    reset.set_defaults(func=reset_command)
 
     # See Log
-    dec = subparsers.add_parser("log", help="See log")
-    dec.set_defaults(func=log_command)
+    log = subparsers.add_parser("log", help="See log")
+    log.set_defaults(func=log_command)
+
+    # Run Tests
+    test = subparsers.add_parser("test", help="Test Confusion/Diffusion, Move Distribution KL Divergence, Ciphertext Positional KL Divergence")
+    test.add_argument("test", help="What test to run", choices=["confusion_diffusion", "move_distribution", "positional_kl_divergence"])
+    test.add_argument("--runs", help="Number of runs per trial", type=int, default=100)
+    test.add_argument("--trials", help="Number of trials to run", type=int, default=3)
+    test.set_defaults(func=test_command)
 
     args = parser.parse_args()
 
