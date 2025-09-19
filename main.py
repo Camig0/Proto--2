@@ -12,7 +12,7 @@ TESTS_LOG_FILE = "test_logs.json"
 
 def get_key_cube(key_string=None):
     # Default cube state if user doesn't provide one
-    key_string = key_string or "BYGWYYBBRYGWRRGORGRRWYGOYWBGRYGOWOYORBROBWBOGOBYGWOWBW"
+    key_string = key_string or "BYGWYYBBRYGWRRGORGRRWYGOYWBGRYGOWOYORBROBWBOGOBYGWOWBW" #default
     return mCube(3, key_string)
 
 def encrypt_command(args):

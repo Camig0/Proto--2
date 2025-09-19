@@ -38,7 +38,7 @@ class MoveDistributionTest:
         total =  0
         for _ in range(self.runs):
             cube = mCube(3, SOLVED_KEY_CUBE)
-            cube.scramble()
+            cube.scramble()  #could have bias
             moves =  " ".join([str(i) for i in cube.history()])# should be a string by now
             moves = moves.split(" ")
 
@@ -120,7 +120,9 @@ class PositionalDivergence:
     
     def do_test(self):
         summarized_results = []
+        
         for trial in range(self.trials):
+            self.total_length = 0
             print(f"Starting trial {trial+1}/{self.trials}...")
             distribution = self.distibution_table()
             kl_divergences = []
@@ -146,7 +148,6 @@ class PositionalDivergence:
         print(f"Completed {self.trials} trials of {self.runs} runs each.")
         self.results = summarized_results
         return summarized_results
-
 
 
 class ConfusionDiffusionTest:
