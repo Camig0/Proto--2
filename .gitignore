@@ -4,4 +4,5 @@ positional_KL_divergence.py
 random log.txt
 message_logs.json
 test_logs.json
+confusion_diffusion_results.json
 /__pycache__

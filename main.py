@@ -42,6 +42,7 @@ def test_command(args):
     test = args.test
     runs = args.runs
     trials = args.trials
+    name = args.name
 
     if test == "confusion_diffusion":
         tester = ConfusionDiffusionTest(runs=runs, trials=trials)
@@ -53,8 +54,8 @@ def test_command(args):
     pprint(results)
     time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     data = {time : results,
-            "runs" : runs}
-    log_to_file(TESTS_LOG_FILE, data)
+            "sample size" : runs}
+    log_to_file("logs", data, name=name)
 
 
 def help_command(args):
@@ -127,7 +128,8 @@ def main():
     test = subparsers.add_parser("test", help="Test Confusion/Diffusion, Move Distribution KL Divergence, Ciphertext Positional KL Divergence")
     test.add_argument("test", help="What test to run", choices=["confusion_diffusion", "move_distribution", "positional_kl_divergence"])
     test.add_argument("--runs", help="Number of runs per trial", type=int, default=100)
-    test.add_argument("--trials", help="Number of trials to run", type=int, default=3)
+    test.add_argument("--trials", help="Number of trials to run", type=int, default=1)
+    test.add_argument("--name", help="Number of trials to run", type=str, default=None)
     test.set_defaults(func=test_command)
 
     args = parser.parse_args()

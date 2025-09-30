@@ -2,9 +2,9 @@ from crypto_engine import CryptoCube
 from helper import perm_to_byte, SOLVED_KEY_CUBE, KEY_CUBE1, KEY_CUBE2
 from magiccube import Cube as mCube
 import os
-from math import log
+from math import log, log2, log10
 from statistics import stdev
-
+from pprint import pprint
 
 class MoveDistributionTest:
     def __init__(self, runs=100, trials=1):
@@ -38,9 +38,12 @@ class MoveDistributionTest:
         total =  0
         for _ in range(self.runs):
             cube = mCube(3, SOLVED_KEY_CUBE)
-            cube.scramble()  #could have bias
+            cube.scramble()
+            
             moves =  " ".join([str(i) for i in cube.history()])# should be a string by now
+            print(moves)
             moves = moves.split(" ")
+    
 
             for move in moves:
                 if move not in distributions:
@@ -55,28 +58,68 @@ class MoveDistributionTest:
         return frequencies
 
     def do_test(self):
+        # summarized_results = []
+        # for trial in range(self.trials):
+        #     print(f"Starting trial {trial+1}/{self.trials}...")
+        #     frequencies = self.move_distribution()
+        #     standard_frequencies = self.standard_move_distribution()
+        #     standard_frequencies = {k: standard_frequencies[k] for k in frequencies.keys()}
+        #     kl_divergence = 0
+        #     for p, q in zip(frequencies.values(), standard_frequencies.values()):
+        #         kl_divergence += p * log(p/q, 2)  # KL Divergence formula
+        #     result = {f"Trial {trial}" : kl_divergence}
+        #     summarized_results.append(result)
+        #     print(f"Completed trial {trial+1}/{self.trials}...")
+
+        # print(f"Completed {self.trials} trials of {self.runs} runs each.")
+        # self.results = summarized_results
+        # return summarized_results
+        
         summarized_results = []
+    
         for trial in range(self.trials):
             print(f"Starting trial {trial+1}/{self.trials}...")
+            
             frequencies = self.move_distribution()
-            standard_frequencies = self.standard_move_distribution()
-            standard_frequencies = {k: standard_frequencies[k] for k in frequencies.keys()}
+            # Use theoretical uniform instead of scramble
+            standard_frequencies = {move: 1/12 for move in 
+                        ['R', "R'", 'L', "L'",
+                            'U', "U'",  'D', "D'",
+                            'F', "F'", 'B', "B'"]}
+            
+            #                   IDK WHICH ONE TO USE
+            #
+            # #scrambler frequencies 
+            # standard_frequencies = self.standard_move_distribution()
+            # standard_frequencies = {k: standard_frequencies[k] for k in frequencies.keys()}
+            
+            # Handle missing moves with epsilon
+            epsilon = 1e-10
+            all_moves = set(frequencies.keys()) | set(standard_frequencies.keys())
+            
             kl_divergence = 0
-            for p, q in zip(frequencies.values(), standard_frequencies.values()):
-                kl_divergence += p * log(p/q, 2)  # KL Divergence formula
-            result = {f"Trial {trial}" : kl_divergence}
-            summarized_results.append(result)
+            for move in all_moves:
+                p = frequencies.get(move, epsilon)
+                q = standard_frequencies.get(move, epsilon)
+                if p > epsilon:
+                    kl_divergence += p * log(p/q, 2)
+            
+            summarized_results.append(kl_divergence)
             print(f"Completed trial {trial+1}/{self.trials}...")
-
-        print(f"Completed {self.trials} trials of {self.runs} runs each.")
-        self.results = summarized_results
-        return summarized_results
+        
+        # Calculate summary statistics
+        result = {
+            "mean_kl_divergence": sum(summarized_results) / len(summarized_results),
+            "stdev_kl_divergence": stdev(summarized_results) if len(summarized_results) > 1 else 0,
+            "min_kl_divergence": min(summarized_results),
+            "max_kl_divergence": max(summarized_results),
+            "individual_trials": summarized_results
+        }
+        
+        self.results = result
+        return result
     
-    # def do_test(self):
-    #     ...
-
-
-
+    
 class PositionalDivergence:
     def __init__(self, runs=100, trials=1):
         self.runs = runs
@@ -85,68 +128,80 @@ class PositionalDivergence:
         self.distribution_table = {}
         self.total_length = 0
     def distibution_table(self, randomizer=True):
-        key  = mCube(3, SOLVED_KEY_CUBE)
+        key = mCube(3, SOLVED_KEY_CUBE)
         if randomizer:
             key = mCube(3, KEY_CUBE1)
 
         crypticCube = CryptoCube(key, mode="bytes")
         distributions = {}
-
-        for _ in range(self.runs):
+        
+        for run_num in range(self.runs):
+            print(f"run {run_num+1}/{self.runs}...")
             plaintext = os.urandom(25)
-            x, ciphertext =  crypticCube.encrypt(plaintext)
-            self.total_length += len(ciphertext)
-
-            for i,v in enumerate(ciphertext):
-                if str(i) not in distributions:
-                    distributions[str(i)] = {"values" : [],
-                                             "frequencies" : {},
-                                             "probabilities" : {}}
-                distributions[str(i)]["values"].append(v)
-                frequencies = distributions[str(i)]["frequencies"]
-                probabilities = distributions[str(i)]["probabilities"]
-
-                if v not in frequencies:
-                    frequencies[v] = 1
-                    continue
-                else:
-                    frequencies[v] += 1
-
-                if v not in probabilities:
-                    probabilities[v] = frequencies[v]/ self.runs
-                    continue
-                probabilities[v] = frequencies[v]/ self.runs
+            _, ciphertext = crypticCube.encrypt(plaintext)
+            
+            for i, v in enumerate(ciphertext):
+                pos_key = str(i)
+                if pos_key not in distributions:
+                    distributions[pos_key] = {
+                        "values": [],
+                        "frequencies": {},
+                    }
+                
+                distributions[pos_key]["values"].append(v)
+                if v not in distributions[pos_key]["frequencies"]:
+                    distributions[pos_key]["frequencies"][v] = 0
+                distributions[pos_key]["frequencies"][v] += 1
+        
+        # Calculate probabilities after all runs
+        for pos_key, data in distributions.items():
+            total = len(data["values"])
+            data["probabilities"] = {
+                v: count/total 
+                for v, count in data["frequencies"].items()
+            }
+        
         return distributions
-    
+
     def do_test(self):
         summarized_results = []
         
         for trial in range(self.trials):
-            self.total_length = 0
             print(f"Starting trial {trial+1}/{self.trials}...")
+            self.total_length = 0  # Reset for each trial
             distribution = self.distibution_table()
-            kl_divergences = []
-            for i, data in distribution.items():
-                divergence = []
-                for prob in data["probabilities"].values():
-                    divergence.append(prob * log(prob / (1/48))) # 1/48 is uniform distribution
-                kl_divergences.append(sum(divergence))
-                mean_kl_divergence = sum(kl_divergences)/ (len(kl_divergences))
-                partial_result = {"mean_kl_divergence" : mean_kl_divergence,
-                                "average_length" : self.total_length/self.runs,
-                                "position_kl_divergences" : kl_divergences}
-
             
-            means = partial_result["mean_kl_divergence"]
-            stdevs = stdev(partial_result["position_kl_divergences"])
-            result = {"mean_kl_divergence" : means,
-                    "stdev_kl_divergence" : stdevs,
-                    "average_length" : partial_result["average_length"]}
+            kl_divergences = []
+            position_samples = []
+            
+            for i, data in distribution.items():
+                num_unique = len(data["frequencies"])
+                uniform_prob = 1.0 / num_unique
+                epsilon = 1e-10
+                
+                divergence = 0
+                for prob in data["probabilities"].values():
+                    if prob > 0:
+                        divergence += prob * log2((prob + epsilon) / uniform_prob)
+                
+                kl_divergences.append(divergence)
+                position_samples.append(len(data["values"]))
+            
+            result = {
+                "mean_kl_divergence": sum(kl_divergences) / len(kl_divergences),
+                "median_kl_divergence": sorted(kl_divergences)[len(kl_divergences)//2],
+                "max_kl_divergence": max(kl_divergences),
+                "stdev_kl_divergence": stdev(kl_divergences) if len(kl_divergences) > 1 else 0,
+                "positions_analyzed": len(kl_divergences),
+                "min_samples_per_position": min(position_samples),
+                "max_samples_per_position": max(position_samples),
+                "raw" :kl_divergences
+            }
+            
+            
             summarized_results.append(result)
             print(f"Completed trial {trial+1}/{self.trials}...")
-            
-        print(f"Completed {self.trials} trials of {self.runs} runs each.")
-        self.results = summarized_results
+        
         return summarized_results
 
 
@@ -243,11 +298,13 @@ class ConfusionDiffusionTest:
             key_sensitivity_percent = raw_results["key_sensitivity"]["key_sensitivity_percent"]
             key_sensitivity_stdev = stdev(raw_results["key_sensitivity"]["results"])
             results = {"avalanche" : {
+                        "raw" : raw_results["avalanche"]["results"],
                         "mean" : avalanche_mean,
                         "percent" : avalanche_percent,
                         "stdev" : avalanche_stdev
         },
                    "key_sensitivity" : {
+                        "raw" : raw_results["key_sensitivity"]["results"],
                         "mean" : key_sensitivity_mean,
                         "percent" : key_sensitivity_percent,
                         "stdev" : key_sensitivity_stdev
@@ -261,4 +318,7 @@ class ConfusionDiffusionTest:
         return summarized_results
 
 if __name__ == "__main__":
-    ...
+    test = MoveDistributionTest(runs=  100,trials=3)
+    print(test.standard_move_distribution())
+    
+   

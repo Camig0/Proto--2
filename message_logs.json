@@ -1,38 +1,34 @@
 {
   "1": {
-    "A_moves": "L U' D' L U F U D F L' L B' F L U L' U' F' F R B B D B L' R L D' L' F' U' B D B' F' R' B U' R L' R D D' B' F' R F F' F' B",
-    "encrypted_message": "G4Cpx0raDqj8kb5HIzfs9LAtBon3K67eFg21uvmydwhciJlE"
+    "A_moves": "D' R' L U' L F' U' L D' B' D' B U' D' B L' R L' F' D F' L B' B' B' D' B F D' F B' L R D B R L' F L R R D' U L' B' U' F L' U B",
+    "encrypted_message": "ukJqf8ibvp0j15a4KyrEHFw6c39xhACzBd7oDsm2IteLnglG"
   },
   "2": {
-    "A_moves": "D' D D' D R' R' L U' F U L B' F' U' B U' B D' U' F' F' R' R D' F' D B' D' L' D F' B' L' U U' D' D' F' B' B U' R L' F R R F' D D U'",
-    "encrypted_message": "CJ5K6h9jpune3frcabq2FsDHIwygm1B0Gilx7tLk8vEozA4d"
+    "A_moves": "R' D D L D L' L U' B D' U' L' F D' R U' D' R' R' B' F' B B B U' R B' F D F' R' R' D' L' B' R U' D' U F' R B U' B' F B' D D D' F'",
+    "encrypted_message": "2kbpfjLehq80A7d45argmnoxHFwlJiEu6Ds9ICtKvcG13yBz"
   },
   "3": {
-    "A_moves": "B U B' L U D F' B L' F L D' B L L' B' R' D D B D D' F' B' L B' D R' F U' R' R' D R L' U U D' B U' L' U B' R B L B' D R R",
-    "encrypted_message": "04jianD9skAfp8uG2lCKJt7wcmy3E1hF6erdxzbovIB5qLHg"
+    "A_moves": "U B' L' U' F' D U' F' B' B F R L L B' D' F' L L' L R' B' U R B R D B U' R' R' B' B D' U' F F F' D' B' D R L L U R D' U L' F'",
+    "encrypted_message": "kaHnf04ztBvFcAK8EIL26GuyCpjs73iJ9eD1m5gwlbdoqhxr"
   },
   "4": {
-    "A_moves": "F D L' R' U' B' L' D' U U U' B F' B' L' U' U' L D F L' F' L B' R L R F F' D' R R R B' U' L' L' D L' B U R' L L' B R L' R' F F",
-    "encrypted_message": "k8lHBqI2pbyFi6wLGndAufKDjm4E51vthzJers0o9xc7agC3"
+    "A_moves": "F' B' U U' U' U' U' B R' R' L R D B F' L' R' B B' R' L' R R L' R' U' D U' D R' F' B D' L' D' U L D' F R F L D B' R R F' U' B' D",
+    "encrypted_message": "ItJrf2HCukghByx4LzEvmno1i93leqsKw8j6baD7FG0pcdA5"
   },
   "5": {
-    "A_moves": "D' B' B' L' U' R L' L' D B' F' B' F R' L L' L' B D' R L' U L' D D' F D D U' F D U R' U U R' D' L' U' U R' D F' U' F' U F' L' B' U'",
-    "encrypted_message": "yAx4nk9hHfwo32gpCKJsE1ic6lmIdq8jBuLF5bGe0rztv7Da"
+    "A_moves": "F D' U U' B R' D' B B' F' D R' L F' B' F' B' L' D F' L' F' B' R' L B F' U R U' B U R' B B' U' F' F L' U R U F' R F' D' D L' B' D'",
+    "encrypted_message": "hwCt4K30gEsF9j8fyxG2Hrkc6pqBb1uvoedmzLA5In7ilaDJ"
   },
   "6": {
-    "A_moves": "U F F D' F' D' L D R R B' L D' F' U' R D' D B' B' L F F' B D' R' B B' U' F' U' B' L' B' R B R' D' F' U F' D L' D U' L' U D L F'",
-    "encrypted_message": "2f8numiChABl1qyt0j4gExIHLKJvec5bzps3rGk7awF69doD"
+    "A_moves": "L L U D' R U B D' F' L' B' D R L L' B' L B R B' D' R' D' U D F' D' R' B L' B' B' U B' R R U' D D' B U B B L B' R R' F L R'",
+    "encrypted_message": "xtjwfv1byGuIi5a480EC9HBkrml3g6sKq7eDzLohFpdcA2nJ"
   },
   "7": {
-    "A_moves": "F F B L' D D' D' D' F' L' B' D R' F B D U R' L L' B L' L L L R' L L U' L B' U' D' R D U D B' F' L' B' B L' B F D U R' R R'",
-    "encrypted_message": "loeu4pJgBtFsKh2f7dkmw93nALHz8iDrE5b6yqI0Gva1cjxC"
+    "A_moves": "F U' U B B' B B' D L F' D F R D R B F' D U' B' B R' D' U' U L' R' R B L L' R L' D D D' R' B D' U' U U F F' F F D' D U' L",
+    "encrypted_message": "LoF4ieDxJf7dACy1KsnzHEtmlqpBbc08khgwuv95jr26Ga3I"
   },
   "8": {
-    "A_moves": "B' F D' R' B B' U D L L F' R L F U L' R' B' R' R B U B' D' D' D' U' F F' D U U' B L B' U B L F D B D' L' L' R' F' L B' F U'",
-    "encrypted_message": "6Eq0BAio2CpkIg5LyFuwjbHKf8dDl7rs4vthzJaG3m91xnec"
-  },
-  "9": {
-    "A_moves": "B' U' U F' D B R' F' D L U' U' L' F' R U' R L F' R' R' B F D B' F' B L R U U F L' U D U B' L D F L R F' U' R' L' D' R R B",
-    "encrypted_message": "7LjxnKr5eHyJkabo80Adcf4wF1i6IphglDs9vEBz2mGq3Ctu"
+    "A_moves": "U R F' F D' L U U L' B' B' U' U B' U F B' L B' L' R' F D L B' F' B' D L B' R' R D B' D' D' D' B' U' U' B L R B B U' F R' U' R'",
+    "encrypted_message": "yHhncbp8Co5aq0j62gBxl93tEkrme1LJAFsGvIf7zDKiwd4u"
   }
 }
