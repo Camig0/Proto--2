@@ -5,6 +5,8 @@ import os
 from math import log, log2, log10
 from statistics import stdev
 from pprint import pprint
+import random
+import numpy as np
 
 class MoveDistributionTest:
     def __init__(self, runs=100, trials=1):
@@ -31,7 +33,7 @@ class MoveDistributionTest:
         # for move, count in move_count.items():
         #     frequencies[move] = count/total
 
-        return frequencies
+        return frequencies, move_count
     def standard_move_distribution(self):
         distributions = {}
         frequencies = {}
@@ -41,7 +43,6 @@ class MoveDistributionTest:
             cube.scramble()
             
             moves =  " ".join([str(i) for i in cube.history()])# should be a string by now
-            print(moves)
             moves = moves.split(" ")
     
 
@@ -76,11 +77,13 @@ class MoveDistributionTest:
         # return summarized_results
         
         summarized_results = []
+        frequency_tables = []
     
         for trial in range(self.trials):
             print(f"Starting trial {trial+1}/{self.trials}...")
             
-            frequencies = self.move_distribution()
+            frequencies, move_count = self.move_distribution()
+            frequency_tables.append((frequencies,move_count))
             # Use theoretical uniform instead of scramble
             standard_frequencies = {move: 1/12 for move in 
                         ['R', "R'", 'L', "L'",
@@ -101,6 +104,8 @@ class MoveDistributionTest:
             for move in all_moves:
                 p = frequencies.get(move, epsilon)
                 q = standard_frequencies.get(move, epsilon)
+                if q == epsilon:
+                    ...
                 if p > epsilon:
                     kl_divergence += p * log(p/q, 2)
             
@@ -113,7 +118,8 @@ class MoveDistributionTest:
             "stdev_kl_divergence": stdev(summarized_results) if len(summarized_results) > 1 else 0,
             "min_kl_divergence": min(summarized_results),
             "max_kl_divergence": max(summarized_results),
-            "individual_trials": summarized_results
+            "individual_trials": summarized_results,
+            "frequency_distribution_tables": frequency_tables
         }
         
         self.results = result
@@ -162,6 +168,22 @@ class PositionalDivergence:
             }
         
         return distributions
+    def bootstrap(self, kl_values):
+        n_postions = len(kl_values)
+        bootstrap_means = []
+    
+        for _ in range(self.runs):
+            sample = np.random.choice(kl_values, size=n_postions, replace=True)
+            bootstrap_means.append(np.mean(sample))
+        
+        bootstrap_means = np.array(bootstrap_means)
+
+        lower = np.percentile(bootstrap_means, 2.5)
+        upper = np.percentile(bootstrap_means, 97.5)
+
+
+        return lower, upper
+
 
     def do_test(self):
         summarized_results = []
@@ -169,7 +191,9 @@ class PositionalDivergence:
         for trial in range(self.trials):
             print(f"Starting trial {trial+1}/{self.trials}...")
             self.total_length = 0  # Reset for each trial
+            distribution_tables = []
             distribution = self.distibution_table()
+            distribution_tables.append(distribution)
             
             kl_divergences = []
             position_samples = []
@@ -186,6 +210,8 @@ class PositionalDivergence:
                 
                 kl_divergences.append(divergence)
                 position_samples.append(len(data["values"]))
+
+                bootstrap_ci = self.bootstrap(kl_divergences)
             
             result = {
                 "mean_kl_divergence": sum(kl_divergences) / len(kl_divergences),
@@ -195,7 +221,9 @@ class PositionalDivergence:
                 "positions_analyzed": len(kl_divergences),
                 "min_samples_per_position": min(position_samples),
                 "max_samples_per_position": max(position_samples),
-                "raw" :kl_divergences
+                "raw" :kl_divergences,
+                "bootstrap_ci": {"lower": bootstrap_ci[0], "upper": bootstrap_ci[1]},
+                "distribution_tables": distribution_tables
             }
             
             
@@ -318,7 +346,6 @@ class ConfusionDiffusionTest:
         return summarized_results
 
 if __name__ == "__main__":
-    test = MoveDistributionTest(runs=  100,trials=3)
-    print(test.standard_move_distribution())
-    
-   
+    #sample test run
+    test = PositionalDivergence(runs=  100,trials=1)
+    pprint(test.do_test())

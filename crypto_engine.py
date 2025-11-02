@@ -5,25 +5,7 @@ from helper import str_to_perm_with_len, perm_to_str_with_len
 from helper import int_to_perm, perm_to_int, byte_to_perm, perm_to_byte
 from magiccube import BasicSolver
 
-
-# cube = mCube(3, "YYYYYYYYYRRRRRRRRRGGGGGGGGGOOOOOOOOOBBBBBBBBBWWWWWWWWW")
-
-# print(cube)
-
-# cube.scramble()
-
-# print(cube)
-
-# history = cube.reverse_history() 
-# reverse = " ".join([str(i) for i in history])
-
-# cube.rotate(reverse)
-
-# print(cube)
-
-# copy_cube = cube.get()
-# copy_cube = mCube(3, str(copy_cube))
-# print(copy_cube)
+from helper import SOLVED_CUBE_STR
 
 
 class CryptoCube:
@@ -73,35 +55,34 @@ class CryptoCube:
 
         permutation = "".join(permutation)
 
+        demo = rCube(SOLVED_CUBE_STR)
+
         random_cube = mCube(3, str(self.key_cube.get()))
 
         random_cube.scramble()
         perm_cube = rCube(permutation)
 
-        A_moves = " ".join([str(i) for i in random_cube.history()])
 
-        solver = BasicSolver(random_cube)
+        A_moves = " ".join([str(i) for i in random_cube.history()]) # moves from key to IV
+
+        solver = BasicSolver(random_cube) # From IV to Solved state
         solver.solve()
 
         encrypt_moves = " ".join([str(i) for i in random_cube.history()])
         encrypt_moves = encrypt_moves.replace("'", "i")
-        encrypt_moves = encrypt_moves[len(A_moves):]
+        encrypt_moves = encrypt_moves[len(A_moves):] # reverses moves
+
+        demo.sequence(encrypt_moves)
+    
 
         perm_cube.sequence(encrypt_moves)
+
+
         ciphertext = perm_cube.flat_str()
         ciphertext = ciphertext.replace("$", "")
 
 
         return A_moves, ciphertext
-        
-
-
-        # # we need 
-        # 1. A_moves
-        # 2. B_moves
-        # 3. perm Cube
-        
-        ...
 
     def decrypt(self, A_moves: str, ciphertext: str) -> str|int|bytes:
         key_cube = mCube(3, str(self.key_cube.get()))
@@ -111,6 +92,8 @@ class CryptoCube:
 
         permutation = "".join(permutation)
         perm_cube = rCube(permutation)
+
+        demo = rCube(SOLVED_CUBE_STR)
 
         solver = BasicSolver(key_cube)
         key_cube.rotate(A_moves)
@@ -123,6 +106,9 @@ class CryptoCube:
         decrypt_moves = " ".join(decrypt_moves)
 
         perm_cube.sequence(decrypt_moves)
+        demo.sequence(decrypt_moves)
+
+
         plaintext = perm_cube.flat_str().replace("$", "")
         
         try:
@@ -135,21 +121,26 @@ class CryptoCube:
         except:
             raise ValueError("plaintext: {plaintext} is in the wrong format or mismatched modes")
 
-
         return plaintext
 
 
 def main():
+    #sample test input
     key_cube = mCube(3, "BYGWYYBBRYGWRRGORGRRWYGOYWBGRYGOWOYORBROBWBOGOBYGWOWBW")
 
-    cryptic_cube = CryptoCube(key_cube, "bytes")
+    cryptic_cube = CryptoCube(key_cube)
 
-    A_moves, ciphertext = cryptic_cube.encrypt(b"\x00\x00\x01")   # <= 25 bytes payload
+    # A_moves, ciphertext = cryptic_cube.encrypt("hello")   # <= 25 bytes payload
 
-    print(A_moves,ciphertext)   # <= 25 bytes payload
+    # print(A_moves,ciphertext)   # <= 25 bytes payload
+
+    A_moves = "F D D F' F L U' F B' R F' F F B U D R' L F' D' F' B' B F' B' L U' R' D B' R' R F L L B R R D B B D B' U R' L' B' B F F'"
+    ciphertext = "z4dxr8c5IH0j6abke7fCoi1pqALnK3EutGDmhgFyvBs9lJw2"
 
     plaintext = cryptic_cube.decrypt(A_moves, ciphertext)
     print(plaintext)   # <= 25 bytes payload
+
+    
 
 
 if __name__ == "__main__":

@@ -1,0 +1,14 @@
+{
+  "1": {
+    "2025-09-30_09-45-49": {
+      "mean_kl_divergence": 7.106783171775453e-05,
+      "stdev_kl_divergence": 0,
+      "min_kl_divergence": 7.106783171775453e-05,
+      "max_kl_divergence": 7.106783171775453e-05,
+      "individual_trials": [
+        7.106783171775453e-05
+      ]
+    },
+    "sample size": 1000
+  }
+}

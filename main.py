@@ -96,6 +96,21 @@ def reset_command(args):
 def log_command(args):
     print_log(MESSAGE_LOG_FILE)
 
+def primitive_encrypt_command(args):
+    cube = get_key_cube(args.key)
+    cryptic = CryptoCube(cube)
+
+    A_moves, ciphertext = cryptic.encrypt(args.message)
+    print(f"A_moves: {A_moves}")
+    print(f"Ciphertext: {ciphertext}")
+
+def primitive_decrypt_command(args):
+    cube = get_key_cube(args.key)
+    cryptic = CryptoCube(cube)
+
+    plaintext = cryptic.decrypt(args.A_moves, args.ciphertext)
+    print(f"Plaintext: {plaintext}")
+
 def main():
     parser = argparse.ArgumentParser(description="CryptoCube CLI")
     subparsers = parser.add_subparsers(dest="command")
@@ -111,6 +126,19 @@ def main():
     dec.add_argument("message_index", help="Index of message in the log")
     dec.add_argument("--key", help="Optional custom key cube state")
     dec.set_defaults(func=decrypt_command)
+
+    # Primitive Encrypt
+    p_enc = subparsers.add_parser("primitive_encrypt", help="Primitive Encrypt")
+    p_enc.add_argument("--message", help="Plaintext to encrypt")
+    p_enc.add_argument("--key", help="Optional custom key cube state")
+    p_enc.set_defaults(func=primitive_encrypt_command)
+
+    # Primitive Decrypt
+    p_dec = subparsers.add_parser("primitive_decrypt", help="Primitive Decrypt")
+    p_dec.add_argument("--ciphertext", help="Ciphertext to decrypt")
+    p_dec.add_argument("--key", help="Optional custom key cube state")
+    p_dec.add_argument("--A_moves", help="Optional custom key cube state")
+    p_dec.set_defaults(func=primitive_decrypt_command)
 
     # Help
     help = subparsers.add_parser("help", help="Help information")

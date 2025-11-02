@@ -6,3 +6,4 @@ message_logs.json
 test_logs.json
 confusion_diffusion_results.json
 /__pycache__
+/graphs

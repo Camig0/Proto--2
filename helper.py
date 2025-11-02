@@ -3,7 +3,7 @@ from rubik.cube import Cube as rCube
 from magiccube import Cube as mCube
 import random
 
-SOLVED_CUBE_STR = "OOOOOOOOOYYYWWWGGGBBBYYYWWWGGGBBBYYYWWWGGGBBBRRRRRRRRR"
+SOLVED_CUBE_STR = "YYYYYYYYYRRRBBBOOOGGGRRRBBBOOOGGGRRRBBBOOOGGGWWWWWWWWW"
 SOLVED_KEY_CUBE = "YYYYYYYYYRRRRRRRRRGGGGGGGGGOOOOOOOOOBBBBBBBBBWWWWWWWWW"
 KEY_CUBE1 =       "BYGWYYBBRYGWRRGORGRRWYGOYWBGRYGOWOYORBROBWBOGOBYGWOWBW"
 KEY_CUBE2 =       "BYWWYOBBBYGWRRGORGRRYYGOYWWOGGYOROWYRBRYBWGOGOBBGWOWBR" #shifted 1 move R
@@ -15,6 +15,14 @@ ELEMENTS = [
     "u","v","w","x","y","z","A","B","C","D",
     "E","F","G","H","I","J","K","L"
 ]  # length = 48
+
+_ELEMENTS = [
+    "0","1","2","3","4","5","6","7","8","9",
+    "a","b","c","d","e","f","g","h","i","j",
+    "k","l","m","n","o","p","q","r","s","t",
+    "u","v","w","x","y","z","A","B","C","D",
+    "E","F","G","H","I","J","K","L", "M","N","O","P","Q","R"
+] 
 
 N = len(ELEMENTS)
 FACT = math.factorial(N)
@@ -113,6 +121,6 @@ def random_cube() -> rCube:
 
 
 if __name__ == "__main__":
-    key = mCube(3, KEY_CUBE1)
-    key.rotate("R")
-    print(key.get())
+    cube = rCube("".join(_ELEMENTS))
+    print("Random Cube:")
+    print(cube)
