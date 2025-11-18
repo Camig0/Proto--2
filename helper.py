@@ -1,12 +1,15 @@
+from blake3 import blake3
+
 import math
 from rubik.cube import Cube as rCube
 from magiccube import Cube as mCube
+from magiccube import BasicSolver
 import random
 
-SOLVED_CUBE_STR = "YYYYYYYYYRRRBBBOOOGGGRRRBBBOOOGGGRRRBBBOOOGGGWWWWWWWWW"
-SOLVED_KEY_CUBE = "YYYYYYYYYRRRRRRRRRGGGGGGGGGOOOOOOOOOBBBBBBBBBWWWWWWWWW"
+SOLVED_CUBE_STR = "YYYYYYYYYRRRBBBOOOGGGRRRBBBOOOGGGRRRBBBOOOGGGWWWWWWWWW" #rCube
+SOLVED_KEY_CUBE = "YYYYYYYYYRRRRRRRRRGGGGGGGGGOOOOOOOOOBBBBBBBBBWWWWWWWWW" #mCube
 KEY_CUBE1 =       "BYGWYYBBRYGWRRGORGRRWYGOYWBGRYGOWOYORBROBWBOGOBYGWOWBW"
-KEY_CUBE2 =       "BYWWYOBBBYGWRRGORGRRYYGOYWWOGGYOROWYRBRYBWGOGOBBGWOWBR" #shifted 1 move R
+KEY_CUBE2 =       "BYWWYOBBBYGWRRGORGRRYYGOYWWOGGYOROWYRBRYBWGOGOBBGWOWBR" #applied 1 move --> R
 
 ELEMENTS = [
     "0","1","2","3","4","5","6","7","8","9",
@@ -22,7 +25,7 @@ _ELEMENTS = [
     "k","l","m","n","o","p","q","r","s","t",
     "u","v","w","x","y","z","A","B","C","D",
     "E","F","G","H","I","J","K","L", "M","N","O","P","Q","R"
-] 
+] # length = 54
 
 N = len(ELEMENTS)
 FACT = math.factorial(N)
@@ -32,7 +35,11 @@ BYTES_PAYLOAD = 25
 
 MOVES = ['Li', 'R', 'Ri', 'U', 'Ui', 'D', 'Di',
          'F', 'Fi', 'B', 'Bi', 'M', 'Mi', 'E', 'Ei',
-         'S', 'Si', 'X', 'Xi', 'Y', 'Yi', 'Z', 'Zi']
+         'S', 'Si', 'X', 'Xi', 'Y', 'Yi', 'Z', 'Zi'] # for rubikcube
+
+_MOVES = [ "L'", 'R', "R'", 'U', "U'", 'D', "D'",
+         'F', "F'", 'B', "B'", 'M', "M'"] 
+
 
 
 # ---- factorial number system rank/unrank ----
@@ -118,6 +125,49 @@ def random_cube() -> rCube:
     a = rCube(SOLVED_CUBE_STR)
     a.sequence(scramble_moves)
     return a
+
+# ---- PRF helper func ----
+def PRF(key, context, purpose): #untested
+    hasher = blake3.new()
+    hasher.update(key)
+    hasher.update(context)
+    hasher.update(purpose)
+    return hasher.digest()
+
+# ---- seeded random cube ----
+def seeded_random_cube(seed,length=20)-> mCube: #untested
+    def get_moves(seed,length = 20):
+        for i in range(length):
+            index = seed[i] % len(_MOVES)
+            yield _MOVES[index]
+    moves = " ".join(get_moves(seed,length))
+    cube = mCube(3,SOLVED_KEY_CUBE)
+    cube.rotate(moves)
+    return mCube(3,cube.get())
+
+# ---- function to get moves to solve cube x ----
+def get_solve_moves(cube:mCube, mode:bool=False)-> str: #untested
+    '''
+        gets the moves that solve a cube x
+
+        cube must be mCube lol
+
+       mode: bool
+      False: mCube move notation\n
+       True: rCube move notation
+
+     Return: string of move notation separated by spaces
+          '''
+    history_length = len(cube.history())
+    solver = BasicSolver(cube)
+    solver.solve()
+    moves = " ".join([str(i) for i in cube.history()][history_length:]) #currently in mCube notation
+    #                                                ^^^^^^^^^^^^^^^^^ done so that to avoid previous move history
+
+    if mode:
+        moves = moves.replace("'", "i")
+
+    return moves
 
 
 if __name__ == "__main__":

@@ -1,8 +1,14 @@
+from blake3 import blake3
+
+import os
+
 import magiccube
 from magiccube import Cube as mCube
 from rubik.cube import Cube as rCube
 from helper import str_to_perm_with_len, perm_to_str_with_len
 from helper import int_to_perm, perm_to_int, byte_to_perm, perm_to_byte
+from helper import seeded_random_cube
+from helper import get_solve_moves
 from magiccube import BasicSolver
 
 from helper import SOLVED_CUBE_STR
@@ -13,9 +19,10 @@ class CryptoCube:
         #mode tells the cipher what the expected plaintext and ciphertext is
         self.mode = mode
         self.key_cube = key_cube
+        self.BLOCK_SIZE = 25
 
     def reverse_moves(self, moves: list):
-            '''For  rubik cube module only'''
+            '''rCube notation compatability only'''
             try:
                 moves = list(moves)
             except TypeError:
@@ -34,12 +41,39 @@ class CryptoCube:
                     inverse.append(move + "i")  
             return inverse
 
-    def encrypt(self, plaintext: str|int|bytes) -> str:
+    def PRF(self, key, context, purpose):
+        hasher = blake3()
+        hasher.update(key.encode("utf-8"))
+        hasher.update(context)
+        hasher.update(purpose.encode("utf-8"))
+        return hasher.digest()
+        
+    def cube_XOR(self,a:rCube, b:mCube)->rCube: #untested
+        """XC: (a,b)-> c
+        where b is the keystream"""
+        transform = get_solve_moves(b,True)
+        a.sequence(transform)
+        return rCube(a.flat_str())
+
+
+    def inverse_cube_XOR(self, c:rCube, b:mCube)->rCube: #untested
+        """~XC: (c,b)-> a
+        where b is the keystream"""
+        transform = " ".join(self.reverse_moves(get_solve_moves(b, True).split(" "))) # rCube notation in string form
+        c.sequence(transform)
+        return rCube(c.flat_str())
+
+
+    def encrypt(self,
+                plaintext: str|int|bytes,
+                IV:bytes|None=None,
+                block:int=0
+                ) -> str:
         """
         Input: plaintext string
         Output: ciphertext encoded as a permutatuion of 48 symbols
         """
-        try:
+        try: # FOR bytes int and character codec compatability
             if self.mode == "bytes":
                 permutation = byte_to_perm(plaintext)
             if self.mode == "int":
@@ -55,63 +89,59 @@ class CryptoCube:
 
         permutation = "".join(permutation)
 
-        demo = rCube(SOLVED_CUBE_STR)
+        if not IV: #if IV == None generate an IV, used when doing simple encrypt of just one block
+            IV = os.urandom(16) # Nonce
 
-        random_cube = mCube(3, str(self.key_cube.get()))
+        #clone the key
+        key_cube = mCube(3, str(self.key_cube.get())) # color-only cube 
+        # initializes as keycube then scrambles 
+        # scramble sequence is moves A
+        plain_cube = rCube(permutation) #plain cube
 
-        random_cube.scramble()
-        perm_cube = rCube(permutation)
+        # PRF using BLAKE3 to get cube
 
+        seed = self.PRF(key_cube.get(), IV + block.to_bytes(4, "big"), "keystream") #uses blake3
 
-        A_moves = " ".join([str(i) for i in random_cube.history()]) # moves from key to IV
+        inter_cube = seeded_random_cube(seed) #untested output
 
-        solver = BasicSolver(random_cube) # From IV to Solved state
-        solver.solve()
+        # apply cube XOR on plaincube x intercube --> ciphercube
 
-        encrypt_moves = " ".join([str(i) for i in random_cube.history()])
-        encrypt_moves = encrypt_moves.replace("'", "i")
-        encrypt_moves = encrypt_moves[len(A_moves):] # reverses moves
+        cipher_cube = self.cube_XOR(plain_cube, inter_cube)
 
-        demo.sequence(encrypt_moves)
-    
+        ciphertext = cipher_cube.flat_str().replace("$", "") # flatten cipher cube and remove filler symbols ($)
+        
 
-        perm_cube.sequence(encrypt_moves)
-
-
-        ciphertext = perm_cube.flat_str()
-        ciphertext = ciphertext.replace("$", "")
+        return ciphertext, IV # ciphertext + flattened IV
 
 
-        return A_moves, ciphertext
 
-    def decrypt(self, A_moves: str, ciphertext: str) -> str|int|bytes:
+    def decrypt(self, ciphertext: str, IV:bytes,
+                block:int=0
+                ) -> str|int|bytes:
         key_cube = mCube(3, str(self.key_cube.get()))
         permutation = list(ciphertext)
         for i in (4,22,25,28,31,49):
             permutation.insert(i, '$')
 
         permutation = "".join(permutation)
-        perm_cube = rCube(permutation)
+        cipher_cube = rCube(permutation) # ciphercube
 
-        demo = rCube(SOLVED_CUBE_STR)
+         # Reconstruct inter_cube using PRF using BLAKE3
 
-        solver = BasicSolver(key_cube)
-        key_cube.rotate(A_moves)
-        solver.solve()
+        seed = self.PRF(key_cube.get(), IV + block.to_bytes(4, "big"), "keystream")
+        # print("decryption seed",seed)
 
-        decrypt_moves = " ".join([str(i) for i in key_cube.history()])
-        decrypt_moves = decrypt_moves.replace("'", "i")
-        decrypt_moves = decrypt_moves[len(A_moves):]
-        decrypt_moves = self.reverse_moves(decrypt_moves.split(" "))
-        decrypt_moves = " ".join(decrypt_moves)
+        inter_cube = seeded_random_cube(seed)
 
-        perm_cube.sequence(decrypt_moves)
-        demo.sequence(decrypt_moves)
+        # print(inter_cube)
 
+        # Apply cube reverse XOR ciphercube x intercube --> plaincube
 
-        plaintext = perm_cube.flat_str().replace("$", "")
-        
-        try:
+        plain_cube = self.inverse_cube_XOR(cipher_cube, inter_cube)
+
+        plaintext = plain_cube.flat_str().replace("$", "")  # flatten plaincube and remove filler
+
+        try: #decodes the perm
             if self.mode == "bytes":
                 plaintext = perm_to_byte(plaintext)
             if self.mode == "int":
@@ -123,6 +153,69 @@ class CryptoCube:
 
         return plaintext
 
+    def serialize(self, data)->bytes:
+        """Convert any type to canonical byte string"""
+        if self.mode == "bytes":
+            return data  # Already bytes
+        
+        elif self.mode == "utf-8":
+            return data.encode('utf-8') + b'\x00'  # Add null terminator
+        
+        elif self.mode == "int":
+            # Convert to big-endian bytes
+            return data.to_bytes((data.bit_length() + 7)//8, 'big') + b'\x80'  # Marker
+        
+        else:
+            raise ValueError(f"Unknown mode: {self.mode}")
+
+    def encrypt_ctr(self, plaintext:str|int|bytes):
+        ciphertext_blocks = []
+        old_mode = self.mode
+
+# serialize plaintext to bytes
+        plaintext = self.serialize(plaintext)
+        
+        self.mode = "bytes" # set it to bytes for  CTR compatability
+
+
+#split plaintext into size 25 bytes
+        plain_blocks = []
+        for i in range(0,len(plaintext), self.BLOCK_SIZE):
+            block = plaintext[i:i + self.BLOCK_SIZE]
+            if len(block) < self.BLOCK_SIZE:
+                #  add PKCS#7 padding style here
+                pad_len = self.BLOCK_SIZE - len(block)
+                block += bytes([pad_len] * pad_len) # e.g, blocks size:8  A A A A A 3 3 3
+                #                                                           padding ^^^^^
+            plain_blocks.append(block)
+
+        IV = os.urandom(16)
+
+#cipher each block
+        for i, block in enumerate(plain_blocks):
+# encrypt each bluck with counter
+            ciphertext, _ = self.encrypt(block,IV, i)
+            ciphertext_blocks.append(ciphertext)
+
+
+        self.mode = old_mode # restores old mode
+        return ciphertext_blocks, IV # authentication done separately
+
+    def decrypt_ctr(self, ciphertext_blocks, IV):
+        #assumes authentication has been done
+        plaintext_blocks = []
+        
+# decrypt each block        
+        old_mode = self.mode
+        self.mode = "bytes" # done for compatability
+        for i, ciphertext in enumerate(ciphertext_blocks):
+            plaintext = self.decrypt(ciphertext, IV, i)
+            plaintext_blocks.append(plaintext)
+        
+# deserialize + remove padding + remove terminating bytes
+        return
+
+        ...
 
 def main():
     #sample test input
@@ -134,13 +227,17 @@ def main():
 
     # print(A_moves,ciphertext)   # <= 25 bytes payload
 
-    A_moves = "F D D F' F L U' F B' R F' F F B U D R' L F' D' F' B' B F' B' L U' R' D B' R' R F L L B R R D B B D B' U R' L' B' B F F'"
-    ciphertext = "z4dxr8c5IH0j6abke7fCoi1pqALnK3EutGDmhgFyvBs9lJw2"
 
-    plaintext = cryptic_cube.decrypt(A_moves, ciphertext)
-    print(plaintext)   # <= 25 bytes payload
+    ciphertext, IV = cryptic_cube.encrypt_ctr(" I would just like to test how it would fair on a bigger input if it works or not bug manifestation of kindness on tehe entieklasdkj lknsdknasd sadad adsa sdasd asd asd asd s d sd sd sd sdns dns ns dsndsnd snd snd snd snd snd sn sndsnd sndsnd sndsd snds sndnsd sd sd snd snd sn snd snd snd snd n n n nnnnnndsdsdsdsdsdsds reggin reggin reggin reggin reggin reggin reggin")
 
-    
+
+    print('======================================================================')
+    print("ciphertext", ciphertext, IV)   
+
+    plaintext = cryptic_cube.decrypt_ctr(ciphertext, IV)
+
+    print(plaintext)
+
 
 
 if __name__ == "__main__":
