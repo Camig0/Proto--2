@@ -13,6 +13,11 @@ from magiccube import BasicSolver
 
 from helper import SOLVED_CUBE_STR
 
+from concurrent.futures import ProcessPoolExecutor
+import multiprocessing as mp
+from functools import partial
+
+
 def encrypt_block(
             key:str,
             block_data: bytes,
@@ -42,11 +47,17 @@ def decrypt_block( key:str, blockdata: str, IV:bytes,
 
     cipher = CryptoCube(key_cube, mode="bytes")
     
-    plaintext, _ = cipher.decrypt(blockdata, IV, block)
+    plaintext = cipher.decrypt(blockdata, IV, block)
 
     return (block, plaintext)
 
 
+def encrypt_wrapper(args:tuple):
+    return encrypt_block(*args)
+
+def decrypt_wrapper(args:tuple):
+    return decrypt_block(*args)
+    
 
 class CryptoCube:
     def __init__(self, key_cube: mCube, mode="utf-8"):
@@ -198,7 +209,7 @@ class CryptoCube:
 
 
 # TODO: rewrite for parallel processing
-    def encrypt_ctr(self, plaintext:str|int|bytes):
+    def encrypt_ctr(self, plaintext:str|int|bytes, max_workers:int|None = None):
         ciphertext_blocks = []
         old_mode = self.mode
 
@@ -221,26 +232,85 @@ class CryptoCube:
 
         IV = os.urandom(16)
 
-#cipher each block
-        for i, block in enumerate(plain_blocks):
-# encrypt each bluck with counter
-            ciphertext, _ = self.encrypt(block,IV, i)
-            ciphertext_blocks.append(ciphertext)
+#Determine number of workers
+        if max_workers is None:
+            max_workers = min(mp.cpu_count(), len(plain_blocks))
 
+        flat_key = str(self.key_cube.get())
+
+# Prepares args for each worker
+        block_args = [
+            (flat_key,data, IV, idx, "bytes") for idx, data in enumerate(plain_blocks)
+        ]
+
+# pre-allocate space for ciphertext blocks
+        ciphertext_blocks = [None for _ in plain_blocks]
+
+# Parallel processing magic
+        with ProcessPoolExecutor(max_workers=max_workers) as executor:
+            results = executor.map(
+                encrypt_wrapper,
+                block_args,
+                chunksize=max(1, len(plain_blocks) // (max_workers * 4))
+            )
+
+# collect results
+            for block,ciphertext in  results:
+                ciphertext_blocks[block] = ciphertext
 
         self.mode = old_mode # restores old mode
+
+# ---- Non- parallel processing code ----        
+
+# #cipher each block
+#         for i, block in enumerate(plain_blocks):
+# # encrypt each bluck with counter
+#             ciphertext, _ = self.encrypt(block,IV, i)
+#             ciphertext_blocks.append(ciphertext)
+
+
+#         self.mode = old_mode # restores old mode
         return ciphertext_blocks, IV # authentication done separately
 
-    def decrypt_ctr(self, ciphertext_blocks, IV):
+    def decrypt_ctr(self, ciphertext_blocks, IV, max_workers:int=None):
         #assumes authentication has been done
-        plaintext_blocks = []
         
 # decrypt each block        
         old_mode = self.mode
         self.mode = "bytes" # done for compatability
-        for i, ciphertext in enumerate(ciphertext_blocks): # gets plaintext blocks
-            plaintext = self.decrypt(ciphertext, IV, i)
-            plaintext_blocks.append(plaintext)
+
+# Determine number of workers
+
+        if max_workers is None:
+            max_workers = min(len(ciphertext_blocks), mp.cpu_count())
+
+# Get all args for the wrapper
+        flat_key = str(self.key_cube.get())
+
+        block_args = [
+            (flat_key, block, IV, idx, "bytes")
+            for idx, block in  enumerate(ciphertext_blocks) 
+        ]
+# Pre-allocate space for plaintext blocks
+        plaintext_blocks = [None for _ in  ciphertext_blocks]
+
+# Parallel processing magic
+        with ProcessPoolExecutor(max_workers=max_workers) as executor:
+            results = executor.map(
+                decrypt_wrapper,
+                block_args,
+                chunksize=max(1, len(ciphertext_blocks) // (max_workers * 4))
+            )
+         
+# Collect Results
+            for block, plaintext in results:
+                plaintext_blocks[block] = plaintext
+
+
+
+        # for i, ciphertext in enumerate(ciphertext_blocks): # gets plaintext blocks
+        #     plaintext = self.decrypt(ciphertext, IV, i)
+        #     plaintext_blocks.append(plaintext)
         self.mode = old_mode # restores old mode
 
 
@@ -270,7 +340,7 @@ def main():
 
     # print(A_moves,ciphertext)   # <= 25 bytes payload
 
-    message_byte_size = 4_000
+    message_byte_size = 400_000
 
     message = b""
     for i in range(message_byte_size//4):
