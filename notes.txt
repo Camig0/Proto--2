@@ -1,0 +1,4 @@
+7.5kbps estimated separated
+
+TODO: parallel processing
+      authentication

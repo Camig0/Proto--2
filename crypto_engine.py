@@ -63,7 +63,8 @@ class CryptoCube:
         c.sequence(transform)
         return rCube(c.flat_str())
 
-
+# TODO: rewrite encrypt + decrypt of single block to module level
+# TODO: write workers for parallel processign
     def encrypt(self,
                 plaintext: str|int|bytes,
                 IV:bytes|None=None,
@@ -114,7 +115,6 @@ class CryptoCube:
         return ciphertext, IV # ciphertext + flattened IV
 
 
-
     def decrypt(self, ciphertext: str, IV:bytes,
                 block:int=0
                 ) -> str|int|bytes:
@@ -153,7 +153,16 @@ class CryptoCube:
 
         return plaintext
 
-    def serialize(self, data)->bytes:
+
+# FOR CTR MODE
+
+    def generate_auth_tag(self, ciphertext:list[str]): #generates auth_tag. Exclusive only to CTR mode
+        ciphertext = b"" 
+        for block in ciphertext:
+            ciphertext ^= block
+        return self.PRF(self.key_cube.get(), ciphertext, "auth_tag")
+
+    def serialize(self, data)->bytes: # this should really be a helper func
         """Convert any type to canonical byte string"""
         if self.mode == "bytes":
             return data  # Already bytes
@@ -168,6 +177,31 @@ class CryptoCube:
         else:
             raise ValueError(f"Unknown mode: {self.mode}")
 
+    def deserialize(self, data)-> bytes|str|int: # this should rlly be a helper func
+        """Reverse the canonical serialization process."""
+
+        
+        if self.mode == "bytes":
+            return data
+
+        elif self.mode == "utf-8":
+            if not data.endswith(b'\x00'):
+                raise ValueError("Invalid UTF-8 serialized form (missing null terminator)")
+            return data[:-1].decode("utf-8")
+
+        elif self.mode == "int":
+            if not data.endswith(b'\x80'):
+                raise ValueError("Invalid int serialized form (missing 0x80 marker)")
+            raw = data[:-1]               # remove marker
+            if len(raw) == 0:
+                return 0                  # special case: int = 0
+            return int.from_bytes(raw, "big")
+
+        else:
+            raise ValueError(f"Unknown mode: {self.mode}")
+
+
+# TODO: rewrite for parallel processing
     def encrypt_ctr(self, plaintext:str|int|bytes):
         ciphertext_blocks = []
         old_mode = self.mode
@@ -208,27 +242,46 @@ class CryptoCube:
 # decrypt each block        
         old_mode = self.mode
         self.mode = "bytes" # done for compatability
-        for i, ciphertext in enumerate(ciphertext_blocks):
+        for i, ciphertext in enumerate(ciphertext_blocks): # gets plaintext blocks
             plaintext = self.decrypt(ciphertext, IV, i)
             plaintext_blocks.append(plaintext)
-        
-# deserialize + remove padding + remove terminating bytes
-        return
+        self.mode = old_mode # restores old mode
 
-        ...
+
+# join all blocks
+        byte_data = b"".join(plaintext_blocks) # raw byte data with padding still
+        pad_len = byte_data[-1]
+        byte_data = byte_data[:-pad_len]
+
+
+
+# deserialize + remove padding + remove terminating bytes
+        
+        plaintext = self.deserialize(byte_data)
+
+        return plaintext
+
+# PUT WORKER FUNCTIONS HERE
+# vvvvvvvvvvvvvvvvvvvvvvvvv
 
 def main():
     #sample test input
     key_cube = mCube(3, "BYGWYYBBRYGWRRGORGRRWYGOYWBGRYGOWOYORBROBWBOGOBYGWOWBW")
 
-    cryptic_cube = CryptoCube(key_cube)
+    cryptic_cube = CryptoCube(key_cube,mode="bytes")
 
     # A_moves, ciphertext = cryptic_cube.encrypt("hello")   # <= 25 bytes payload
 
     # print(A_moves,ciphertext)   # <= 25 bytes payload
 
+    message_byte_size = 4_000
 
-    ciphertext, IV = cryptic_cube.encrypt_ctr(" I would just like to test how it would fair on a bigger input if it works or not bug manifestation of kindness on tehe entieklasdkj lknsdknasd sadad adsa sdasd asd asd asd s d sd sd sd sdns dns ns dsndsnd snd snd snd snd snd sn sndsnd sndsnd sndsd snds sndnsd sd sd snd snd sn snd snd snd snd n n n nnnnnndsdsdsdsdsdsds reggin reggin reggin reggin reggin reggin reggin")
+    message = b""
+    for i in range(message_byte_size//4):
+        message += b"a"
+
+    ciphertext, IV = cryptic_cube.encrypt_ctr(message)
+    tag = cryptic_cube.generate_auth_tag(ciphertext)
 
 
     print('======================================================================')
