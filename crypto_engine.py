@@ -5,13 +5,47 @@ import os
 import magiccube
 from magiccube import Cube as mCube
 from rubik.cube import Cube as rCube
-from helper import str_to_perm_with_len, perm_to_str_with_len
-from helper import int_to_perm, perm_to_int, byte_to_perm, perm_to_byte
-from helper import seeded_random_cube
-from helper import get_solve_moves
+
+from helper import str_to_perm_with_len, perm_to_str_with_len, int_to_perm, perm_to_int, byte_to_perm, perm_to_byte
+from helper import seeded_random_cube, get_solve_moves, serialize, deserialize
+
 from magiccube import BasicSolver
 
 from helper import SOLVED_CUBE_STR
+
+def encrypt_block(
+            key:str,
+            block_data: bytes,
+            IV:bytes|None=None,
+            block:int=0,
+            mode:str="bytes"
+            ) -> str:
+    from magiccube import Cube as mCube
+    from rubik.cube import Cube as rCube # idk why imports are needed
+
+    key_cube = mCube(3,key)
+
+    cipher = CryptoCube(key_cube, mode="bytes")
+    
+    ciphertext, _ = cipher.encrypt(block_data, IV, block)
+
+    return (block, ciphertext)
+
+    
+def decrypt_block( key:str, blockdata: str, IV:bytes,
+            block:int=0, mode:str="bytes"
+            ) -> str|int|bytes:
+    from magiccube import Cube as mCube
+    from rubik.cube import Cube as rCube # idk why imports are needed
+
+    key_cube = mCube(3,key)
+
+    cipher = CryptoCube(key_cube, mode="bytes")
+    
+    plaintext, _ = cipher.decrypt(blockdata, IV, block)
+
+    return (block, plaintext)
+
 
 
 class CryptoCube:
@@ -65,6 +99,7 @@ class CryptoCube:
 
 # TODO: rewrite encrypt + decrypt of single block to module level
 # TODO: write workers for parallel processign
+
     def encrypt(self,
                 plaintext: str|int|bytes,
                 IV:bytes|None=None,
@@ -114,7 +149,6 @@ class CryptoCube:
 
         return ciphertext, IV # ciphertext + flattened IV
 
-
     def decrypt(self, ciphertext: str, IV:bytes,
                 block:int=0
                 ) -> str|int|bytes:
@@ -162,44 +196,6 @@ class CryptoCube:
             ciphertext ^= block
         return self.PRF(self.key_cube.get(), ciphertext, "auth_tag")
 
-    def serialize(self, data)->bytes: # this should really be a helper func
-        """Convert any type to canonical byte string"""
-        if self.mode == "bytes":
-            return data  # Already bytes
-        
-        elif self.mode == "utf-8":
-            return data.encode('utf-8') + b'\x00'  # Add null terminator
-        
-        elif self.mode == "int":
-            # Convert to big-endian bytes
-            return data.to_bytes((data.bit_length() + 7)//8, 'big') + b'\x80'  # Marker
-        
-        else:
-            raise ValueError(f"Unknown mode: {self.mode}")
-
-    def deserialize(self, data)-> bytes|str|int: # this should rlly be a helper func
-        """Reverse the canonical serialization process."""
-
-        
-        if self.mode == "bytes":
-            return data
-
-        elif self.mode == "utf-8":
-            if not data.endswith(b'\x00'):
-                raise ValueError("Invalid UTF-8 serialized form (missing null terminator)")
-            return data[:-1].decode("utf-8")
-
-        elif self.mode == "int":
-            if not data.endswith(b'\x80'):
-                raise ValueError("Invalid int serialized form (missing 0x80 marker)")
-            raw = data[:-1]               # remove marker
-            if len(raw) == 0:
-                return 0                  # special case: int = 0
-            return int.from_bytes(raw, "big")
-
-        else:
-            raise ValueError(f"Unknown mode: {self.mode}")
-
 
 # TODO: rewrite for parallel processing
     def encrypt_ctr(self, plaintext:str|int|bytes):
@@ -207,7 +203,7 @@ class CryptoCube:
         old_mode = self.mode
 
 # serialize plaintext to bytes
-        plaintext = self.serialize(plaintext)
+        plaintext = serialize(plaintext, self.mode)
         
         self.mode = "bytes" # set it to bytes for  CTR compatability
 
@@ -257,7 +253,7 @@ class CryptoCube:
 
 # deserialize + remove padding + remove terminating bytes
         
-        plaintext = self.deserialize(byte_data)
+        plaintext = deserialize(byte_data, self.mode)
 
         return plaintext
 

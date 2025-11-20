@@ -170,6 +170,47 @@ def get_solve_moves(cube:mCube, mode:bool=False)-> str: #untested
     return moves
 
 
+# ---- Serialize and dserailize functions ----
+
+def serialize(data, mode)->bytes: # this should really be a helper func
+    """Convert any type to canonical byte string"""
+    if mode == "bytes":
+        return data  # Already bytes
+    
+    elif mode == "utf-8":
+        return data.encode('utf-8') + b'\x00'  # Add null terminator
+    
+    elif mode == "int":
+        # Convert to big-endian bytes
+        return data.to_bytes((data.bit_length() + 7)//8, 'big') + b'\x80'  # Marker
+    
+    else:
+        raise ValueError(f"Unknown mode: {mode}")
+
+def deserialize(data, mode)-> bytes|str|int: # this should rlly be a helper func
+    """Reverse the canonical serialization process."""
+
+    
+    if mode == "bytes":
+        return data
+
+    elif mode == "utf-8":
+        if not data.endswith(b'\x00'):
+            raise ValueError("Invalid UTF-8 serialized form (missing null terminator)")
+        return data[:-1].decode("utf-8")
+
+    elif mode == "int":
+        if not data.endswith(b'\x80'):
+            raise ValueError("Invalid int serialized form (missing 0x80 marker)")
+        raw = data[:-1]               # remove marker
+        if len(raw) == 0:
+            return 0                  # special case: int = 0
+        return int.from_bytes(raw, "big")
+
+    else:
+        raise ValueError(f"Unknown mode: {mode}")
+
+
 if __name__ == "__main__":
     cube = rCube("".join(_ELEMENTS))
     print("Random Cube:")
