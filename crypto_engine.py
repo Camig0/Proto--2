@@ -202,10 +202,12 @@ class CryptoCube:
 # FOR CTR MODE
 
     def generate_auth_tag(self, ciphertext:list[str]): #generates auth_tag. Exclusive only to CTR mode
-        ciphertext = b"" 
+        ciphertext_data = b"\x00" * len(ciphertext[0].encode("utf-8")) # transforms permutation to bytes
         for block in ciphertext:
-            ciphertext ^= block
-        return self.PRF(self.key_cube.get(), ciphertext, "auth_tag")
+            block_bytes = block.encode('utf-8')
+            # XOR byte by byte
+            ciphertext_data = bytes(a ^ b for a, b in zip(ciphertext_data, block_bytes))
+        return self.PRF(self.key_cube.get(), ciphertext_data, "auth_tag")
 
 
 # TODO: rewrite for parallel processing
@@ -343,7 +345,7 @@ def main():
     message_byte_size = 400_000
 
     message = b""
-    for i in range(message_byte_size//4):
+    for i in range(message_byte_size):
         message += b"a"
 
     ciphertext, IV = cryptic_cube.encrypt_ctr(message)
