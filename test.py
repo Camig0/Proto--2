@@ -1,3 +1,6 @@
-import rubik
-print("vvvvvvvvv")
-print(rubik.__file__)
+foo = ['aweq','b','c','d']
+
+roo = f"{*foo,}"
+
+print(roo)
+

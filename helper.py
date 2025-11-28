@@ -27,11 +27,6 @@ _ELEMENTS = [
     "E","F","G","H","I","J","K","L", "M","N","O","P","Q","R"
 ] # length = 54
 
-N = len(ELEMENTS)
-FACT = math.factorial(N)
-
-# --- Use 25-byte left-padded payload, guaranteed safe since 2^200 < 48! ---
-BYTES_PAYLOAD = 25
 
 MOVES = ['Li', 'R', 'Ri', 'U', 'Ui', 'D', 'Di',
          'F', 'Fi', 'B', 'Bi', 'M', 'Mi', 'E', 'Ei',
@@ -41,6 +36,11 @@ _MOVES = [ "L'", 'R', "R'", 'U', "U'", 'D', "D'",
          'F', "F'", 'B', "B'", 'M', "M'"] 
 
 
+# ---- Updated 54-element list ----
+
+N = len(_ELEMENTS)
+FACT = math.factorial(N)
+BYTES_PAYLOAD = 30
 
 # ---- factorial number system rank/unrank ----
 def rank_permutation(perm, elements):
@@ -53,7 +53,6 @@ def rank_permutation(perm, elements):
         elems.pop(idx)
     return rank
 
-
 def unrank_permutation(index, elements):
     elems = elements.copy()
     n = len(elems)
@@ -65,59 +64,113 @@ def unrank_permutation(index, elements):
         perm.append(elems.pop(pos))
     return perm
 
-
 # ---- safe bytes <-> permutation conversion ----
 def bytes_to_permutation(data: bytes):
-    """Convert exactly 25 bytes into a unique 48-permutation."""
+    """Convert exactly 30 bytes into a unique 54-permutation."""
     if len(data) != BYTES_PAYLOAD:
         raise ValueError(f"Input must be exactly {BYTES_PAYLOAD} bytes long")
     num = int.from_bytes(data, "big")
-    # With 25 bytes this should always hold: 0 <= num < 48!
     if num >= FACT:
-        raise ValueError("Integer out of range for 48! mapping (unexpected)")
-    return unrank_permutation(num, ELEMENTS)
-
+        raise ValueError("Integer out of range for 54! mapping")
+    return unrank_permutation(num, _ELEMENTS)
 
 def permutation_to_bytes(perm: list):
-    """Convert a 48-permutation back into exactly 25 bytes."""
-    index = rank_permutation(perm, ELEMENTS)
+    """Convert a 54-permutation back into exactly 30 bytes."""
+    index = rank_permutation(perm, _ELEMENTS)
     return index.to_bytes(BYTES_PAYLOAD, "big")
-
 
 # ---- string helpers ----
 def str_to_perm_with_len(s: str, encoding="utf-8"):
     data = s.encode(encoding)
     if len(data) > BYTES_PAYLOAD:
         raise ValueError(f"Input too long: max {BYTES_PAYLOAD} bytes")
-    # Left-pad with zeros to get exactly 25 bytes
     padded = data.rjust(BYTES_PAYLOAD, b"\x00")
     return bytes_to_permutation(padded)
 
-
 def perm_to_str_with_len(perm: list, encoding="utf-8"):
-    padded = permutation_to_bytes(perm)  # exactly 25 bytes
-    payload = padded.lstrip(b"\x00")     # remove left padding
+    padded = permutation_to_bytes(perm)
+    # Strip leading zeros to recover original string
+    payload = padded.lstrip(b"\x00")
     return payload.decode(encoding)
 
 # ---- int helpers ----
 def int_to_perm(plainInt):
-    if 0 <= plainInt <= FACT:
-        return unrank_permutation(plainInt, ELEMENTS)
-    raise ValueError("int: {plaintInt} must be > 0 and <48! adjust your plain text.")
- 
+    if not (0 <= plainInt < FACT):
+        raise ValueError(f"int {plainInt} must be >=0 and <54!")
+    return unrank_permutation(plainInt, _ELEMENTS)
+
 def perm_to_int(perm):
-    return rank_permutation(perm, ELEMENTS)
+    return rank_permutation(perm, _ELEMENTS)
 
 # ---- byte helpers ----
 def byte_to_perm(plainBytes):
-    return int_to_perm(int.from_bytes(plainBytes, "big"))
+    if len(plainBytes) > BYTES_PAYLOAD:
+        raise ValueError(f"Input bytes too long: max {BYTES_PAYLOAD}")
+    padded = plainBytes.rjust(BYTES_PAYLOAD, b"\x00")
+    num = int.from_bytes(padded, "big")
+    if num >= FACT:
+        raise ValueError("Integer out of range for 54! mapping")
+    return unrank_permutation(num, _ELEMENTS)
 
 def perm_to_byte(perm):
     rank = perm_to_int(perm)
-    length = (rank.bit_length() + 7) // 8  
-    return rank.to_bytes(length, "big")
+    padded = rank.to_bytes(BYTES_PAYLOAD, "big")
+    # Return without leading zeros for consistency
+    return padded
+
+# old encoding code
+(
+# # ---- safe bytes <-> permutation conversion ----
+# def bytes_to_permutation(data: bytes):
+#     """Convert exactly 25 bytes into a unique 48-permutation."""
+#     if len(data) != BYTES_PAYLOAD:
+#         raise ValueError(f"Input must be exactly {BYTES_PAYLOAD} bytes long")
+#     num = int.from_bytes(data, "big")
+#     # With 25 bytes this should always hold: 0 <= num < 48!
+#     if num >= FACT:
+#         raise ValueError("Integer out of range for 48! mapping (unexpected)")
+#     return unrank_permutation(num, ELEMENTS)
 
 
+# def permutation_to_bytes(perm: list):
+#     """Convert a 48-permutation back into exactly 25 bytes."""
+#     index = rank_permutation(perm, ELEMENTS)
+#     return index.to_bytes(BYTES_PAYLOAD, "big")
+
+
+# # ---- string helpers ----
+# def str_to_perm_with_len(s: str, encoding="utf-8"):
+#     data = s.encode(encoding)
+#     if len(data) > BYTES_PAYLOAD:
+#         raise ValueError(f"Input too long: max {BYTES_PAYLOAD} bytes")
+#     # Left-pad with zeros to get exactly 25 bytes
+#     padded = data.rjust(BYTES_PAYLOAD, b"\x00")
+#     return bytes_to_permutation(padded)
+
+
+# def perm_to_str_with_len(perm: list, encoding="utf-8"):
+#     padded = permutation_to_bytes(perm)  # exactly 25 bytes
+#     payload = padded.lstrip(b"\x00")     # remove left padding
+#     return payload.decode(encoding)
+
+# # ---- int helpers ----
+# def int_to_perm(plainInt):
+#     if 0 <= plainInt <= FACT:
+#         return unrank_permutation(plainInt, ELEMENTS)
+#     raise ValueError("int: {plaintInt} must be > 0 and <48! adjust your plain text.")
+ 
+# def perm_to_int(perm):
+#     return rank_permutation(perm, ELEMENTS)
+
+# # ---- byte helpers ----
+# def byte_to_perm(plainBytes):
+#     return int_to_perm(int.from_bytes(plainBytes, "big"))
+
+# def perm_to_byte(perm):
+#     rank = perm_to_int(perm)
+#     length = (rank.bit_length() + 7) // 8  
+#     return rank.to_bytes(length, "big")
+)
 
 # ---- random cube helper ----
 def random_cube() -> rCube:
@@ -210,8 +263,14 @@ def deserialize(data, mode)-> bytes|str|int: # this should rlly be a helper func
     else:
         raise ValueError(f"Unknown mode: {mode}")
 
+# ---- Plaintext Whittening ----
 
 if __name__ == "__main__":
     cube = rCube("".join(_ELEMENTS))
     print("Random Cube:")
     print(cube)
+
+    perm = int_to_perm(FACT)
+    recovered = perm_to_int(perm)
+    print(perm)
+    print(recovered)
