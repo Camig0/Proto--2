@@ -188,15 +188,59 @@ def PRF(key, context, purpose): #untested
     return hasher.digest()
 
 # ---- seeded random cube ----
-def seeded_random_cube(seed,length=20)-> mCube: #untested
-    def get_moves(seed,length = 20):
-        for i in range(length):
-            index = seed[i] % len(_MOVES)
-            yield _MOVES[index]
-    moves = " ".join(get_moves(seed,length))
-    cube = mCube(3,SOLVED_KEY_CUBE)
-    cube.rotate(moves)
-    return mCube(3,cube.get())
+# def seeded_random_cube(seed,length=200)-> mCube: #untested
+#     def get_moves(seed,length = 20):
+#         for i in range(length):
+#             index = seed[i] % len(_MOVES)
+#             yield _MOVES[index]
+#     moves = " ".join(get_moves(seed,length))
+#     cube = mCube(3,SOLVED_KEY_CUBE)
+#     cube.rotate(moves)
+#     return mCube(3,cube.get())
+
+def seeded_random_cube(seed: bytes, move_count: int = 60) -> mCube:
+    """
+    Deterministically generate a ** uniformly random ** cube state from a short seed.
+    Uses BLAKE3 as a stream cipher with proper rejection sampling.
+    60 moves ≈ 2^65 possible states (cryptographic overkill).
+    """
+    moveset = list(_MOVES)  # e.g., 18 basic moves
+    moves = []
+    
+    # --- Rejection sampling setup ---
+    # For uniform distribution, reject values that cause modulo bias
+    # 65536 = 2^16, so we use 2-byte samples
+    rejection_threshold = 65536 - (65536 % len(moveset))
+    
+    # --- BLAKE3 as a CSPRNG ---
+    # Seekable, infinite output: call digest(seek=offset) for more bytes
+    hasher = blake3(seed)
+    
+    # --- Main loop: generate moves without bias ---
+    byte_offset = 0
+    while len(moves) < move_count:
+        # Generate 64-byte chunk (32 samples) at a time
+        # seek=byte_offset ensures we get a continuous stream
+        keystream = hasher.digest(length=64, seek=byte_offset)
+        byte_offset += 64
+        
+        # Process 2-byte samples
+        for i in range(0, len(keystream), 2):
+            if len(moves) == move_count:
+                break
+            
+            # Combine two bytes into a number 0..65535
+            sample = int.from_bytes(keystream[i:i+2], 'little')
+            
+            # Rejection sampling: only accept unbiased samples
+            if sample < rejection_threshold:
+                move_index = sample % len(moveset)
+                moves.append(moveset[move_index])
+    
+    # --- Apply moves to cube ---
+    cube = mCube(3, SOLVED_KEY_CUBE)
+    cube.rotate(" ".join(moves))
+    return cube
 
 # ---- function to get moves to solve cube x ----
 def get_solve_moves(cube:mCube, mode:bool=False)-> str: #untested
@@ -270,7 +314,9 @@ if __name__ == "__main__":
     print("Random Cube:")
     print(cube)
 
-    perm = int_to_perm(FACT)
+    perm = int_to_perm(FACT-1)
     recovered = perm_to_int(perm)
     print(perm)
     print(recovered)
+    permbytes = perm_to_byte("ma0tx1ocjGfevgL8JEB9iCAwO4326Iz57yPRuHbQnDlhdKprNskMFq")
+    print(permbytes)

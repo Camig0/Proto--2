@@ -17,7 +17,6 @@ from concurrent.futures import ProcessPoolExecutor
 import multiprocessing as mp
 from functools import partial
 
-#TODO: UPDATE workes so that they accept multiple keys
 def encrypt_block(
             keys:list[str],
             block_data: bytes,
@@ -35,7 +34,6 @@ def encrypt_block(
     ciphertext, _ = cipher.encrypt(block_data, IV, block)
 
     return (block, ciphertext)
-
     
 def decrypt_block( keys:list[str], blockdata: str, IV:bytes,
             block:int=0, mode:str="bytes"
@@ -59,15 +57,69 @@ def decrypt_wrapper(args:tuple):
     
 
 class CryptoCube:
-    def __init__(self, key_cubes:list[ mCube], mode="utf-8"):
+    def __init__(self, master_key_cubes:list[mCube], mode="utf-8"):
         #mode tells the cipher what the expected plaintext and ciphertext is
         self.mode = mode
-        self.BLOCK_SIZE = 25
-        self.key_cube = key_cubes
-        self.key_cubes = None
-        if isinstance(key_cubes, list):
-            self.key_cube = key_cubes[0]
-            self.key_cubes = key_cubes
+        self.BLOCK_SIZE = 29
+
+
+
+        self.master_keys:list[mCube] = master_key_cubes
+        self.encryption_key:bytes = self._derive_key_material("encryption_key")
+        self.auth_key:bytes = self._derive_key_material("auth_key")
+        self.whittening_cubes:list[bytes] = [
+            self._derive_key_material(f"whittening-{i}")
+            for i in range(len(master_key_cubes))
+        ]
+    
+# credit to claude for KDF
+    def _derive_key_material(self, purpose: str, length: int = 32) -> bytes:
+        """
+        Derive cryptographic key material (bytes) for PRF/MAC operations.
+        
+        This is used for:
+        - PRF inputs (keystream generation)
+        - Authentication tag generation
+        - Any operation that needs raw bytes
+        """
+        hasher = blake3()
+        
+        # Mix all master keys
+        for key_cube in self.master_keys:
+            hasher.update(key_cube.get().encode('utf-8'))
+        
+        # Add purpose separation
+        hasher.update(purpose.encode('utf-8'))
+        
+        # Expand to desired length
+        output = b""
+        counter = 0
+        
+        while len(output) < length:
+            h = blake3()
+            h.update(hasher.digest())
+            h.update(counter.to_bytes(4, 'big'))
+            output += h.digest()
+            counter += 1
+        
+        return output[:length]
+    
+    def _derive_cube_key(self, purpose: str) -> mCube:
+        """
+        Derive a scrambled cube key (mCube object) for cube operations.
+        
+        This is used for:
+        - Whitening operations
+        - Cube XOR operations
+        - Any operation that needs an actual cube state
+        """
+        # Get seed from master keys
+        seed = self._derive_key_material(purpose, length=32)
+        
+        # Generate a scrambled cube using the seed
+        derived_cube = seeded_random_cube(seed, length=50)
+        
+        return derived_cube
 
     def reverse_moves(self, moves: list):
             '''rCube notation compatability only'''
@@ -89,9 +141,9 @@ class CryptoCube:
                     inverse.append(move + "i")  
             return inverse
 
-    def PRF(self, key, context, purpose):
+    def PRF(self, key:bytes, context:bytes, purpose:str):
         hasher = blake3()
-        hasher.update(key.encode("utf-8"))
+        hasher.update(key)
         hasher.update(context)
         hasher.update(purpose.encode("utf-8"))
         return hasher.digest()
@@ -152,20 +204,22 @@ class CryptoCube:
             IV = os.urandom(16) # Nonce
 
         #clone the key
-        key_cube = mCube(3, str(self.key_cube.get())) # color-only cube 
         # initializes as keycube then scrambles 
         # scramble sequence is moves A
         plain_cube = rCube(permutation) #plain cube
 
         # PRF using BLAKE3 to get cube
 
-        seed = self.PRF(key_cube.get(), IV + block.to_bytes(4, "big"), "keystream") #uses blake3
+        seed = self.PRF(self.encryption_key, IV + block.to_bytes(4, "big"), "keystream") #uses blake3
 
         inter_cube = seeded_random_cube(seed) #untested output
-        ...
         # Plaintext whittening
-        if self.key_cubes: #checks if key_cubes isnt None
-            plain_cube = self.whitten_plaintext(plain_cube, self.key_cubes)
+        if self.whittening_cubes: #checks if key_cubes isnt None
+            concatenated_key = b"".join(self.whittening_cubes)
+            whittening_seed =  self.PRF(concatenated_key, IV + block.to_bytes(4, "big"), "whittening keystream")
+            keystream_cubes = [seeded_random_cube(whittening_seed + bytes(i)) for i, _ in enumerate(self.whittening_cubes)]
+
+            plain_cube = self.whitten_plaintext(plain_cube, keystream_cubes)
 
         # apply cube XOR on plaincube x intercube --> ciphercube
 
@@ -179,7 +233,6 @@ class CryptoCube:
     def decrypt(self, ciphertext: str, IV:bytes,
                 block:int=0
                 ) -> str|int|bytes:
-        key_cube = mCube(3, str(self.key_cube.get()))
         permutation = list(ciphertext)
         
 
@@ -188,20 +241,22 @@ class CryptoCube:
 
          # Reconstruct inter_cube using PRF using BLAKE3
 
-        seed = self.PRF(key_cube.get(), IV + block.to_bytes(4, "big"), "keystream")
+        seed = self.PRF(self.encryption_key, IV + block.to_bytes(4, "big"), "keystream")
         # print("decryption seed",seed)
 
         inter_cube = seeded_random_cube(seed)
-
-        # print(inter_cube)
 
         # Apply cube reverse XOR ciphercube x intercube --> plaincube
 
         plain_cube = self.inverse_cube_XOR(cipher_cube, inter_cube)
 
         #unwhitten
-        if self.key_cubes: # if None then it means we dont keywhitten
-            plain_cube = self.unwhitten_plaintext(plain_cube, self.key_cubes)
+        if self.whittening_cubes: # if None then it means we dont keywhitten
+            concatenated_key = b"".join(self.whittening_cubes)
+            whittening_seed =  self.PRF(concatenated_key, IV + block.to_bytes(4, "big"), "whittening keystream")
+            keystream_cubes = [seeded_random_cube(whittening_seed + bytes(i)) for i, _ in enumerate(self.whittening_cubes)]
+
+            plain_cube = self.unwhitten_plaintext(plain_cube, keystream_cubes)
 
         plaintext = plain_cube.flat_str().replace("$", "")  # flatten plaincube and remove filler
 
@@ -226,12 +281,15 @@ class CryptoCube:
             block_bytes = block.encode('utf-8')
             # XOR byte by byte
             ciphertext_data = bytes(a ^ b for a, b in zip(ciphertext_data, block_bytes))
-        return self.PRF(self.key_cube.get(), ciphertext_data, "auth_tag")
+        return self.PRF(self.auth_key, ciphertext_data, "auth_tag")
 
 
 
 #TODO: change key args for workers so it accepts N keys
     def encrypt_ctr(self, plaintext:str|int|bytes, max_workers:int|None = None):
+        
+
+        
         ciphertext_blocks = []
         old_mode = self.mode
 
@@ -245,12 +303,17 @@ class CryptoCube:
         plain_blocks = []
         for i in range(0,len(plaintext), self.BLOCK_SIZE):
             block = plaintext[i:i + self.BLOCK_SIZE]
-            if len(block) < self.BLOCK_SIZE:
-                #  add PKCS#7 padding style here
-                pad_len = self.BLOCK_SIZE - len(block)
-                block += bytes([pad_len] * pad_len) # e.g, blocks size:8  A A A A A 3 3 3
-                #                                                           padding ^^^^^
             plain_blocks.append(block)
+
+        if len(plaintext) == 0:
+            plain_blocks = [bytes([self.BLOCK_SIZE] * self.BLOCK_SIZE)]
+
+        else:
+            if len(plain_blocks[-1]) == self.BLOCK_SIZE:
+                plain_blocks.append(bytes([self.BLOCK_SIZE] * self.BLOCK_SIZE))
+            else: # if its less then block size
+                pad_len = self.BLOCK_SIZE - len(plain_blocks[-1])
+                plain_blocks[-1] += bytes([pad_len] * pad_len)
 
         IV = os.urandom(16)
 
@@ -258,9 +321,7 @@ class CryptoCube:
         if max_workers is None:
             max_workers = min(mp.cpu_count(), len(plain_blocks))
 
-        flat_keys = [str(self.key_cube.get())]
-        if self.key_cubes:
-            flat_keys = [str(key.get()) for key in self.key_cubes]
+        flat_keys = [str(key.get()) for key in self.master_keys]
 
 # Prepares args for each worker
         block_args = [
@@ -277,7 +338,7 @@ class CryptoCube:
                 block_args,
                 chunksize=max(1, len(plain_blocks) // (max_workers * 4))
             )
-
+           
 # collect results
             for block,ciphertext in  results:
                 ciphertext_blocks[block] = ciphertext
@@ -310,9 +371,7 @@ class CryptoCube:
             max_workers = min(len(ciphertext_blocks), mp.cpu_count())
 
 # Get all args for the wrapper
-        flat_keys = [str(self.key_cube.get())]
-        if self.key_cubes:
-            flat_keys = [str(key.get()) for key in self.key_cubes]
+        flat_keys = [str(key.get()) for key in self.master_keys]
 
         block_args = [
             (flat_keys, block, IV, idx, "bytes")
@@ -343,8 +402,21 @@ class CryptoCube:
 
 # join all blocks
         byte_data = b"".join(plaintext_blocks) # raw byte data with padding still
-        pad_len = byte_data[-1]
-        byte_data = byte_data[:-pad_len]
+        
+        #padding validation
+        if len(byte_data) > 0:
+            pad_len = byte_data[-1]
+        
+        # Validate padding: pad_len should be between 1 and BLOCK_SIZE
+        # and all padding bytes should have the same value
+            if 1 <= pad_len <= self.BLOCK_SIZE:
+                # Check if all padding bytes are correct
+                padding = byte_data[-pad_len:]
+                if all(b == pad_len for b in padding):
+                    byte_data = byte_data[:-pad_len]
+        # fixes issue where if message length was a modulo of the block size it reads the last meaningful bit as pad_len even tho it rlly isnt... kinda dum  so i just set it to zero
+        # if len(byte_data) % (self.BLOCK_SIZE + 1) == 0: 
+        #     return deserialize(byte_data, self.mode)
 
 
 
@@ -354,17 +426,6 @@ class CryptoCube:
 
         return plaintext
 
-    def test_whitten_unwhitten(self, message):
-        print(f"original: {message}")
-        permutation = byte_to_perm(message)
-        permutation = "".join(permutation)
-        plain_cube = rCube(permutation)
-        print(plain_cube)
-        plain_cube = self.whitten_plaintext(plain_cube, self.key_cubes)
-        print(plain_cube)
-        plain_cube = self.unwhitten_plaintext(plain_cube, self.key_cubes)
-        print(plain_cube)
-        return
 # PUT WORKER FUNCTIONS HERE
 # vvvvvvvvvvvvvvvvvvvvvvvvv
 
@@ -388,7 +449,7 @@ def main():
     key2 = mCube(3, "YGBRGWWWYOBGWRYORBROBRWORBRRBOGOBYWBWYGYYROYGWOGGBGWOY")
     key3 = mCube(3,"GOBRGGBOORWOYRBWBOWWYOWYWBBGWYGOYYGROGYOYBWYGGRRWBRRRB")
 
-    cryptic_cube = CryptoCube([key_cube, key2, key3],mode="bytes")
+    cryptic_cube = CryptoCube([key_cube, key2, key3],mode="int")
     # cryptic_cube = CryptoCube(key_cube,mode="utf-8")
 
     # A_moves, ciphertext = cryptic_cube.encrypt("hello")   # <= 25 bytes payload
@@ -396,10 +457,10 @@ def main():
     # print(A_moves,ciphertext)   # <= 25 bytes payload
 
 
-    message_byte_size = 400_000
+    message_byte_size = 29
 
-    message = b"a" * message_byte_size
-
+    message = 1 * message_byte_size
+    print(len(message))
     # message = "i really wanna see if this can go way beyong the theoretical max bit cpapacity which is now longer now at 30 bytes which shoudl reduce number of blocks by 16% why the hell does it work first time i thought it was gonna take some more time why the helly  bird does it work" 
     
     ciphertext, IV = timeit(cryptic_cube.encrypt_ctr, message) 
@@ -410,8 +471,9 @@ def main():
     # print("ciphertext", ciphertext, IV)   
 
     plaintext = timeit(cryptic_cube.decrypt_ctr, ciphertext, IV)
+    print(tag)
+    print(plaintext)
 
-    # print(f"Plaintext result: {plaintext}")
 
 
 

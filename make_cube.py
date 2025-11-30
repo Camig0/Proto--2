@@ -14,16 +14,12 @@ def make_cube(moves:str, cube_type:bool=False):
     return cube
 
 
-key1 = make_cube("L R")
-key2 = make_cube("U D")
-key3  = make_cube("D F")
+key1 = make_cube("L R U X R R ")
+key2 = make_cube("U D R R U L B X")
+key3  = make_cube("D F Y R R U L D D")
 
-solver = BasicSolver(key1)
-print(key1)
-solver.solve()
-print(key1)
 print(key1.history())
 
 flattened = [key.get() for key  in [key1, key2, key3]]
 
-# print(flattened)
+print(flattened)

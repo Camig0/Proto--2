@@ -1,3 +1,5 @@
+"""DEPRACATED TESTS: NO LONGER RELEVANT"""
+
 from crypto_engine import CryptoCube
 from helper import perm_to_byte, SOLVED_KEY_CUBE, KEY_CUBE1, KEY_CUBE2
 from magiccube import Cube as mCube
@@ -347,5 +349,5 @@ class ConfusionDiffusionTest:
 
 if __name__ == "__main__":
     #sample test run
-    test = PositionalDivergence(runs=  100,trials=1)
+    test = ConfusionDiffusionTest(runs=  100,trials=1)
     pprint(test.do_test())
