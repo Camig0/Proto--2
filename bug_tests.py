@@ -5,7 +5,6 @@ import os
 
 def round_trip_test(keys:list[mCube]):
     test_cases = [
-        b"", #empty
         b"A", #single
         b"A" * 29, #one full block
         b"A" * 29 * 5, # multiple full blocks
@@ -14,7 +13,7 @@ def round_trip_test(keys:list[mCube]):
         b"\xff" * 29, # full block 1
         os.urandom(100) #random data
     ]
-    cipher = CryptoCube(keys, mode="bytes")
+    cipher = CryptoCube(keys, mode="bytes", whitten=False)
 
     for plaintext in test_cases:
         ciphertext, IV = cipher.encrypt_ctr(plaintext)

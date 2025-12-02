@@ -103,6 +103,7 @@ def perm_to_int(perm):
     return rank_permutation(perm, _ELEMENTS)
 
 # ---- byte helpers ----
+#TODO: FIX, COMPLETELY DELETE TS 
 def byte_to_perm(plainBytes):
     if len(plainBytes) > BYTES_PAYLOAD:
         raise ValueError(f"Input bytes too long: max {BYTES_PAYLOAD}")

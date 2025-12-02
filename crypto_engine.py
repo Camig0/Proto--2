@@ -57,7 +57,7 @@ def decrypt_wrapper(args:tuple):
     
 
 class CryptoCube:
-    def __init__(self, master_key_cubes:list[mCube], mode="utf-8"):
+    def __init__(self, master_key_cubes:list[mCube], mode="utf-8", whitten:bool=True):
         #mode tells the cipher what the expected plaintext and ciphertext is
         self.mode = mode
         self.BLOCK_SIZE = 29
@@ -67,10 +67,13 @@ class CryptoCube:
         self.master_keys:list[mCube] = master_key_cubes
         self.encryption_key:bytes = self._derive_key_material("encryption_key")
         self.auth_key:bytes = self._derive_key_material("auth_key")
-        self.whittening_cubes:list[bytes] = [
-            self._derive_key_material(f"whittening-{i}")
-            for i in range(len(master_key_cubes))
-        ]
+
+        self.whittening_cubes = None
+        if whitten:
+            self.whittening_cubes:list[bytes] = [
+                self._derive_key_material(f"whittening-{i}")
+                for i in range(len(master_key_cubes))
+            ]
     
 # credit to claude for KDF
     def _derive_key_material(self, purpose: str, length: int = 32) -> bytes:
@@ -269,7 +272,7 @@ class CryptoCube:
                 plaintext = perm_to_str_with_len(plaintext, self.mode)
         except:
             raise ValueError("plaintext: {plaintext} is in the wrong format or mismatched modes")
-
+        plaintext = plaintext[1:]
         return plaintext
 
 
@@ -449,7 +452,7 @@ def main():
     key2 = mCube(3, "YGBRGWWWYOBGWRYORBROBRWORBRRBOGOBYWBWYGYYROYGWOGGBGWOY")
     key3 = mCube(3,"GOBRGGBOORWOYRBWBOWWYOWYWBBGWYGOYYGROGYOYBWYGGRRWBRRRB")
 
-    cryptic_cube = CryptoCube([key_cube, key2, key3],mode="int")
+    cryptic_cube = CryptoCube([key_cube, key2, key3],mode="bytes")
     # cryptic_cube = CryptoCube(key_cube,mode="utf-8")
 
     # A_moves, ciphertext = cryptic_cube.encrypt("hello")   # <= 25 bytes payload
@@ -459,7 +462,7 @@ def main():
 
     message_byte_size = 29
 
-    message = 1 * message_byte_size
+    message = b"a" * message_byte_size
     print(len(message))
     # message = "i really wanna see if this can go way beyong the theoretical max bit cpapacity which is now longer now at 30 bytes which shoudl reduce number of blocks by 16% why the hell does it work first time i thought it was gonna take some more time why the helly  bird does it work" 
     
