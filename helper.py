@@ -1,10 +1,15 @@
+"""helper :("""
 from blake3 import blake3
+
+from math import log2
 
 import math
 from rubik.cube import Cube as rCube
 from magiccube import Cube as mCube
 from magiccube import BasicSolver
 import random
+
+from typing import Union, List
 
 SOLVED_CUBE_STR = "YYYYYYYYYRRRBBBOOOGGGRRRBBBOOOGGGRRRBBBOOOGGGWWWWWWWWW" #rCube
 SOLVED_KEY_CUBE = "YYYYYYYYYRRRRRRRRRGGGGGGGGGOOOOOOOOOBBBBBBBBBWWWWWWWWW" #mCube
@@ -32,15 +37,18 @@ MOVES = ['Li', 'R', 'Ri', 'U', 'Ui', 'D', 'Di',
          'F', 'Fi', 'B', 'Bi', 'M', 'Mi', 'E', 'Ei',
          'S', 'Si', 'X', 'Xi', 'Y', 'Yi', 'Z', 'Zi'] # for rubikcube
 
-_MOVES = [ "L'", 'R', "R'", 'U', "U'", 'D', "D'",
-         'F', "F'", 'B', "B'", 'M', "M'"] 
+_MOVES = ["L'", 'R', "R'", 'U', "U'", 'D', "D'",
+         'F', "F'", 'B', "B'", 'M', "M'", 'E', "E'",
+         'S', "S'", 'X', "X'", 'Y', "Y'", 'Z', "Z'"] 
+# _MOVES = [ "L'", 'R', "R'", 'U', "U'", 'D', "D'",
+#          'F', "F'", 'B', "B'", 'M', "M'"] 
 
 
 # ---- Updated 54-element list ----
 
 N = len(_ELEMENTS)
 FACT = math.factorial(N)
-BYTES_PAYLOAD = 30
+BYTES_PAYLOAD = 54
 
 # ---- factorial number system rank/unrank ----
 def rank_permutation(perm, elements):
@@ -64,114 +72,6 @@ def unrank_permutation(index, elements):
         perm.append(elems.pop(pos))
     return perm
 
-# ---- safe bytes <-> permutation conversion ----
-def bytes_to_permutation(data: bytes):
-    """Convert exactly 30 bytes into a unique 54-permutation."""
-    if len(data) != BYTES_PAYLOAD:
-        raise ValueError(f"Input must be exactly {BYTES_PAYLOAD} bytes long")
-    num = int.from_bytes(data, "big")
-    if num >= FACT:
-        raise ValueError("Integer out of range for 54! mapping")
-    return unrank_permutation(num, _ELEMENTS)
-
-def permutation_to_bytes(perm: list):
-    """Convert a 54-permutation back into exactly 30 bytes."""
-    index = rank_permutation(perm, _ELEMENTS)
-    return index.to_bytes(BYTES_PAYLOAD, "big")
-
-# ---- string helpers ----
-def str_to_perm_with_len(s: str, encoding="utf-8"):
-    data = s.encode(encoding)
-    if len(data) > BYTES_PAYLOAD:
-        raise ValueError(f"Input too long: max {BYTES_PAYLOAD} bytes")
-    padded = data.rjust(BYTES_PAYLOAD, b"\x00")
-    return bytes_to_permutation(padded)
-
-def perm_to_str_with_len(perm: list, encoding="utf-8"):
-    padded = permutation_to_bytes(perm)
-    # Strip leading zeros to recover original string
-    payload = padded.lstrip(b"\x00")
-    return payload.decode(encoding)
-
-# ---- int helpers ----
-def int_to_perm(plainInt):
-    if not (0 <= plainInt < FACT):
-        raise ValueError(f"int {plainInt} must be >=0 and <54!")
-    return unrank_permutation(plainInt, _ELEMENTS)
-
-def perm_to_int(perm):
-    return rank_permutation(perm, _ELEMENTS)
-
-# ---- byte helpers ----
-#TODO: FIX, COMPLETELY DELETE TS 
-def byte_to_perm(plainBytes):
-    if len(plainBytes) > BYTES_PAYLOAD:
-        raise ValueError(f"Input bytes too long: max {BYTES_PAYLOAD}")
-    padded = plainBytes.rjust(BYTES_PAYLOAD, b"\x00")
-    num = int.from_bytes(padded, "big")
-    if num >= FACT:
-        raise ValueError("Integer out of range for 54! mapping")
-    return unrank_permutation(num, _ELEMENTS)
-
-def perm_to_byte(perm):
-    rank = perm_to_int(perm)
-    padded = rank.to_bytes(BYTES_PAYLOAD, "big")
-    # Return without leading zeros for consistency
-    return padded
-
-# old encoding code
-(
-# # ---- safe bytes <-> permutation conversion ----
-# def bytes_to_permutation(data: bytes):
-#     """Convert exactly 25 bytes into a unique 48-permutation."""
-#     if len(data) != BYTES_PAYLOAD:
-#         raise ValueError(f"Input must be exactly {BYTES_PAYLOAD} bytes long")
-#     num = int.from_bytes(data, "big")
-#     # With 25 bytes this should always hold: 0 <= num < 48!
-#     if num >= FACT:
-#         raise ValueError("Integer out of range for 48! mapping (unexpected)")
-#     return unrank_permutation(num, ELEMENTS)
-
-
-# def permutation_to_bytes(perm: list):
-#     """Convert a 48-permutation back into exactly 25 bytes."""
-#     index = rank_permutation(perm, ELEMENTS)
-#     return index.to_bytes(BYTES_PAYLOAD, "big")
-
-
-# # ---- string helpers ----
-# def str_to_perm_with_len(s: str, encoding="utf-8"):
-#     data = s.encode(encoding)
-#     if len(data) > BYTES_PAYLOAD:
-#         raise ValueError(f"Input too long: max {BYTES_PAYLOAD} bytes")
-#     # Left-pad with zeros to get exactly 25 bytes
-#     padded = data.rjust(BYTES_PAYLOAD, b"\x00")
-#     return bytes_to_permutation(padded)
-
-
-# def perm_to_str_with_len(perm: list, encoding="utf-8"):
-#     padded = permutation_to_bytes(perm)  # exactly 25 bytes
-#     payload = padded.lstrip(b"\x00")     # remove left padding
-#     return payload.decode(encoding)
-
-# # ---- int helpers ----
-# def int_to_perm(plainInt):
-#     if 0 <= plainInt <= FACT:
-#         return unrank_permutation(plainInt, ELEMENTS)
-#     raise ValueError("int: {plaintInt} must be > 0 and <48! adjust your plain text.")
- 
-# def perm_to_int(perm):
-#     return rank_permutation(perm, ELEMENTS)
-
-# # ---- byte helpers ----
-# def byte_to_perm(plainBytes):
-#     return int_to_perm(int.from_bytes(plainBytes, "big"))
-
-# def perm_to_byte(perm):
-#     rank = perm_to_int(perm)
-#     length = (rank.bit_length() + 7) // 8  
-#     return rank.to_bytes(length, "big")
-)
 
 # ---- random cube helper ----
 def random_cube() -> rCube:
@@ -187,6 +87,31 @@ def PRF(key, context, purpose): #untested
     hasher.update(context)
     hasher.update(purpose)
     return hasher.digest()
+
+
+def blake3_combine(length: int = 32, *byte_strings: Union[bytes, List[bytes]]) -> bytes:
+    """
+    Compute a BLAKE3 hash from N byte strings.
+    
+    Args:
+        length (int): Output length of the hash in bytes.
+        *byte_strings: Either multiple byte strings, or a single list/tuple of byte strings.
+        
+    Returns:
+        bytes: BLAKE3 digest of the concatenated input of length `length`.
+    """
+    # If a single argument is a list/tuple, unpack it
+    if len(byte_strings) == 1 and isinstance(byte_strings[0], (list, tuple)):
+        byte_strings = byte_strings[0]
+    
+    h = blake3()
+    for b in byte_strings:
+        if not isinstance(b, bytes):
+            raise TypeError("All inputs must be bytes")
+        h.update(b)
+    
+    return h.digest(length)
+
 
 # ---- seeded random cube ----
 # def seeded_random_cube(seed,length=200)-> mCube: #untested
@@ -270,7 +195,7 @@ def get_solve_moves(cube:mCube, mode:bool=False)-> str: #untested
 
 # ---- Serialize and dserailize functions ----
 
-def serialize(data, mode)->bytes: # this should really be a helper func
+def serialize(data:str|int|bytes, mode)->bytes: # this should really be a helper func
     """Convert any type to canonical byte string"""
     if mode == "bytes":
         return data  # Already bytes
@@ -285,7 +210,7 @@ def serialize(data, mode)->bytes: # this should really be a helper func
     else:
         raise ValueError(f"Unknown mode: {mode}")
 
-def deserialize(data, mode)-> bytes|str|int: # this should rlly be a helper func
+def deserialize(data:bytes, mode)-> bytes|str|int: # this should rlly be a helper func
     """Reverse the canonical serialization process."""
 
     
@@ -310,14 +235,62 @@ def deserialize(data, mode)-> bytes|str|int: # this should rlly be a helper func
 
 # ---- Plaintext Whittening ----
 
-if __name__ == "__main__":
-    cube = rCube("".join(_ELEMENTS))
-    print("Random Cube:")
-    print(cube)
 
-    perm = int_to_perm(FACT-1)
-    recovered = perm_to_int(perm)
-    print(perm)
-    print(recovered)
-    permbytes = perm_to_byte("ma0tx1ocjGfevgL8JEB9iCAwO4326Iz57yPRuHbQnDlhdKprNskMFq")
-    print(permbytes)
+# ---- Padding/ Unpadding ----
+def pad_with_random(plainbytes: bytes, block_size:int = BYTES_PAYLOAD, context:bytes = b"") -> bytes:
+    """
+    Format: [plaintext][random_padding][length_byte]
+    
+    Example (block_size=28, plaintext=5 bytes):
+    [h][e][l][l][o][R][R][R]...[R][R][R][5]
+     ↑  plaintext  ↑  22 random bytes  ↑ len
+    """
+    if len(plainbytes) >= block_size:
+        raise ValueError(f"Plaintext too long: {len(plainbytes)} >= {block_size}")
+    
+    msg_len = len(plainbytes)
+    padding_len = block_size - msg_len - 1  # Reserve 1 byte for length
+    
+    # Generate deterministic random padding from IV
+    hasher = blake3()
+    hasher.update(context)
+    hasher.update(b"random_padding")
+    random_padding = hasher.digest(length=padding_len)
+    
+    # Build: [message][random_padding][length]
+    padded = plainbytes + random_padding + bytes([msg_len])
+    
+    assert len(padded) == block_size
+    return padded
+
+#b"\xe8{\x96'y\x8bX\xfa\xd2\x0b\x7f6\n1j\x1f\x00\x00\x00\x00"
+#p len == 2
+def unpad_random(padded: bytes, context:bytes = b"") -> bytes:
+    """
+    Extract original message from randomly padded block
+    """
+    msg_len = padded[-1]  # Length is last byte
+    
+    if msg_len >= len(padded):
+        raise ValueError(f"Invalid padding length: {msg_len}")
+    
+    observed_padding = padded[msg_len:-1]
+    padding_len = len(padded) - msg_len -1
+
+    hasher = blake3()
+    hasher.update(context)
+    hasher.update(b"random_padding")
+    random_padding = hasher.digest(length=padding_len)
+
+    assert observed_padding == random_padding
+
+    if (not observed_padding) and (not random_padding):
+        return padded
+    
+    return padded[:msg_len]
+
+
+if __name__ == "__main__":
+    key = blake3_combine(32,b"ratata", b"amongus")
+    print(len(key))
+    print(key)

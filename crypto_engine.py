@@ -1,3 +1,4 @@
+"""CRYPTO ENGINE :)"""
 from blake3 import blake3
 
 import os
@@ -6,12 +7,11 @@ import magiccube
 from magiccube import Cube as mCube
 from rubik.cube import Cube as rCube
 
-from helper import str_to_perm_with_len, perm_to_str_with_len, int_to_perm, perm_to_int, byte_to_perm, perm_to_byte
-from helper import seeded_random_cube, get_solve_moves, serialize, deserialize
+from helper import seeded_random_cube, get_solve_moves, serialize, deserialize, pad_with_random, unpad_random, blake3_combine
 
 from magiccube import BasicSolver
 
-from helper import SOLVED_CUBE_STR
+from helper import SOLVED_CUBE_STR, BYTES_PAYLOAD, _ELEMENTS
 
 from concurrent.futures import ProcessPoolExecutor
 import multiprocessing as mp
@@ -60,13 +60,13 @@ class CryptoCube:
     def __init__(self, master_key_cubes:list[mCube], mode="utf-8", whitten:bool=True):
         #mode tells the cipher what the expected plaintext and ciphertext is
         self.mode = mode
-        self.BLOCK_SIZE = 29
-
-
+        self.BLOCK_SIZE = 54
 
         self.master_keys:list[mCube] = master_key_cubes
         self.encryption_key:bytes = self._derive_key_material("encryption_key")
         self.auth_key:bytes = self._derive_key_material("auth_key")
+        self.sbox_key:bytes = self._derive_key_material("sbox_key")
+        self.XOR_key:bytes = self._derive_key_material("XOR key", 34)
 
         self.whittening_cubes = None
         if whitten:
@@ -180,31 +180,97 @@ class CryptoCube:
             plaincube = self.inverse_cube_XOR(plaincube, clone_key)
         return plaincube
 
-    #TODO: CHANGE that instead of passing the keys itself as whittening material use seeded keys derived from IV
+    # --- S- BOX
+
+    def key_sbox(self,key: bytes, context:bytes = b"") -> list:
+        """
+        Generate a deterministic, cryptographically secure S-box using BLAKE3 in keyed mode.
+        Returns a permutation of 0..255 (bijection).
+        """
+        # BLAKE3 keyed hash
+        rng = blake3(key=key)
+        rng.update(context)
+
+        sbox = list(range(256))
+
+        # Fisher–Yates shuffle, with BLAKE3 providing random bytes
+        for i in range(255, -1, -1):
+            rng.update(bytes([i]))  # domain separation
+            rnd = int.from_bytes(rng.digest(4), 'little')
+            j = rnd % (i + 1)
+            sbox[i], sbox[j] = sbox[j], sbox[i]
+
+        return sbox
+
+
+    def apply_sbox(self,data: bytes, sbox: list) -> bytes:
+        """
+        Apply the S-box to each byte.
+        """
+        return bytes(sbox[b] for b in data)
+
+
+    def reverse_sbox(self,data: bytes, key: bytes, context:bytes = b"") -> bytes:
+        """
+        Reverse the S-box via key regeneration.
+        """
+        sbox = self.key_sbox(key,context)
+        inv = [0] * 256
+        for i, v in enumerate(sbox):
+            inv[v] = i
+        return bytes(inv[b] for b in data)
+    
+
+    # key stream XOR
+
+    def xor_keystream(self,msg: bytes, keystream: bytes) -> bytes:
+        if len(keystream) < len(msg):
+            raise ValueError("keystream must be at least as long as the message")
+
+        return bytes([m ^ k for m, k in zip(msg, keystream)])
+
+    def xor_keystream_reverse(self, cipher: bytes, keystream: bytes) -> bytes:
+        if len(keystream) < len(cipher):
+            raise ValueError("keystream must be at least as long as the ciphertext")
+
+        return bytes([c ^ k for c, k in zip(cipher, keystream)])
+
+
     def encrypt(self,
                 plaintext: str|int|bytes,
                 IV:bytes|None=None,
                 block:int=0
-                ) -> str:
+                ) -> bytes:
         """
         Input: plaintext string
         Output: ciphertext encoded as a permutatuion of 54 symbols
         """
+        if not IV: #if IV == None generate an IV, used when doing simple encrypt of just one block
+            IV = os.urandom(16) # Nonce
+        context = IV + block.to_bytes(4, "big")
+        plainbytes = b""
+        payload = b""
         try: # FOR bytes int and character codec compatability
-            if self.mode == "bytes":
-                permutation = byte_to_perm(plaintext)
-            if self.mode == "int":
-                permutation = int_to_perm(plaintext)
-            if self.mode not in ("bytes", "int"):
-                permutation = str_to_perm_with_len(plaintext, self.mode)
-                
+            plainbytes = serialize(plaintext, self.mode)
+            if len(plaintext) == BYTES_PAYLOAD:
+                payload = plainbytes
+            
+            elif len(plaintext) < BYTES_PAYLOAD:
+                #right pad
+                pad_length = (self.BLOCK_SIZE - len(plainbytes)).to_bytes(1, "big")
+                padded = pad_with_random(plainbytes, self.BLOCK_SIZE, context)
+                payload = padded
+
+            else:
+                print(len(plaintext))
+                raise
+    
         except:
             raise ValueError("plaintext: {plaintext} is in the wrong format or mismatched modes")
 
-        permutation = "".join(permutation)
+        permutation = "".join(_ELEMENTS)
 
-        if not IV: #if IV == None generate an IV, used when doing simple encrypt of just one block
-            IV = os.urandom(16) # Nonce
+        
 
         #clone the key
         # initializes as keycube then scrambles 
@@ -228,23 +294,32 @@ class CryptoCube:
 
         cipher_cube = self.cube_XOR(plain_cube, inter_cube)
 
-        ciphertext = cipher_cube.flat_str().replace("$", "") # flatten cipher cube and remove filler symbols ($)
+        shuffle = cipher_cube.flat_str().replace("$", "") # flatten cipher cube and remove filler symbols ($)
         
+        shuffled_indices = [_ELEMENTS.index(i) for i in shuffle ]
+        # APPLY S-BOX\
+        sbox = self.key_sbox(self.sbox_key,context)
+        payload = self.apply_sbox(payload,sbox) #sbox
 
+        payload = self.xor_keystream(payload,blake3_combine(len(payload), self.XOR_key, context))
+
+        ciphertext = b"".join(payload[i:i+1] for i in shuffled_indices) #shuffle
+
+        
         return ciphertext, IV # ciphertext + flattened IV
 
-    def decrypt(self, ciphertext: str, IV:bytes,
+    def decrypt(self, ciphertext: bytes, IV:bytes,
                 block:int=0
                 ) -> str|int|bytes:
-        permutation = list(ciphertext)
-        
+        permutation = "".join(_ELEMENTS)
 
-        permutation = "".join(permutation)
+        context = IV + block.to_bytes(4, "big")
+        
         cipher_cube = rCube(permutation) # ciphercube
 
          # Reconstruct inter_cube using PRF using BLAKE3
 
-        seed = self.PRF(self.encryption_key, IV + block.to_bytes(4, "big"), "keystream")
+        seed = self.PRF(self.encryption_key, context, "keystream")
         # print("decryption seed",seed)
 
         inter_cube = seeded_random_cube(seed)
@@ -256,24 +331,26 @@ class CryptoCube:
         #unwhitten
         if self.whittening_cubes: # if None then it means we dont keywhitten
             concatenated_key = b"".join(self.whittening_cubes)
-            whittening_seed =  self.PRF(concatenated_key, IV + block.to_bytes(4, "big"), "whittening keystream")
+            whittening_seed =  self.PRF(concatenated_key, context, "whittening keystream")
             keystream_cubes = [seeded_random_cube(whittening_seed + bytes(i)) for i, _ in enumerate(self.whittening_cubes)]
 
             plain_cube = self.unwhitten_plaintext(plain_cube, keystream_cubes)
 
-        plaintext = plain_cube.flat_str().replace("$", "")  # flatten plaincube and remove filler
+        unshuffled = plain_cube.flat_str().replace("$", "")  # flatten plaincube and remove filler
+        unshuffled_indices = [_ELEMENTS.index(i) for i in unshuffled ]
+
+        plaintext = b"".join(ciphertext[i:i+1] for i in unshuffled_indices) # unshuffle
+        plaintext = self.xor_keystream_reverse(plaintext, blake3_combine(len(ciphertext), self.XOR_key, context)) # XOR thingy mabooty
+        plaintext = self.reverse_sbox(plaintext, self.sbox_key, context) #un s-box
+
 
         try: #decodes the perm
-            if self.mode == "bytes":
-                plaintext = perm_to_byte(plaintext)
-            if self.mode == "int":
-                plaintext = perm_to_int(plaintext)
-            if self.mode not in ("bytes", "int"):
-                plaintext = perm_to_str_with_len(plaintext, self.mode)
+            unpadded = unpad_random(plaintext, context)
+
+            return deserialize(unpadded,self.mode)
+            
         except:
-            raise ValueError("plaintext: {plaintext} is in the wrong format or mismatched modes")
-        plaintext = plaintext[1:]
-        return plaintext
+            return deserialize(plaintext,self.mode)
 
 
 # FOR CTR MODE
@@ -288,7 +365,6 @@ class CryptoCube:
 
 
 
-#TODO: change key args for workers so it accepts N keys
     def encrypt_ctr(self, plaintext:str|int|bytes, max_workers:int|None = None):
         
 
@@ -311,12 +387,7 @@ class CryptoCube:
         if len(plaintext) == 0:
             plain_blocks = [bytes([self.BLOCK_SIZE] * self.BLOCK_SIZE)]
 
-        else:
-            if len(plain_blocks[-1]) == self.BLOCK_SIZE:
-                plain_blocks.append(bytes([self.BLOCK_SIZE] * self.BLOCK_SIZE))
-            else: # if its less then block size
-                pad_len = self.BLOCK_SIZE - len(plain_blocks[-1])
-                plain_blocks[-1] += bytes([pad_len] * pad_len)
+        
 
         IV = os.urandom(16)
 
@@ -358,12 +429,17 @@ class CryptoCube:
 
 
 #         self.mode = old_mode # restores old mode
-        return ciphertext_blocks, IV # authentication done separately
+        return b"".join(ciphertext_blocks), IV # authentication done separately
 
-#TODO: change key args for workers so it accepts N keys
-    def decrypt_ctr(self, ciphertext_blocks, IV, max_workers:int=None):
+
+    def decrypt_ctr(self, ciphertext:bytes, IV, max_workers:int=None):
         #assumes authentication has been done
-        
+        ciphertext_blocks = []
+        for i in range(0,len(ciphertext), self.BLOCK_SIZE):
+            block = ciphertext[i:i + self.BLOCK_SIZE]
+            ciphertext_blocks.append(block)
+
+
 # decrypt each block        
         old_mode = self.mode
         self.mode = "bytes" # done for compatability
@@ -440,7 +516,7 @@ def main():
         start = time.perf_counter()
         result = func(*args, **kwargs)
         end = time.perf_counter()
-        print(f"{func.__name__} took {end - start:.6f} seconds")
+        # print(f"{func.__name__} took {end - start:.6f} seconds")
         return result
 
 
@@ -452,7 +528,7 @@ def main():
     key2 = mCube(3, "YGBRGWWWYOBGWRYORBROBRWORBRRBOGOBYWBWYGYYROYGWOGGBGWOY")
     key3 = mCube(3,"GOBRGGBOORWOYRBWBOWWYOWYWBBGWYGOYYGROGYOYBWYGGRRWBRRRB")
 
-    cryptic_cube = CryptoCube([key_cube, key2, key3],mode="bytes")
+    cryptic_cube = CryptoCube([key_cube, key2, key3],mode="bytes", whitten= False)
     # cryptic_cube = CryptoCube(key_cube,mode="utf-8")
 
     # A_moves, ciphertext = cryptic_cube.encrypt("hello")   # <= 25 bytes payload
@@ -460,26 +536,40 @@ def main():
     # print(A_moves,ciphertext)   # <= 25 bytes payload
 
 
-    message_byte_size = 29
+    message_byte_size = 200
 
-    message = b"a" * message_byte_size
-    print(len(message))
-    # message = "i really wanna see if this can go way beyong the theoretical max bit cpapacity which is now longer now at 30 bytes which shoudl reduce number of blocks by 16% why the hell does it work first time i thought it was gonna take some more time why the helly  bird does it work" 
-    
-    ciphertext, IV = timeit(cryptic_cube.encrypt_ctr, message) 
-    tag = timeit(cryptic_cube.generate_auth_tag, ciphertext)
+    message =  b'aby\x19\x19\x19\x19\x19\x19\x19\x19\x19\x19\x19\x19\x19\x19\x19\x19\x19\x19\x19\x19\x19\x19\x19\x19\x19'
+    message = b'qazwsxedcrfvtgbyhnujmiklopqa' # 28 len
+    # message = b'qazwsxedcrfvtgbyhnujmodpqa' # 25 len
+    # message = "IM JUST GONNA HIDE HERE AS SOME NON-CONSIPICUOUS "
+
+    run = 0
+    while True: 
+        # message = b'\x958i\xf0_7\xd4\xcd\xd4\x13Pho H\x95\x14\x95\xf0\x9c\xeaU\x1ec\x12k\x9bX\x0cis\xcb\x0f\xf7N\xf2n)\xa4\xa9\xdd\x82\xbb\xd0UQ\xb6\xb5\xd1\xf4\xb4d#5'
+        message = os.urandom(10 * 1024 * 1024)
+        run +=1
+        print(run)
+        # message = "i really wanna see if this can go way beyong the theoretical max bit cpapacity which is now longer now at 30 bytes which shoudl reduce number of blocks by 16% why the hell does it work first time i thought it was gonna take some more time why the helly  bird does it work" 
+        
+        ciphertext, IV = timeit(cryptic_cube.encrypt_ctr, message) 
+        # tag = timeit(cryptic_cube.generate_auth_tag, ciphertext)
 
 
-    print('======================================================================')
-    # print("ciphertext", ciphertext, IV)   
+        # print('======================================================================')
+        # print("ciphertext", ciphertext, IV)   
 
-    plaintext = timeit(cryptic_cube.decrypt_ctr, ciphertext, IV)
-    print(tag)
-    print(plaintext)
+        plaintext = timeit(cryptic_cube.decrypt_ctr, ciphertext, IV)
+        # print(tag)
+        # print("\n============================================\n")
+        # print(message)
+        # print("\n============================================\n")
+        # print(plaintext)
+        # print("\n============================================\n")
+        # print(ciphertext)
 
+        assert plaintext == message
 
 
 
 if __name__ == "__main__":
     main()
-
