@@ -546,7 +546,7 @@ def main():
     run = 0
     while True: 
         # message = b'\x958i\xf0_7\xd4\xcd\xd4\x13Pho H\x95\x14\x95\xf0\x9c\xeaU\x1ec\x12k\x9bX\x0cis\xcb\x0f\xf7N\xf2n)\xa4\xa9\xdd\x82\xbb\xd0UQ\xb6\xb5\xd1\xf4\xb4d#5'
-        message = os.urandom(10 * 1024 * 1024)
+        message = os.urandom(10 * 1024)
         run +=1
         print(run)
         # message = "i really wanna see if this can go way beyong the theoretical max bit cpapacity which is now longer now at 30 bytes which shoudl reduce number of blocks by 16% why the hell does it work first time i thought it was gonna take some more time why the helly  bird does it work" 
