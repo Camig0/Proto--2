@@ -41,10 +41,10 @@ def AES_wrapper(pt):
 
 
 
+if __name__ == "__main__":
+    plaintext = os.urandom( 1024) #10MB
 
-plaintext = os.urandom( 1024) #10MB
 
+    ciphertext, _ = crptocube_wrapper(plaintext)
 
-ciphertext, _ = crptocube_wrapper(plaintext)
-
-write_nist_bin(ciphertext)
+    write_nist_bin(ciphertext)

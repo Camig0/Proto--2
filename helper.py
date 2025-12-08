@@ -284,8 +284,7 @@ def unpad_random(padded: bytes, context:bytes = b"") -> bytes:
 
     assert observed_padding == random_padding
 
-    if (not observed_padding) and (not random_padding):
-        return padded
+    
     
     return padded[:msg_len]
 

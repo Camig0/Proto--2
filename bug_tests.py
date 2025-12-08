@@ -6,11 +6,12 @@ import os
 
 def round_trip_test(keys:list[mCube]):
     test_cases = [
+        b"",
         b"A", #single
         b"A" * 54, #one full block
         b"A" * 28 * 5, # multiple full blocks
         b"A" * 64, # multiple blocks, non-multiple of blocksize
-        # b"\x00" * 28, # block of all zeroes #TODO: fix this edge case
+        b"\x00" * 28, # block of all zeroes #TODO: fix this edge case
         b"\xff" * 28, # full block 1
         os.urandom(100) #random data
     ]

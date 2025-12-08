@@ -19,6 +19,8 @@ from logger import log_to_file
 
 from datetime import datetime
 
+import base64
+
 
 #FOR AES
 
@@ -218,6 +220,7 @@ def entropy_test_cipher(
     """
     
     entropies: List[float] = []
+    ciphertexts: List[bytes] = []
 
     for _ in range(samples):
         if _ % (samples/10) == 0:
@@ -225,27 +228,39 @@ def entropy_test_cipher(
         pt = os.urandom(plaintext_len)  # random plaintext
         ct,_ = cipher(pt)   # call the cipher
         # print(type(ct))
+        ciphertexts.append(base64.b64encode(ct).decode('utf-8'))
         H = shannon_entropy(ct)
         print(f"DEBUG - Entropy: {H}") 
         entropies.append(H)
 
     return {
-        "entropy_values": entropies,
+        "test name": "enctropy test",
+        "algorithm": cipher.__name__,
+        "number of samples": samples,
+        "plaintext length" : plaintext_len,
+        "Summary":{
         "average_entropy": sum(entropies) / len(entropies),
         "min_entropy": min(entropies),
-        "max_entropy": max(entropies),
+        "max_entropy": max(entropies),},
+        "details": {
+            "ciphertexts" : ciphertexts,
+            "entropies": entropies}
     }
 
 def crptocube_ctr_wrapper(pt):
     KEYS1 = [mCube(3, "BYGWYYBBRYGWRRGORGRRWYGOYWBGRYGOWOYORBROBWBOGOBYGWOWBW"), mCube(3, "YGBRGWWWYOBGWRYORBROBRWORBRRBOGOBYWBWYGYYROYGWOGGBGWOY"), mCube(3,"GOBRGGBOORWOYRBWBOWWYOWYWBBGWYGOYYGROGYOYBWYGGRRWBRRRB")]
     cipher = CryptoCube(KEYS1,mode="bytes")
     ct, _ = cipher.encrypt_ctr(pt)
+    if len(pt) == 54:
+        ct= ct[:54]
     return ct, None
 
 def crptocube_wrapper(pt):
     KEYS1 = [mCube(3, "BYGWYYBBRYGWRRGORGRRWYGOYWBGRYGOWOYORBROBWBOGOBYGWOWBW"), mCube(3, "YGBRGWWWYOBGWRYORBROBRWORBRRBOGOBYWBWYGYYROYGWOGGBGWOY"), mCube(3,"GOBRGGBOORWOYRBWBOWWYOWYWBBGWYGOYYGROGYOYBWYGGRRWBRRRB")]
     cipher = CryptoCube(KEYS1,mode="bytes", whitten=False)
     ct, _ = cipher.encrypt(pt)
+    if len(pt) == 54:
+        ct= ct[:54]
     return ct, None
 
 
@@ -267,8 +282,8 @@ def main()->None:
     cipher = CryptoCube(KEYS1,"bytes",whitten=False)
     results = []
 
-    result = test_byte_position_uniformity(AES_wrapper, 1000)
-    result = test_byte_position_uniformity(crptocube_wrapper, 1000)
+    result = entropy_test_cipher(AES_wrapper, 1000)
+    # result = test_byte_position_uniformity(crptocube_wrapper, 1000)
     today = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     file_name = f"{today}.json"
     path = f"stat_tests/{file_name}"

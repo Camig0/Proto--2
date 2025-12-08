@@ -245,6 +245,7 @@ class CryptoCube:
         Input: plaintext string
         Output: ciphertext encoded as a permutatuion of 54 symbols
         """
+
         if not IV: #if IV == None generate an IV, used when doing simple encrypt of just one block
             IV = os.urandom(16) # Nonce
         context = IV + block.to_bytes(4, "big")
@@ -299,18 +300,26 @@ class CryptoCube:
         shuffled_indices = [_ELEMENTS.index(i) for i in shuffle ]
         # APPLY S-BOX\
         sbox = self.key_sbox(self.sbox_key,context)
+
+        # everything above is just sauce. This is where the real pipeline start
         payload = self.apply_sbox(payload,sbox) #sbox
 
         payload = self.xor_keystream(payload,blake3_combine(len(payload), self.XOR_key, context))
 
         ciphertext = b"".join(payload[i:i+1] for i in shuffled_indices) #shuffle
-
         
+        #if PT is 54,indicate in the CT that it is this leaks PT length 1/54 of the time
+        if len(plaintext) == 54:
+            ciphertext += b"\x00"
         return ciphertext, IV # ciphertext + flattened IV
 
     def decrypt(self, ciphertext: bytes, IV:bytes,
                 block:int=0
                 ) -> str|int|bytes:
+        if len(ciphertext) == 55:
+            ciphertext = ciphertext[:54]
+
+
         permutation = "".join(_ELEMENTS)
 
         context = IV + block.to_bytes(4, "big")
@@ -350,19 +359,13 @@ class CryptoCube:
             return deserialize(unpadded,self.mode)
             
         except:
-            return deserialize(plaintext,self.mode)
+            return plaintext
 
 
 # FOR CTR MODE
 
-    def generate_auth_tag(self, ciphertext:list[str]): #generates auth_tag. Exclusive only to CTR mode
-        ciphertext_data = b"\x00" * len(ciphertext[0].encode("utf-8")) # transforms permutation to bytes
-        for block in ciphertext:
-            block_bytes = block.encode('utf-8')
-            # XOR byte by byte
-            ciphertext_data = bytes(a ^ b for a, b in zip(ciphertext_data, block_bytes))
-        return self.PRF(self.auth_key, ciphertext_data, "auth_tag")
-
+    def generate_auth_tag(self, ciphertext:bytes): #generates auth_tag. Exclusive only to CTR mode
+        return self.PRF(self.auth_key, ciphertext, "auth_tag")
 
 
     def encrypt_ctr(self, plaintext:str|int|bytes, max_workers:int|None = None):
@@ -505,8 +508,6 @@ class CryptoCube:
 
         return plaintext
 
-# PUT WORKER FUNCTIONS HERE
-# vvvvvvvvvvvvvvvvvvvvvvvvv
 
 def main():
     # temp
@@ -546,19 +547,20 @@ def main():
     run = 0
     while True: 
         # message = b'\x958i\xf0_7\xd4\xcd\xd4\x13Pho H\x95\x14\x95\xf0\x9c\xeaU\x1ec\x12k\x9bX\x0cis\xcb\x0f\xf7N\xf2n)\xa4\xa9\xdd\x82\xbb\xd0UQ\xb6\xb5\xd1\xf4\xb4d#5'
-        message = os.urandom(10 * 1024)
+        message = os.urandom( 53)
         run +=1
         print(run)
         # message = "i really wanna see if this can go way beyong the theoretical max bit cpapacity which is now longer now at 30 bytes which shoudl reduce number of blocks by 16% why the hell does it work first time i thought it was gonna take some more time why the helly  bird does it work" 
         
-        ciphertext, IV = timeit(cryptic_cube.encrypt_ctr, message) 
-        # tag = timeit(cryptic_cube.generate_auth_tag, ciphertext)
+        ciphertext, IV = timeit(cryptic_cube.encrypt, message) 
+        tag = timeit(cryptic_cube.generate_auth_tag, ciphertext)
+        print(tag)
 
 
         # print('======================================================================')
         # print("ciphertext", ciphertext, IV)   
 
-        plaintext = timeit(cryptic_cube.decrypt_ctr, ciphertext, IV)
+        plaintext = timeit(cryptic_cube.decrypt, ciphertext, IV)
         # print(tag)
         # print("\n============================================\n")
         # print(message)
