@@ -111,7 +111,7 @@ def test_byte_position_uniformity(cipher:Callable, num_samples=10000, ):
         # if i % 100 == 0:
         print(f"Sample {i}/{num_samples}")
         
-        plaintext = os.urandom(54)  # Random 54 bytes
+        plaintext = os.urandom(1) * 53  # Random 54 bytes
         ciphertext, iv = cipher(plaintext)
         
         # Ensure ciphertext is bytes, not string
@@ -151,7 +151,7 @@ def test_byte_position_uniformity(cipher:Callable, num_samples=10000, ):
               "failed position": failed_positions},
               "details": {
                   "position_counts": position_counts,
-                  "p values": p_values
+                  "p values (0-53)": p_values
               }
               },
 
@@ -199,7 +199,7 @@ def shannon_entropy(data: bytes) -> float:
 def entropy_test_cipher(
     cipher: Callable[..., bytes],
     samples: int = 100,
-    plaintext_len: int = 64
+    plaintext_len: int = 53
 ) -> Dict[str, Any]:
     """
     Run a Shannon entropy test on a cipher.
@@ -230,7 +230,6 @@ def entropy_test_cipher(
         # print(type(ct))
         ciphertexts.append(base64.b64encode(ct).decode('utf-8'))
         H = shannon_entropy(ct)
-        print(f"DEBUG - Entropy: {H}") 
         entropies.append(H)
 
     return {
@@ -255,7 +254,7 @@ def crptocube_ctr_wrapper(pt):
         ct= ct[:54]
     return ct, None
 
-def crptocube_wrapper(pt):
+def cryptocube_wrapper(pt):
     KEYS1 = [mCube(3, "BYGWYYBBRYGWRRGORGRRWYGOYWBGRYGOWOYORBROBWBOGOBYGWOWBW"), mCube(3, "YGBRGWWWYOBGWRYORBROBRWORBRRBOGOBYWBWYGYYROYGWOGGBGWOY"), mCube(3,"GOBRGGBOORWOYRBWBOWWYOWYWBBGWYGOYYGROGYOYBWYGGRRWBRRRB")]
     cipher = CryptoCube(KEYS1,mode="bytes", whitten=False)
     ct, _ = cipher.encrypt(pt)
@@ -276,13 +275,18 @@ def AES_wrapper(pt):
 
 
 
+def full_test(samples:int = 1000):
+    r1 = test_byte_position_uniformity(cryptocube_wrapper, samples)
+    r2 = entropy_test_cipher(cryptocube_wrapper, samples, 53)
+    return {"byte uniformity": r1,
+            "entropy":r2}
 
 def main()->None:
     KEYS1 = [mCube(3, "BYGWYYBBRYGWRRGORGRRWYGOYWBGRYGOWOYORBROBWBOGOBYGWOWBW"), mCube(3, "YGBRGWWWYOBGWRYORBROBRWORBRRBOGOBYWBWYGYYROYGWOGGBGWOY"), mCube(3,"GOBRGGBOORWOYRBWBOWWYOWYWBBGWYGOYYGROGYOYBWYGGRRWBRRRB")]
     cipher = CryptoCube(KEYS1,"bytes",whitten=False)
     results = []
 
-    result = entropy_test_cipher(AES_wrapper, 1000)
+    result = entropy_test_cipher(cryptocube_wrapper, 1000, 53)
     # result = test_byte_position_uniformity(crptocube_wrapper, 1000)
     today = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     file_name = f"{today}.json"

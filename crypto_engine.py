@@ -60,7 +60,8 @@ class CryptoCube:
     def __init__(self, master_key_cubes:list[mCube], mode="utf-8", whitten:bool=True):
         #mode tells the cipher what the expected plaintext and ciphertext is
         self.mode = mode
-        self.BLOCK_SIZE = 54
+        self.BLOCK_SIZE = 53
+        self.CT_BLOCK_SIZE = 54
 
         self.master_keys:list[mCube] = master_key_cubes
         self.encryption_key:bytes = self._derive_key_material("encryption_key")
@@ -251,24 +252,15 @@ class CryptoCube:
         context = IV + block.to_bytes(4, "big")
         plainbytes = b""
         payload = b""
-        try: # FOR bytes int and character codec compatability
-            plainbytes = serialize(plaintext, self.mode)
-            if len(plaintext) == BYTES_PAYLOAD:
-                payload = plainbytes
-            
-            elif len(plaintext) < BYTES_PAYLOAD:
-                #right pad
-                pad_length = (self.BLOCK_SIZE - len(plainbytes)).to_bytes(1, "big")
-                padded = pad_with_random(plainbytes, self.BLOCK_SIZE, context)
-                payload = padded
+        
+        #ENCODING
+        plainbytes = serialize(plaintext, self.mode)
 
-            else:
-                print(len(plaintext))
-                raise
-    
-        except:
-            raise ValueError("plaintext: {plaintext} is in the wrong format or mismatched modes")
+        pad_length = (self.BLOCK_SIZE - len(plainbytes)).to_bytes(1, "big")
+        padded = pad_with_random(plainbytes, self.BLOCK_SIZE, context)
+        payload = padded
 
+        
         permutation = "".join(_ELEMENTS)
 
         
@@ -308,16 +300,12 @@ class CryptoCube:
 
         ciphertext = b"".join(payload[i:i+1] for i in shuffled_indices) #shuffle
         
-        #if PT is 54,indicate in the CT that it is this leaks PT length 1/54 of the time
-        if len(plaintext) == 54:
-            ciphertext += b"\x00"
         return ciphertext, IV # ciphertext + flattened IV
+    
 
     def decrypt(self, ciphertext: bytes, IV:bytes,
                 block:int=0
                 ) -> str|int|bytes:
-        if len(ciphertext) == 55:
-            ciphertext = ciphertext[:54]
 
 
         permutation = "".join(_ELEMENTS)
@@ -353,13 +341,13 @@ class CryptoCube:
         plaintext = self.reverse_sbox(plaintext, self.sbox_key, context) #un s-box
 
 
-        try: #decodes the perm
+        try: #decodes 
             unpadded = unpad_random(plaintext, context)
 
             return deserialize(unpadded,self.mode)
             
         except:
-            return plaintext
+            return plaintext # return if something wrong with unpadding
 
 
 # FOR CTR MODE
@@ -438,8 +426,8 @@ class CryptoCube:
     def decrypt_ctr(self, ciphertext:bytes, IV, max_workers:int=None):
         #assumes authentication has been done
         ciphertext_blocks = []
-        for i in range(0,len(ciphertext), self.BLOCK_SIZE):
-            block = ciphertext[i:i + self.BLOCK_SIZE]
+        for i in range(0,len(ciphertext), self.CT_BLOCK_SIZE):
+            block = ciphertext[i:i + self.CT_BLOCK_SIZE]
             ciphertext_blocks.append(block)
 
 
@@ -483,23 +471,17 @@ class CryptoCube:
 
 
 # join all blocks
+
+        # unpad
+
+
         byte_data = b"".join(plaintext_blocks) # raw byte data with padding still
         
         #padding validation
         if len(byte_data) > 0:
             pad_len = byte_data[-1]
         
-        # Validate padding: pad_len should be between 1 and BLOCK_SIZE
-        # and all padding bytes should have the same value
-            if 1 <= pad_len <= self.BLOCK_SIZE:
-                # Check if all padding bytes are correct
-                padding = byte_data[-pad_len:]
-                if all(b == pad_len for b in padding):
-                    byte_data = byte_data[:-pad_len]
-        # fixes issue where if message length was a modulo of the block size it reads the last meaningful bit as pad_len even tho it rlly isnt... kinda dum  so i just set it to zero
-        # if len(byte_data) % (self.BLOCK_SIZE + 1) == 0: 
-        #     return deserialize(byte_data, self.mode)
-
+        
 
 
 # deserialize + remove padding + remove terminating bytes
@@ -543,16 +525,23 @@ def main():
     message = b'qazwsxedcrfvtgbyhnujmiklopqa' # 28 len
     # message = b'qazwsxedcrfvtgbyhnujmodpqa' # 25 len
     # message = "IM JUST GONNA HIDE HERE AS SOME NON-CONSIPICUOUS "
+    
 
     run = 0
     while True: 
-        # message = b'\x958i\xf0_7\xd4\xcd\xd4\x13Pho H\x95\x14\x95\xf0\x9c\xeaU\x1ec\x12k\x9bX\x0cis\xcb\x0f\xf7N\xf2n)\xa4\xa9\xdd\x82\xbb\xd0UQ\xb6\xb5\xd1\xf4\xb4d#5'
-        message = os.urandom( 53)
+         
+        # ERROR MESSAGE COLLECTION
+        # 1. b'Cc\xb0\xdd\xaf\xd2\x97\x1c\xc4"\xab\xf1\xb2\x88R@\x05(\x9f\x81N\x9c\xa3\xf8\x1e\xbai\x0cn\xce\xd2\xa3\x91\x8dS\x12{\x1fC\xb8\x87W\xf5@U\xcd\xd3h|ZI%\xb65'
+        # 2. b'\xc51\xc7&\x81\xe4\x9e\xb9-^a]\x11\xa6\xb2\xb5+9\x98\x97\xf0?\xa4\x12}\xcf\xf6\x8a\x04\xee(\xdd\x02\x01\xf0g)\xf9>\x83`\x83pO\xd8Sx\x8at=w\xf5\xc25'
+        
+        message = b"" #b'\\\xd4\xa5*\xd8/\nWO\xfa\xb5HJ\x9d\xb4\x07\x87\x1f\xa3\xd4\xe1\xbc\x15\xfd*\x9d\x99d\x06\x12\x88\xab\xed\xb6WJ"h\xb6|8\xb4[\xbc\x9c\x0f\xae\xce\x1a\n\xfe\x9bB5' 
+        message = os.urandom(1000)
+
         run +=1
         print(run)
         # message = "i really wanna see if this can go way beyong the theoretical max bit cpapacity which is now longer now at 30 bytes which shoudl reduce number of blocks by 16% why the hell does it work first time i thought it was gonna take some more time why the helly  bird does it work" 
         
-        ciphertext, IV = timeit(cryptic_cube.encrypt, message) 
+        ciphertext, IV = timeit(cryptic_cube.encrypt_ctr, message) 
         tag = timeit(cryptic_cube.generate_auth_tag, ciphertext)
         print(tag)
 
@@ -560,7 +549,7 @@ def main():
         # print('======================================================================')
         # print("ciphertext", ciphertext, IV)   
 
-        plaintext = timeit(cryptic_cube.decrypt, ciphertext, IV)
+        plaintext = timeit(cryptic_cube.decrypt_ctr, ciphertext, IV)
         # print(tag)
         # print("\n============================================\n")
         # print(message)
@@ -568,6 +557,9 @@ def main():
         # print(plaintext)
         # print("\n============================================\n")
         # print(ciphertext)
+
+# b'\\\xd4\xa5*\xd8/\nWO\xfa\xb5HJ\x9d\xb4\x07\x87\x1f\xa3\xd4\xe1\xbc\x15\xfd*\x9d\x99d\x06\x12\x88\xab\xed\xb6WJ"h\xb6|8\xb4[\xbc\x9c\x0f\xae\xce\x1a\n\xfe\x9bB5'
+
 
         assert plaintext == message
 

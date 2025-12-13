@@ -5,11 +5,14 @@ from magiccube import Cube as mCube
 from helper import seeded_random_cube, _MOVES
 
 
-from test_helper import crptocube_wrapper, AES_wrapper
+from test_helper import crptocube_wrapper, AES_wrapper, log_test
 
 import random
 
 from pprint import pprint
+
+from base64 import b64encode
+
 
 def flip_one_random_bit(b: bytes) -> bytes:
     if not b:
@@ -36,7 +39,7 @@ def hamming_dist(a:bytes,b:bytes):
         hamming_distance += bin(_a ^ _b).count("1")
     return   hamming_distance / (len(a) * 8)  
 
-def diffusion_test(cipher, samples:int = 1000, pt_size:int = 54):
+def diffusion_test(cipher, samples:int = 1000, pt_size:int = 53):
     # generate PT
     hamming_distances = []
     ciphertexts = []
@@ -68,12 +71,12 @@ def diffusion_test(cipher, samples:int = 1000, pt_size:int = 54):
         "avg hamming distance": (sum(hamming_distances)/len(hamming_distances)),
         "details": {
             "hamming distance" : hamming_distances,
-            "ciphertext (base, flipepd)" : ciphertexts
+            "ciphertext (base, flipepd)" : {i:(b64encode(data[0]).decode("ascii"), b64encode(data[1]).decode("ascii")  )for i,data in enumerate(ciphertexts)}
             }
             
             }
 
-def key_confusion(cipher:callable, samples:int = 1000, pt_size:int = 54):
+def key_confusion(cipher:callable, samples:int = 1000, pt_size:int = 53):
     #generate PT
     PT = os.urandom(pt_size)
     hamming_distances = []
@@ -91,8 +94,8 @@ def key_confusion(cipher:callable, samples:int = 1000, pt_size:int = 54):
         flipped_key.rotate(_MOVES[random_move-1])
         flipped_keys:list[mCube] = [flipped_key] + base_keys[1:]
         #Generate CT of base keys and flipped keys
-        base_CT = cipher(PT, base_keys)
-        flipped_CT = cipher(PT, flipped_keys)
+        base_CT = cipher(PT, base_keys, True)
+        flipped_CT = cipher(PT, flipped_keys, True)
         #Get hamming distance
         H = hamming_dist(base_CT, flipped_CT)
         #Add CT pair to collection
@@ -111,10 +114,17 @@ def key_confusion(cipher:callable, samples:int = 1000, pt_size:int = 54):
         "avg hamming distance": (sum(hamming_distances)/len(hamming_distances)),
         "details": {
             "hamming distance" : hamming_distances,
-            "ciphertext (base, flipepd)" : ciphertexts
+            "ciphertext (base, flipepd)" : {i:(b64encode(data[0]).decode("ascii"), b64encode(data[1]).decode("ascii")  ) for i,data in enumerate(ciphertexts)}
             }
             
             }
 
-    
-print(key_confusion(crptocube_wrapper, 200))
+def full_test(samples:int = 1000):
+    r1 = diffusion_test(crptocube_wrapper,samples)
+    r2 = key_confusion(crptocube_wrapper,samples)
+    return {"diffusion test":r1,
+            "confusion test":r2}
+
+if __name__ == "__main__":
+    result = full_test(10)
+    log_test(result,"test results/Avalanche tests")

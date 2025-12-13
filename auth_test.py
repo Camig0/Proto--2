@@ -3,6 +3,9 @@ from magiccube import Cube as mCube
 
 import os
 
+from datetime import datetime
+from logger import log_to_file
+
 import random
 from random import randint
 
@@ -45,7 +48,7 @@ def test_auth(samples:int = 1000):
         if run % (samples // 20) == 0:
             print(f"{run}/{samples}")
 
-        pt = os.urandom(randint(1,54))
+        pt = os.urandom(randint(1,53))
         KEYS1 = [mCube(3, "BYGWYYBBRYGWRRGORGRRWYGOYWBGRYGOWOYORBROBWBOGOBYGWOWBW"), mCube(3, "YGBRGWWWYOBGWRYORBROBRWORBRRBOGOBYWBWYGYYROYGWOGGBGWOY"), mCube(3,"GOBRGGBOORWOYRBWBOWWYOWYWBBGWYGOYYGROGYOYBWYGGRRWBRRRB")]
         cipher = CryptoCube(KEYS1, mode="bytes")
         #generate ct and auth
@@ -83,11 +86,17 @@ def test_auth_ctr(samples:int = 1000, max_pt_size:int = 1024):
             # add to counter
             failed_auth += 1
     
-    return {"test name": "authentication test",
+    return {"test name": "authentication test (ctr)",
             "sample size" : samples,
             "failed samples": failed_auth,
             "success rate": (samples - failed_auth)/samples}
 
+def full_test(samples:int = 100):
+    r1 = test_auth(samples)
+    r2 = test_auth_ctr(samples)
+
+    return {"Non-CTR Authentication" : r1,
+            "CTR Authentication" : r2}
+
 if __name__ == "__main__":
-    print(test_auth(100))
-    print(test_auth_ctr(100, 300))
+    test_auth(5000)

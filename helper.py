@@ -245,11 +245,9 @@ def pad_with_random(plainbytes: bytes, block_size:int = BYTES_PAYLOAD, context:b
     [h][e][l][l][o][R][R][R]...[R][R][R][5]
      ↑  plaintext  ↑  22 random bytes  ↑ len
     """
-    if len(plainbytes) >= block_size:
-        raise ValueError(f"Plaintext too long: {len(plainbytes)} >= {block_size}")
     
     msg_len = len(plainbytes)
-    padding_len = block_size - msg_len - 1  # Reserve 1 byte for length
+    padding_len = block_size - msg_len  # Reserve 1 byte for length
     
     # Generate deterministic random padding from IV
     hasher = blake3()
@@ -260,7 +258,7 @@ def pad_with_random(plainbytes: bytes, block_size:int = BYTES_PAYLOAD, context:b
     # Build: [message][random_padding][length]
     padded = plainbytes + random_padding + bytes([msg_len])
     
-    assert len(padded) == block_size
+    assert len(padded) == BYTES_PAYLOAD
     return padded
 
 #b"\xe8{\x96'y\x8bX\xfa\xd2\x0b\x7f6\n1j\x1f\x00\x00\x00\x00"

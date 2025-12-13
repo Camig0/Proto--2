@@ -11,10 +11,9 @@ from magiccube import Cube as mCube
 from crypto_engine import CryptoCube
 from helper import seeded_random_cube, _ELEMENTS
 
-
 from pprint import pprint
-
 import traceback
+
 
 def test_permutation_recovery_attack(cipher: CryptoCube, samples: int = 10):
     """
@@ -22,98 +21,120 @@ def test_permutation_recovery_attack(cipher: CryptoCube, samples: int = 10):
     
     This is the most important test. If this fails, the cipher is broken.
     
+    NOTE: Cipher accepts max 53 bytes plaintext, outputs 54 bytes ciphertext
+    
     Args:
         cipher: CryptoCube instance
         samples: Number of attack attempts
     
     Returns:
-        dict: {
-            'attack_successful': bool,
-            'success_rate': float,
-            'recovered_permutations': int,
-            'details': list of attack results
-        }
+        dict: Attack results
     """
     successful_attacks = 0
     details = []
     
     for attempt in range(samples):
         # Step 1: Attacker knows a plaintext-ciphertext pair
-        known_plaintext = bytes(range(54))  # Known pattern
+        # FIXED: 53 bytes max (not 54)
+        known_plaintext = bytes(range(53))  # Known pattern [0,1,2,...,52]
         
         try:
             # Encrypt with CTR mode to get first block
             ciphertext, IV = cipher.encrypt_ctr(known_plaintext)
             
-
+            # Extract first block (should be 54 bytes)
             ciphertext_blocks = []
-            for i in range(0,len(ciphertext), cipher.BLOCK_SIZE):
-                block = ciphertext[i:i + cipher.BLOCK_SIZE]
+            for i in range(0, len(ciphertext), cipher.CT_BLOCK_SIZE):
+                block = ciphertext[i:i + cipher.CT_BLOCK_SIZE]
                 ciphertext_blocks.append(block)
 
             known_ciphertext = ciphertext_blocks[0]
             
+            if len(known_ciphertext) != 54:
+                details.append({
+                    'attempt': attempt,
+                    'status': 'Error - unexpected ciphertext length',
+                    'expected': 54,
+                    'got': len(known_ciphertext)
+                })
+                continue
+            
             # Step 2: Attacker attempts to recover the permutation
-            # The cipher applies: ciphertext[i] = plaintext[perm[i]]
-            # So we need to find: perm[i] = position where ciphertext[i] appears in plaintext
+            # Note: Position 53 might be the length byte, so we focus on first 53 positions
             
             recovered_perm = []
-            for ct_byte in known_ciphertext:
+            recovery_failed = False
+            
+            # Only analyze first 53 bytes (last byte might be length indicator)
+            for i, ct_byte in enumerate(known_ciphertext[:53]):
                 # Find where this ciphertext byte came from in plaintext
                 try:
                     source_pos = known_plaintext.index(ct_byte)
                     recovered_perm.append(source_pos)
                 except ValueError:
                     # Byte not found - permutation recovery failed for this position
+                    # This is GOOD - means cipher does more than just permutation
                     recovered_perm.append(-1)
+                    recovery_failed = True
+            
+            if recovery_failed:
+                details.append({
+                    'attempt': attempt,
+                    'status': 'Attack failed - cipher uses substitution/transformation',
+                    'recovery_success': False,
+                    'permutation_valid': False
+                })
+                continue
             
             # Step 3: Use recovered permutation to decrypt a DIFFERENT message
-            secret_message = b"Secret data that attacker shouldn't see!!" + b"\x00" * 13
-            secret_ciphertext, same_IV = cipher.encrypt_ctr(secret_message)
+            # FIXED: 53 bytes max (41 + 12 = 53)
+            secret_message = b"Secret data that attacker shouldn't see!!" + bytes(range(12))
+            secret_ciphertext_full, same_IV = cipher.encrypt_ctr(secret_message)
             
+            # Extract blocks from secret_ciphertext
             secret_ciphertext_blocks = []
-            for i in range(0,len(ciphertext), cipher.BLOCK_SIZE):
-                block = ciphertext[i:i + cipher.BLOCK_SIZE]
+            for i in range(0, len(secret_ciphertext_full), cipher.BLOCK_SIZE):
+                block = secret_ciphertext_full[i:i + cipher.BLOCK_SIZE]
                 secret_ciphertext_blocks.append(block)
-
 
             secret_ciphertext = secret_ciphertext_blocks[0]
             
             # Apply recovered permutation (inverse operation)
-            inverse_perm = [-1] * 54
+            # Only work with first 53 bytes
+            inverse_perm = [-1] * 53
             for new_pos, old_pos in enumerate(recovered_perm):
-                if old_pos != -1 and old_pos < 54:
+                if old_pos != -1 and old_pos < 53:
                     inverse_perm[old_pos] = new_pos
             
             # Attempt to decrypt using recovered permutation
-            attempted_decrypt = bytearray(54)
+            attempted_decrypt = bytearray(53)
             recovery_success = True
-            for i in range(54):
+            for i in range(53):
                 if inverse_perm[i] != -1:
                     attempted_decrypt[i] = secret_ciphertext[inverse_perm[i]]
                 else:
                     recovery_success = False
                     break
             
-            # Check if attack succeeded
+            # Check if attack succeeded (check first 41 bytes of secret message)
             if recovery_success and bytes(attempted_decrypt[:41]) == secret_message[:41]:
                 successful_attacks += 1
                 details.append({
                     'attempt': attempt,
-                    'status': 'ATTACK SUCCESSFUL - CIPHER BROKEN',
+                    'status': ' ATTACK SUCCESSFUL - CIPHER BROKEN',
                     'recovered_bytes': 41,
                     'permutation_valid': True
                 })
             else:
                 details.append({
                     'attempt': attempt,
-                    'status': 'Attack failed',
+                    'status': 'Attack failed - recovered permutation invalid',
                     'recovery_success': recovery_success,
                     'permutation_valid': all(p != -1 for p in recovered_perm)
                 })
                 
         except Exception as e:
-            print(f"Caught Error: {e.__class__.__name__}")
+            print(f"Caught Error: {e.__class__.__name__}: {e}")
             traceback.print_exc()
             details.append({
                 'attempt': attempt,
@@ -126,7 +147,7 @@ def test_permutation_recovery_attack(cipher: CryptoCube, samples: int = 10):
         'success_rate': successful_attacks / samples,
         'recovered_permutations': successful_attacks,
         'details': details,
-        'VERDICT': 'CIPHER BROKEN' if successful_attacks > 0 else 'Passed (permutation not recoverable)'
+        'VERDICT': ' CIPHER BROKEN - Permutation recoverable' if successful_attacks > 0 else 'Passed - Permutation not recoverable'
     }
 
 
@@ -134,16 +155,14 @@ def test_iv_reuse_vulnerability(cipher: CryptoCube, samples: int = 20):
     """
     Demonstrate that IV reuse leaks information (this SHOULD show leakage).
     
+    NOTE: Cipher accepts max 53 bytes plaintext, outputs 54 bytes ciphertext
+    
     Args:
         cipher: CryptoCube instance
         samples: Number of IV reuse tests
     
     Returns:
-        dict: {
-            'leakage_detected': bool,
-            'identical_permutations': int,
-            'details': list
-        }
+        dict: IV reuse test results
     """
     identical_count = 0
     details = []
@@ -151,55 +170,88 @@ def test_iv_reuse_vulnerability(cipher: CryptoCube, samples: int = 20):
     for i in range(samples):
         IV = os.urandom(16)
         
-        msg1 = b"Message One" + b"\x00" * 43
-        msg2 = b"Message Two" + b"\x00" * 43
+        # FIXED: Use 53-byte messages (not 54)
+        # 16 + 37 = 53 bytes
+        msg1 = b"AAAA_Message_One" + bytes(range(37))
+        msg2 = b"BBBB_Message_Two" + bytes(range(37, 74))
         
         # Encrypt both with same IV
         ct1, _ = cipher.encrypt(msg1, IV=IV, block=0)
         ct2, _ = cipher.encrypt(msg2, IV=IV, block=0)
         
+        if len(ct1) != 54 or len(ct2) != 54:
+            details.append({
+                'test': i,
+                'status': 'Error - unexpected ciphertext length',
+                'ct1_len': len(ct1),
+                'ct2_len': len(ct2)
+            })
+            continue
+        
         # Check if the permutation is the same
-        # In a secure cipher, we'd analyze XOR of ciphertexts
-        # For your cipher, we check if same permutation was used
-        
-        # Simplified check: If we can find positional relationships
-        # We'll check if patterns are preserved
         pattern_preserved = False
+        same_permutation = False
         
-        # Check if bytes at same positions in plaintext appear at same relative positions in ciphertext
-        for pos in range(min(11, 54)):  # Check first 11 positions of known data
+        # Test 1: Check if identical bytes at same positions remain identical
+        # Only check first 53 positions (position 53 might be length byte)
+        matching_positions = 0
+        for pos in range(53):
             if msg1[pos] == msg2[pos]:
                 if ct1[pos] == ct2[pos]:
-                    pattern_preserved = True
-                    break
+                    matching_positions += 1
         
-        # Better test: Check if the INDEX mapping is identical
-        # Try to find where msg1[0] went in ct1 vs where msg2[0] went in ct2
+        if matching_positions > 0:
+            pattern_preserved = True
+        
+        # Test 2: Try to determine if same permutation was used
         try:
-            # This is a heuristic - in practice, full permutation analysis needed
-            msg1_positions = [ct1.index(msg1[j].to_bytes(1, 'big')) if msg1[j:j+1] in ct1 else -1 for j in range(11)]
-            msg2_positions = [ct2.index(msg2[j].to_bytes(1, 'big')) if msg2[j:j+1] in ct2 else -1 for j in range(11)]
+            msg1_positions = []
+            msg2_positions = []
             
-            # If positions match, same permutation was used
-            if msg1_positions == msg2_positions and -1 not in msg1_positions[:5]:
-                identical_count += 1
-                pattern_preserved = True
-        except:
-            pass
+            for j in range(min(16, len(msg1))):  # Check first 16 bytes
+                # Find where msg1[j] appears in ct1
+                byte_val1 = msg1[j:j+1]
+                byte_val2 = msg2[j:j+1]
+                
+                try:
+                    # Only search in first 53 bytes
+                    pos1 = ct1[:53].index(byte_val1)
+                    msg1_positions.append(pos1)
+                except ValueError:
+                    msg1_positions.append(-1)
+                
+                try:
+                    pos2 = ct2[:53].index(byte_val2)
+                    msg2_positions.append(pos2)
+                except ValueError:
+                    msg2_positions.append(-1)
+            
+            # If most positions match and no -1s in first few, same permutation likely used
+            valid_positions = [(p1, p2) for p1, p2 in zip(msg1_positions[:8], msg2_positions[:8]) if p1 != -1 and p2 != -1]
+            
+            if len(valid_positions) >= 5:
+                # Check if the mapping is identical
+                matching = sum(1 for p1, p2 in valid_positions if p1 == p2)
+                if matching >= len(valid_positions) * 0.8:  # 80% match
+                    same_permutation = True
+                    identical_count += 1
+        except Exception as e:
+            print(f"Position analysis error: {e}")
         
         details.append({
             'test': i,
             'IV': IV.hex()[:16],
             'pattern_preserved': pattern_preserved,
-            'same_permutation_likely': pattern_preserved
+            'matching_positions': matching_positions,
+            'same_permutation_likely': same_permutation
         })
     
     return {
-        'leakage_detected': identical_count > samples * 0.5,
+        'leakage_detected': identical_count > 0,
         'identical_permutations': identical_count,
         'percentage': (identical_count / samples) * 100,
         'details': details,
-        'VERDICT': 'IV reuse leaks information (as expected)' if identical_count > 0 else 'No obvious leakage detected'
+        'VERDICT': f'IV reuse leaks information (detected in {identical_count}/{samples} cases) - This is EXPECTED for deterministic ciphers'
     }
 
 
@@ -207,16 +259,14 @@ def test_deterministic_keystream(cipher: CryptoCube, samples: int = 50):
     """
     Verify that the same IV+block produces the same keystream permutation.
     
+    NOTE: Cipher accepts max 53 bytes plaintext, outputs 54 bytes ciphertext
+    
     Args:
         cipher: CryptoCube instance
         samples: Number of IV+block combinations to test
     
     Returns:
-        dict: {
-            'consistent': bool,
-            'consistency_rate': float,
-            'details': list
-        }
+        dict: Determinism test results
     """
     consistent = 0
     inconsistent = 0
@@ -227,20 +277,32 @@ def test_deterministic_keystream(cipher: CryptoCube, samples: int = 50):
         block_num = random.randint(0, 100)
         
         # Encrypt same plaintext twice with same IV+block
-        plaintext = bytes(range(54))
+        # FIXED: 53 bytes max (not 54)
+        plaintext = bytes(range(53))
         
-        ct1, _ = cipher.encrypt(plaintext, IV=IV, block=block_num)
-        ct2, _ = cipher.encrypt(plaintext, IV=IV, block=block_num)
-        
-        if ct1 == ct2:
-            consistent += 1
-        else:
+        try:
+            ct1, _ = cipher.encrypt(plaintext, IV=IV, block=block_num)
+            ct2, _ = cipher.encrypt(plaintext, IV=IV, block=block_num)
+            
+            if ct1 == ct2:
+                consistent += 1
+            else:
+                inconsistent += 1
+                details.append({
+                    'test': i,
+                    'IV': IV.hex()[:16],
+                    'block': block_num,
+                    'ct1': ct1[:10].hex(),
+                    'ct2': ct2[:10].hex(),
+                    'ct1_len': len(ct1),
+                    'ct2_len': len(ct2),
+                    'mismatch': 'Ciphertexts differ'
+                })
+        except Exception as e:
             inconsistent += 1
             details.append({
-                'IV': IV.hex()[:16],
-                'block': block_num,
-                'ct1': ct1[:10].hex(),
-                'ct2': ct2[:10].hex()
+                'test': i,
+                'error': str(e)
             })
     
     return {
@@ -248,25 +310,67 @@ def test_deterministic_keystream(cipher: CryptoCube, samples: int = 50):
         'consistency_rate': consistent / samples,
         'consistent_count': consistent,
         'inconsistent_count': inconsistent,
-        'details': details,
-        'VERDICT': 'Keystream is deterministic (expected behavior)' if inconsistent == 0 else 'WARNING: Non-deterministic keystream'
+        'details': details if inconsistent > 0 else [],
+        'VERDICT': 'Keystream is deterministic (expected behavior)' if inconsistent == 0 else f'⚠️ WARNING: Non-deterministic keystream detected in {inconsistent}/{samples} tests'
     }
 
 
+def full_test(
+        perm_recovery_samples:int = 10,
+          iv_reuse_samples:int = 20, 
+          deterministic_key_samples:int = 50):
+
+    KEYS1 = [
+        mCube(3, "BYGWYYBBRYGWRRGORGRRWYGOYWBGRYGOWOYORBROBWBOGOBYGWOWBW"), 
+        mCube(3, "YGBRGWWWYOBGWRYORBROBRWORBRRBOGOBYWBWYGYYROYGWOGGBGWOY"), 
+        mCube(3, "GOBRGGBOORWOYRBWBOWWYOWYWBBGWYGOYYGROGYOYBWYGGRRWBRRRB")
+    ]
+    cipher = CryptoCube(KEYS1, "bytes", whitten=True)
+
+    perm_recovery = test_permutation_recovery_attack(cipher, perm_recovery_samples)
+    iv_reuse = test_iv_reuse_vulnerability(cipher,iv_reuse_samples)
+    deterministic_key = test_deterministic_keystream(cipher,deterministic_key_samples)
+
+    return({"Permutation Recovery Test":perm_recovery,
+            "IV Reuse Vulnerability":iv_reuse,
+            "Deterministic Keystream Test":deterministic_key})
+
+
 def main():
-    KEYS1 = [mCube(3, "BYGWYYBBRYGWRRGORGRRWYGOYWBGRYGOWOYORBROBWBOGOBYGWOWBW"), mCube(3, "YGBRGWWWYOBGWRYORBROBRWORBRRBOGOBYWBWYGYYROYGWOGGBGWOY"), mCube(3,"GOBRGGBOORWOYRBWBOWWYOWYWBBGWYGOYYGROGYOYBWYGGRRWBRRRB")]
-    cipher = CryptoCube(KEYS1,"bytes",whitten=True)
-    results = []
-    print("1")
-    pprint(test_permutation_recovery_attack(cipher))
-    print("2")
-    pprint(test_iv_reuse_vulnerability(cipher))
-    print("3")
-    pprint(test_deterministic_keystream(cipher))
+    # Example usage
+    KEYS1 = [
+        mCube(3, "BYGWYYBBRYGWRRGORGRRWYGOYWBGRYGOWOYORBROBWBOGOBYGWOWBW"), 
+        mCube(3, "YGBRGWWWYOBGWRYORBROBRWORBRRBOGOBYWBWYGYYROYGWOGGBGWOY"), 
+        mCube(3, "GOBRGGBOORWOYRBWBOWWYOWYWBBGWYGOYYGROGYOYBWYGGRRWBRRRB")
+    ]
+    cipher = CryptoCube(KEYS1, "bytes", whitten=True)
     
-
+    print("\n" + "="*70)
+    print("CRYPTOGRAPHIC SECURITY TEST SUITE")
+    print("NOTE: Cipher accepts 53-byte plaintext, outputs 54-byte ciphertext")
+    print("="*70)
     
-
+    print("\n[TEST 1] Permutation Recovery Attack")
+    print("-" * 70)
+    result1 = test_permutation_recovery_attack(cipher, samples=10)
+    pprint(result1)
+    
+    print("\n[TEST 2] IV Reuse Vulnerability")
+    print("-" * 70)
+    result2 = test_iv_reuse_vulnerability(cipher, samples=20)
+    pprint(result2)
+    
+    print("\n[TEST 3] Deterministic Keystream Verification")
+    print("-" * 70)
+    result3 = test_deterministic_keystream(cipher, samples=50)
+    pprint(result3)
+    
+    print("\n" + "="*70)
+    print("SUMMARY")
+    print("="*70)
+    print(f"Permutation Recovery: {result1['VERDICT']}")
+    print(f"IV Reuse: {result2['VERDICT']}")
+    print(f"Determinism: {result3['VERDICT']}")
 
 
 if __name__ == "__main__":

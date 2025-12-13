@@ -10,14 +10,13 @@ from logger import log_to_file
 from typing import List, Union
 
 
-def crptocube_wrapper(pt, keys:Union[List[mCube], None] = None):
+def crptocube_wrapper(pt, keys:Union[List[mCube], None] = None, key_stretch = False):
     KEYS1 = [mCube(3, "BYGWYYBBRYGWRRGORGRRWYGOYWBGRYGOWOYORBROBWBOGOBYGWOWBW"), mCube(3, "YGBRGWWWYOBGWRYORBROBRWORBRRBOGOBYWBWYGYYROYGWOGGBGWOY"), mCube(3,"GOBRGGBOORWOYRBWBOWWYOWYWBBGWYGOYYGROGYOYBWYGGRRWBRRRB")]
     KEYS1 = keys if keys else KEYS1
 
-    cipher = CryptoCube(KEYS1,mode="bytes", whitten=False)
+    cipher = CryptoCube(KEYS1,mode="bytes", whitten=key_stretch)
     ct, _ = cipher.encrypt(pt)
-    if len(pt) == 54:
-        ct = ct[:-1]
+
     return ct
 
 

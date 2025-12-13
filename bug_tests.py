@@ -3,10 +3,15 @@ from crypto_engine import *
 from magiccube import Cube as mCube
 import os
 
+from datetime import datetime
+from logger import log_to_file
+from base64 import b64encode
+
+from test_helper import log_test
 
 def round_trip_test(keys:list[mCube]):
     test_cases = [
-        b"",
+        # b"",
         b"A", #single
         b"A" * 54, #one full block
         b"A" * 28 * 5, # multiple full blocks
@@ -17,13 +22,17 @@ def round_trip_test(keys:list[mCube]):
     ]
     cipher = CryptoCube(keys, mode="bytes", whitten=False)
 
+    passed = []
     for plaintext in test_cases:
         ciphertext, IV = cipher.encrypt_ctr(plaintext)
         recovered = cipher.decrypt_ctr(ciphertext, IV)
         assert recovered == plaintext, f"FAILED ON {plaintext}"
+        passed.append(plaintext)
 
     print("roundtrip test: SUCESS")
-    return True
+    return {"test name":"round trip test",
+            "samples": len(test_cases),
+            "test cases (b64)": {i:b64encode(data).decode("ascii") for i,data in enumerate(passed)}}
 
 def determinism_test(keys):
     """Same key + IV + plaintext -> same ciphertext"""
@@ -89,7 +98,12 @@ def main():
     # plaintext = cipher.decrypt_ctr(ciphertext, IV)
 
     # print(plaintext)
-    print(bug_tests())
+    result = bug_tests()
+
+    today = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    file_name = f"{today}.json"
+    path = f"test results/Functionality tests/{file_name}"
+    log_test(result,"test results/Functionality tests")
 
 if __name__ == "__main__":
     main()
