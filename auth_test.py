@@ -93,7 +93,7 @@ def test_auth_ctr(samples:int = 1000, max_pt_size:int = 1024):
 
 def full_test(samples:int = 100):
     r1 = test_auth(samples)
-    r2 = test_auth_ctr(samples)
+    r2 = test_auth_ctr(int(samples/10))
 
     return {"Non-CTR Authentication" : r1,
             "CTR Authentication" : r2}

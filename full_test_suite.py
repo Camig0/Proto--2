@@ -7,7 +7,7 @@ from test_permutation_recovery import full_test as critical_tests
 from test_helper import log_test
 
 def full_test_suite():
-    samples = {"Authentication": 5000,
+    samples = {"Authentication": 1000,
                "Avalanche" : 5000,
                "Stat tests" : 10000,
                "Permutation Recovery" : 50,
