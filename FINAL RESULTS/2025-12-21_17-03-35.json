@@ -1,0 +1,65 @@
+{
+  "1": {
+    "authentication": {
+      "stat_verify_auth": {
+        "sample size": 1000,
+        "verdict": "REJECT H\u2080\u2086: Failure rate < 0.003000 (95% confidence)",
+        "max_failure_rate": 0.003
+      }
+    },
+    "diffusion": [
+      {
+        "Diffusion_stat": {
+          "mean_hd": 0.49982260802469136,
+          "ci_99.9%": "[0.4994, 0.5003]",
+          "verdict": "PASS: Diffusion achieved (\u00b11% bias)",
+          "note": "Equivalence test (CI method)"
+        }
+      }
+    ],
+    "confusion": [
+      {
+        "Confusion_stat": {
+          "mean_hd": 0.49997206790123455,
+          "ci_99.9%": "[0.4995, 0.5004]",
+          "verdict": "PASS: Confusion achieved (\u00b11% bias)",
+          "note": "Equivalence test (CI method)"
+        }
+      }
+    ],
+    "permutation recovery": [
+      {
+        "decision": "REJECT H\u2080\u2082",
+        "verdict": "PASS: Permutation not recoverable",
+        "max_recovery_prob": 0.0003
+      },
+      {
+        "decision": "REJECT H\u2080\u2082",
+        "verdict": "PASS: Permutation not recoverable",
+        "max_recovery_prob": 0.0003
+      },
+      {
+        "decision": "REJECT H\u2080\u2082",
+        "verdict": "PASS: Permutation not recoverable",
+        "max_recovery_prob": 0.0003
+      }
+    ],
+    "IV reuse": [
+      {
+        "samples": 10000,
+        "decision": "REJECT H\u2080\u2082",
+        "verdict": "PASS: No information leakage"
+      },
+      {
+        "decision": "FAIL TO REJECT H\u2080\u2082",
+        "verdict": "FAIL: IV reuse leak detected",
+        "leak_rate": 0.0002
+      },
+      {
+        "decision": "FAIL TO REJECT H\u2080\u2082",
+        "verdict": "FAIL: IV reuse leak detected",
+        "leak_rate": 0.0003
+      }
+    ]
+  }
+}

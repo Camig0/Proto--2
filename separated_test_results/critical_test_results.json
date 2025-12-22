@@ -1,0 +1,2035 @@
+[
+  {
+    "record_id": "1",
+    "data": [
+      {
+        "Permutation Recovery Test": {
+          "attack_successful": false,
+          "success_rate": 0.0,
+          "recovered_permutations": 0,
+          "details": [
+            {
+              "attempt": 0,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 1,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 2,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 3,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 4,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 5,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 6,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 7,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 8,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 9,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 10,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 11,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 12,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 13,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 14,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 15,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 16,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 17,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 18,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 19,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 20,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 21,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 22,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 23,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 24,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 25,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 26,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 27,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 28,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 29,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 30,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 31,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 32,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 33,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 34,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 35,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 36,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 37,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 38,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 39,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 40,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 41,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 42,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 43,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 44,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 45,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 46,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 47,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 48,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 49,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            }
+          ],
+          "VERDICT": "Passed - Permutation not recoverable"
+        },
+        "IV Reuse Vulnerability": {
+          "leakage_detected": false,
+          "identical_permutations": 0,
+          "percentage": 0.0,
+          "details": [
+            {
+              "test": 0,
+              "IV": "b76293cc2fa5996a",
+              "pattern_preserved": false,
+              "matching_positions": 0,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 1,
+              "IV": "e351405223528ca0",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 2,
+              "IV": "abc98d2754cda6f0",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 3,
+              "IV": "1f8b90f638884a8b",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 4,
+              "IV": "972d95c9dc7ff3e9",
+              "pattern_preserved": true,
+              "matching_positions": 4,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 5,
+              "IV": "863cc3caa59d6680",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 6,
+              "IV": "e9362d2b3e4ff4c8",
+              "pattern_preserved": false,
+              "matching_positions": 0,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 7,
+              "IV": "2f9e15d2cbd684a8",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 8,
+              "IV": "9045bc1a6074eb58",
+              "pattern_preserved": true,
+              "matching_positions": 5,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 9,
+              "IV": "883d289fc5dbe47c",
+              "pattern_preserved": false,
+              "matching_positions": 0,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 10,
+              "IV": "131aab3e98f97a44",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 11,
+              "IV": "fb2dd9fff2a4a564",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 12,
+              "IV": "1a06b6fab0593608",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 13,
+              "IV": "592404d30c94d419",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 14,
+              "IV": "a7f109d15365e554",
+              "pattern_preserved": false,
+              "matching_positions": 0,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 15,
+              "IV": "a991e3f19738e380",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 16,
+              "IV": "82b240cd1cecc24f",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 17,
+              "IV": "354667e559bab831",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 18,
+              "IV": "c2b1777422e5e966",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 19,
+              "IV": "70da9f9020a90ff4",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 20,
+              "IV": "44819c0a8600c393",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 21,
+              "IV": "cc9be780e5fe62e7",
+              "pattern_preserved": false,
+              "matching_positions": 0,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 22,
+              "IV": "f78b604ced469988",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 23,
+              "IV": "5131823585d6a8c6",
+              "pattern_preserved": false,
+              "matching_positions": 0,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 24,
+              "IV": "36b20791848727a6",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 25,
+              "IV": "a79d335d9f76781e",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 26,
+              "IV": "5e2428bf0824e5bf",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 27,
+              "IV": "e4b266de218f3e90",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 28,
+              "IV": "7201631d7d328896",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 29,
+              "IV": "3305690994890376",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 30,
+              "IV": "894d72cad064da3d",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 31,
+              "IV": "0696646ad54442de",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 32,
+              "IV": "547820a408f33196",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 33,
+              "IV": "acbf2d03ab779df2",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 34,
+              "IV": "4c099e62a90e99d3",
+              "pattern_preserved": true,
+              "matching_positions": 3,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 35,
+              "IV": "405012771dc5caa4",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 36,
+              "IV": "bf13d58fa43f6e12",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 37,
+              "IV": "ab6aadafe6ab218a",
+              "pattern_preserved": true,
+              "matching_positions": 3,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 38,
+              "IV": "f8cf86035f5857dc",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 39,
+              "IV": "4ab1b6d550cf3fc8",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 40,
+              "IV": "3e7085e5c3701a05",
+              "pattern_preserved": true,
+              "matching_positions": 3,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 41,
+              "IV": "55f83c0c7416a195",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 42,
+              "IV": "7e7cd9a47ba55354",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 43,
+              "IV": "712fc57d9dca54a4",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 44,
+              "IV": "faf9971d89d8bf00",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 45,
+              "IV": "164695752ca44b20",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 46,
+              "IV": "6a639f9c0728dc56",
+              "pattern_preserved": false,
+              "matching_positions": 0,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 47,
+              "IV": "11cb0b392999c9d6",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 48,
+              "IV": "699e2595dc1522e1",
+              "pattern_preserved": true,
+              "matching_positions": 3,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 49,
+              "IV": "d4a426ac0c6f7559",
+              "pattern_preserved": true,
+              "matching_positions": 3,
+              "same_permutation_likely": false
+            }
+          ],
+          "VERDICT": "IV reuse leaks information (detected in 0/50 cases) - This is EXPECTED for deterministic ciphers"
+        },
+        "Deterministic Keystream Test": {
+          "consistent": true,
+          "consistency_rate": 1.0,
+          "consistent_count": 100,
+          "inconsistent_count": 0,
+          "details": [],
+          "VERDICT": "Keystream is deterministic (expected behavior)"
+        }
+      },
+      {
+        "Permutation Recovery Test": {
+          "attack_successful": false,
+          "success_rate": 0.0,
+          "recovered_permutations": 0,
+          "details": [
+            {
+              "attempt": 0,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 1,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 2,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 3,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 4,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 5,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 6,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 7,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 8,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 9,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 10,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 11,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 12,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 13,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 14,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 15,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 16,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 17,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 18,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 19,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 20,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 21,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 22,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 23,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 24,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 25,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 26,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 27,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 28,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 29,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 30,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 31,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 32,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 33,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 34,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 35,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 36,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 37,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 38,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 39,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 40,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 41,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 42,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 43,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 44,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 45,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 46,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 47,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 48,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 49,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            }
+          ],
+          "VERDICT": "Passed - Permutation not recoverable"
+        },
+        "IV Reuse Vulnerability": {
+          "leakage_detected": false,
+          "identical_permutations": 0,
+          "percentage": 0.0,
+          "details": [
+            {
+              "test": 0,
+              "IV": "4983712dab053626",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 1,
+              "IV": "6bef89010d93f0d8",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 2,
+              "IV": "c767bca655f1eafb",
+              "pattern_preserved": false,
+              "matching_positions": 0,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 3,
+              "IV": "7b816ff40779e857",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 4,
+              "IV": "b00abf872e0d56d2",
+              "pattern_preserved": true,
+              "matching_positions": 4,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 5,
+              "IV": "360fd9ca254d4d0a",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 6,
+              "IV": "2c82e0926127c90d",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 7,
+              "IV": "3e8e1834f288f75a",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 8,
+              "IV": "68042deda7b0cdf0",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 9,
+              "IV": "d73fa6992f933d8d",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 10,
+              "IV": "8bd85c5a2ecf78e1",
+              "pattern_preserved": true,
+              "matching_positions": 3,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 11,
+              "IV": "c3cfefb9b037ebf1",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 12,
+              "IV": "447f1ebaa0989a5a",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 13,
+              "IV": "7234e731671ad949",
+              "pattern_preserved": true,
+              "matching_positions": 4,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 14,
+              "IV": "315bf15fe0f1838d",
+              "pattern_preserved": true,
+              "matching_positions": 3,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 15,
+              "IV": "8e02557f0614ced4",
+              "pattern_preserved": true,
+              "matching_positions": 5,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 16,
+              "IV": "5e7fe8662bb29c38",
+              "pattern_preserved": true,
+              "matching_positions": 3,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 17,
+              "IV": "6427c457a93f4682",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 18,
+              "IV": "1f1f4a7cb6ef600e",
+              "pattern_preserved": false,
+              "matching_positions": 0,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 19,
+              "IV": "a4833387a42cea3f",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 20,
+              "IV": "a436c3be473dd30a",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 21,
+              "IV": "a8fe7917c00ea5ce",
+              "pattern_preserved": false,
+              "matching_positions": 0,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 22,
+              "IV": "65dce99724180767",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 23,
+              "IV": "72de02b764458d80",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 24,
+              "IV": "f7d4129fdb95e461",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 25,
+              "IV": "c4545c9ce7a1f712",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 26,
+              "IV": "08ce4984572c7164",
+              "pattern_preserved": true,
+              "matching_positions": 3,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 27,
+              "IV": "24d912a49455cf27",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 28,
+              "IV": "f8f355b71a5cd8e9",
+              "pattern_preserved": false,
+              "matching_positions": 0,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 29,
+              "IV": "54c924c8d8936bbb",
+              "pattern_preserved": true,
+              "matching_positions": 3,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 30,
+              "IV": "1fdb7fcd3c72bff0",
+              "pattern_preserved": true,
+              "matching_positions": 3,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 31,
+              "IV": "db11eb164455de2a",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 32,
+              "IV": "e96d1e2ae877f635",
+              "pattern_preserved": true,
+              "matching_positions": 4,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 33,
+              "IV": "5c3d949816e6da4c",
+              "pattern_preserved": true,
+              "matching_positions": 3,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 34,
+              "IV": "e546a9165ed3198b",
+              "pattern_preserved": false,
+              "matching_positions": 0,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 35,
+              "IV": "11d0a4c8e36974d7",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 36,
+              "IV": "021a9a3d02f20d36",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 37,
+              "IV": "ca61c4592bf6d1f9",
+              "pattern_preserved": true,
+              "matching_positions": 4,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 38,
+              "IV": "28e9a804abbd71c8",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 39,
+              "IV": "9c4ad5ab7661be9a",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 40,
+              "IV": "4e38ad3f5c718120",
+              "pattern_preserved": false,
+              "matching_positions": 0,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 41,
+              "IV": "1075099dce2d7349",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 42,
+              "IV": "c55c3aa62923bf80",
+              "pattern_preserved": false,
+              "matching_positions": 0,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 43,
+              "IV": "b94a2c1b2f1085c5",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 44,
+              "IV": "5d5e5354b5f19511",
+              "pattern_preserved": false,
+              "matching_positions": 0,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 45,
+              "IV": "c83cea8df66ce979",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 46,
+              "IV": "236fb7385b4fca36",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 47,
+              "IV": "dd7845e72a2425e1",
+              "pattern_preserved": false,
+              "matching_positions": 0,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 48,
+              "IV": "85af03ceafb2b3c1",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 49,
+              "IV": "d8cd76b3407dc3e2",
+              "pattern_preserved": true,
+              "matching_positions": 3,
+              "same_permutation_likely": false
+            }
+          ],
+          "VERDICT": "IV reuse leaks information (detected in 0/50 cases) - This is EXPECTED for deterministic ciphers"
+        },
+        "Deterministic Keystream Test": {
+          "consistent": true,
+          "consistency_rate": 1.0,
+          "consistent_count": 100,
+          "inconsistent_count": 0,
+          "details": [],
+          "VERDICT": "Keystream is deterministic (expected behavior)"
+        }
+      },
+      {
+        "Permutation Recovery Test": {
+          "attack_successful": false,
+          "success_rate": 0.0,
+          "recovered_permutations": 0,
+          "details": [
+            {
+              "attempt": 0,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 1,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 2,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 3,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 4,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 5,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 6,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 7,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 8,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 9,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 10,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 11,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 12,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 13,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 14,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 15,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 16,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 17,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 18,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 19,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 20,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 21,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 22,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 23,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 24,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 25,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 26,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 27,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 28,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 29,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 30,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 31,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 32,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 33,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 34,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 35,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 36,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 37,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 38,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 39,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 40,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 41,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 42,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 43,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 44,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 45,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 46,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 47,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 48,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 49,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            }
+          ],
+          "VERDICT": "Passed - Permutation not recoverable"
+        },
+        "IV Reuse Vulnerability": {
+          "leakage_detected": false,
+          "identical_permutations": 0,
+          "percentage": 0.0,
+          "details": [
+            {
+              "test": 0,
+              "IV": "ff4c66039625798e",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 1,
+              "IV": "f4b0f6337488397d",
+              "pattern_preserved": true,
+              "matching_positions": 3,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 2,
+              "IV": "2de6dfd93269e519",
+              "pattern_preserved": false,
+              "matching_positions": 0,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 3,
+              "IV": "c99e9f668f8ccc71",
+              "pattern_preserved": false,
+              "matching_positions": 0,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 4,
+              "IV": "9114262ae70f47d5",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 5,
+              "IV": "5e6592c84db25203",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 6,
+              "IV": "d47d554d89e5de6a",
+              "pattern_preserved": true,
+              "matching_positions": 3,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 7,
+              "IV": "33a55af668f8d6c7",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 8,
+              "IV": "8346ef2f6fd9ee93",
+              "pattern_preserved": true,
+              "matching_positions": 5,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 9,
+              "IV": "11b5418ab4643c7a",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 10,
+              "IV": "4321d422b3b7cdea",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 11,
+              "IV": "5f97c02ad8c52d56",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 12,
+              "IV": "063377bab0672836",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 13,
+              "IV": "cf6468560af5f68a",
+              "pattern_preserved": false,
+              "matching_positions": 0,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 14,
+              "IV": "578015a88f5ce379",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 15,
+              "IV": "bd584d5beb70be67",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 16,
+              "IV": "e34a77d64c2ec6bf",
+              "pattern_preserved": false,
+              "matching_positions": 0,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 17,
+              "IV": "f4e87c2d5b5bc80e",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 18,
+              "IV": "baa5de69661776c6",
+              "pattern_preserved": true,
+              "matching_positions": 4,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 19,
+              "IV": "e6730c4e68aa4257",
+              "pattern_preserved": true,
+              "matching_positions": 3,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 20,
+              "IV": "01da322969e179eb",
+              "pattern_preserved": false,
+              "matching_positions": 0,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 21,
+              "IV": "8f4d1d1700818f84",
+              "pattern_preserved": true,
+              "matching_positions": 3,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 22,
+              "IV": "68d6413ac0ca8f10",
+              "pattern_preserved": true,
+              "matching_positions": 5,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 23,
+              "IV": "9d1010c7330361eb",
+              "pattern_preserved": true,
+              "matching_positions": 3,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 24,
+              "IV": "104a6e88b9460d66",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 25,
+              "IV": "75bc55150ec7c335",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 26,
+              "IV": "9b1a96547ef1344e",
+              "pattern_preserved": true,
+              "matching_positions": 3,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 27,
+              "IV": "15b1ff0e493b4fb5",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 28,
+              "IV": "fd69581a2b2a813d",
+              "pattern_preserved": true,
+              "matching_positions": 3,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 29,
+              "IV": "ad34e2e6a99f0a3b",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 30,
+              "IV": "83ed470ac0b70684",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 31,
+              "IV": "211963ef98937948",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 32,
+              "IV": "60cb942011cb8d20",
+              "pattern_preserved": false,
+              "matching_positions": 0,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 33,
+              "IV": "f82ba94b5122f7b6",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 34,
+              "IV": "dfe22a5246c8cf83",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 35,
+              "IV": "a1e0de1ef9f893f7",
+              "pattern_preserved": true,
+              "matching_positions": 3,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 36,
+              "IV": "d01c868f14b40539",
+              "pattern_preserved": true,
+              "matching_positions": 4,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 37,
+              "IV": "af36b5fb703187c2",
+              "pattern_preserved": false,
+              "matching_positions": 0,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 38,
+              "IV": "150ddfcaf489d3ed",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 39,
+              "IV": "64464f78a9d93f0f",
+              "pattern_preserved": true,
+              "matching_positions": 4,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 40,
+              "IV": "a3a662ff4500018a",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 41,
+              "IV": "2ed3352e3db780da",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 42,
+              "IV": "bafc77977a313c25",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 43,
+              "IV": "51c41aae63a1df3e",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 44,
+              "IV": "12dc6b404d37f5e7",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 45,
+              "IV": "c80f2c5d9cfe7530",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 46,
+              "IV": "c048d657ad14d2db",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 47,
+              "IV": "97b4f06641867d55",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 48,
+              "IV": "7fca3eb47e9600ea",
+              "pattern_preserved": true,
+              "matching_positions": 4,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 49,
+              "IV": "26f9660e50ec8eb2",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            }
+          ],
+          "VERDICT": "IV reuse leaks information (detected in 0/50 cases) - This is EXPECTED for deterministic ciphers"
+        },
+        "Deterministic Keystream Test": {
+          "consistent": true,
+          "consistency_rate": 1.0,
+          "consistent_count": 100,
+          "inconsistent_count": 0,
+          "details": [],
+          "VERDICT": "Keystream is deterministic (expected behavior)"
+        }
+      }
+    ]
+  }
+]

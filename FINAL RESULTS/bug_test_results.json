@@ -1,0 +1,22 @@
+[
+  {
+    "record_id": "1",
+    "data": {
+      "round trip": {
+        "test name": "round trip test",
+        "samples": 7,
+        "test cases (b64)": {
+          "0": "QQ==",
+          "1": "QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFB",
+          "2": "QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUE=",
+          "3": "QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQQ==",
+          "4": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+          "5": "/////////////////////////////////////w==",
+          "6": "iYtD5N0K32/dwR049FWkWwTojqUL9QxvDIwc05TEA6wHJG8Wq1XJTratQ+7V6HnsOODjNyRK9Agqvm+GdJ4j+xI5+OVf3dLg9VrNgjOAOi860FAjZf6Wqgz6iMBxoitdZXRm3w=="
+        }
+      },
+      "determinism test": true,
+      "key sensitivity": true
+    }
+  }
+]

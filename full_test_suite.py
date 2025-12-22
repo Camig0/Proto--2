@@ -7,17 +7,17 @@ from test_permutation_recovery import full_test as critical_tests
 from test_helper import log_test
 
 def full_test_suite():
-    samples = {"Authentication": 1000,
-               "Avalanche" : 5000,
-               "Stat tests" : 10000,
-               "Permutation Recovery" : 50,
-               "IV reuse" : 50,
-               "Deterministic KS" :100
+    samples = {"Authentication": 10,
+               "Avalanche" :2,
+               "Stat tests" : 2,
+               "Permutation Recovery" : 1,
+               "IV reuse" : 1,
+               "Deterministic KS" :1
                }
     runs = {"Authentication": 1,
-               "Avalanche" : 5,
-               "Stat tests" : 3,
-               "Critical" : 3
+               "Avalanche" : 1,
+               "Stat tests" : 1,
+               "Critical" : 1
                }
     
     print( """

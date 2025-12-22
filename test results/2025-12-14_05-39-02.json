@@ -1,0 +1,437 @@
+{
+  "1": {
+    "authentication_results": {
+      "Non-CTR Authentication": {
+        "test name": "authentication test",
+        "sample size": 10,
+        "failed samples": 0,
+        "success rate": 1.0
+      },
+      "CTR Authentication": {
+        "test name": "authentication test (ctr)",
+        "sample size": 1,
+        "failed samples": 0,
+        "success rate": 1.0
+      }
+    },
+    "avalanche_results": [
+      {
+        "diffusion test": {
+          "test_name": "diffusion test",
+          "samples": 2,
+          "Plaintext size": 53,
+          "avg hamming distance": 0.47453703703703703,
+          "details": {
+            "hamming distance": [
+              0.4675925925925926,
+              0.48148148148148145
+            ],
+            "ciphertext (base, flipepd)": {
+              "0": [
+                "uGbFpVgEecD+GGi6d+vmNEIJd9lubAB0nfiTbx2Kwi0eF47sCIOwZraP5jjJc7k3lOsCuGDP",
+                "2PMjndYRahfszpO5fDjGeifsdyvhzdjwFuWF2155KRvul4veGKZy2Xvsd1vyRtrOMMfp3OaW"
+              ],
+              "1": [
+                "YP/GiVivt9aCKcHAGW/SHrUAnIA3mvXFyNPRwSJtCmHRky6VYOYl1bR+ThzzQvAMUCG60yYq",
+                "5PAXeR2LB+v7CHmOqUytM8iOsJb5JmMHqolwwGTxX3mckEbOCcFXyUMkqDN0teXfdoTL9W/9"
+              ]
+            }
+          }
+        },
+        "confusion test": {
+          "test_name": "key confusion test",
+          "samples": 2,
+          "Plaintext size": 53,
+          "avg hamming distance": 0.4895833333333333,
+          "details": {
+            "hamming distance": [
+              0.4652777777777778,
+              0.5138888888888888
+            ],
+            "ciphertext (base, flipepd)": {
+              "0": [
+                "g1890V99I6Oomc9Adc0ZVvVyOe/qMwjdUlrDf9UEGfku5FDnOafURAuAHjM/LC0E+arFX2bx",
+                "rSsED/AsRWpI2lyvR6RyuA0D2Lu3rWV5FCPhFmUWqvBK0RGrpYGm/Dux9/NJxGcB4QJAbxrr"
+              ],
+              "1": [
+                "Ama6+CSpch5LtcV0x2rsmyeB1BX/Up+Q9rWkswSN0F+Bbdm7VsaqwTbZi4pyzia2+P18vzb9",
+                "XW1tMY35bFqe38CqmtjDMVvC97AguyZC9jAWmo9W8qQXF4NiElUadO2dOHZflQdeajM4hcBg"
+              ]
+            }
+          }
+        }
+      }
+    ],
+    "bug_test_results": {
+      "round trip": {
+        "test name": "round trip test",
+        "samples": 7,
+        "test cases (b64)": {
+          "0": "QQ==",
+          "1": "QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFB",
+          "2": "QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUE=",
+          "3": "QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQQ==",
+          "4": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+          "5": "/////////////////////////////////////w==",
+          "6": "aPfcBKxnwyMIKAftRQttO1qqnHJdFu0a1XC8N7o5gxwahfr9Br4ky9w9HGlwzmw4842Y0/pjPKJuWxzbQ/oI4JRIoq3LF3I1yCFEb4VlJpQjyk9pc4yba3ZVfQaPPfxzY+o14w=="
+        }
+      },
+      "determinism test": true,
+      "key sensitivity": true
+    },
+    "statistical_randomness_results": [
+      {
+        "byte uniformity": [
+          {
+            "test": "chi-square byte uniformity",
+            "algorithm": "cryptocube_wrapper",
+            "summary": {
+              "sample": 2,
+              "positions tested": 54,
+              "expected": "0.5059053510, 0.5059053510",
+              "failed position": []
+            },
+            "details": {
+              "position_counts": [
+                {
+                  "160": 1,
+                  "32": 1
+                },
+                {
+                  "251": 1,
+                  "135": 1
+                },
+                {
+                  "209": 1,
+                  "96": 1
+                },
+                {
+                  "201": 1,
+                  "51": 1
+                },
+                {
+                  "119": 1,
+                  "211": 1
+                },
+                {
+                  "237": 1,
+                  "189": 1
+                },
+                {
+                  "219": 1,
+                  "124": 1
+                },
+                {
+                  "28": 1,
+                  "214": 1
+                },
+                {
+                  "78": 1,
+                  "214": 1
+                },
+                {
+                  "152": 1,
+                  "5": 1
+                },
+                {
+                  "58": 1,
+                  "77": 1
+                },
+                {
+                  "181": 1,
+                  "126": 1
+                },
+                {
+                  "209": 1,
+                  "230": 1
+                },
+                {
+                  "93": 1,
+                  "133": 1
+                },
+                {
+                  "132": 1,
+                  "98": 1
+                },
+                {
+                  "32": 1,
+                  "123": 1
+                },
+                {
+                  "212": 1,
+                  "183": 1
+                },
+                {
+                  "151": 1,
+                  "192": 1
+                },
+                {
+                  "160": 1,
+                  "103": 1
+                },
+                {
+                  "183": 1,
+                  "247": 1
+                },
+                {
+                  "225": 1,
+                  "4": 1
+                },
+                {
+                  "5": 1,
+                  "76": 1
+                },
+                {
+                  "19": 1,
+                  "38": 1
+                },
+                {
+                  "246": 1,
+                  "45": 1
+                },
+                {
+                  "18": 1,
+                  "181": 1
+                },
+                {
+                  "227": 1,
+                  "230": 1
+                },
+                {
+                  "241": 1,
+                  "102": 1
+                },
+                {
+                  "242": 1,
+                  "76": 1
+                },
+                {
+                  "44": 1,
+                  "25": 1
+                },
+                {
+                  "125": 1,
+                  "11": 1
+                },
+                {
+                  "151": 1,
+                  "47": 1
+                },
+                {
+                  "79": 1,
+                  "237": 1
+                },
+                {
+                  "189": 1,
+                  "205": 1
+                },
+                {
+                  "142": 1,
+                  "3": 1
+                },
+                {
+                  "227": 1,
+                  "0": 1
+                },
+                {
+                  "72": 1,
+                  "211": 1
+                },
+                {
+                  "69": 1,
+                  "7": 1
+                },
+                {
+                  "4": 1,
+                  "192": 1
+                },
+                {
+                  "144": 1,
+                  "175": 1
+                },
+                {
+                  "72": 1,
+                  "217": 1
+                },
+                {
+                  "26": 1,
+                  "60": 1
+                },
+                {
+                  "175": 1,
+                  "190": 1
+                },
+                {
+                  "39": 1,
+                  "144": 1
+                },
+                {
+                  "101": 1,
+                  "181": 1
+                },
+                {
+                  "28": 1,
+                  "161": 1
+                },
+                {
+                  "8": 1,
+                  "46": 1
+                },
+                {
+                  "175": 1,
+                  "118": 1
+                },
+                {
+                  "21": 1,
+                  "81": 1
+                },
+                {
+                  "11": 1,
+                  "248": 1
+                },
+                {
+                  "72": 1,
+                  "45": 1
+                },
+                {
+                  "89": 1,
+                  "158": 1
+                },
+                {
+                  "204": 1,
+                  "62": 1
+                },
+                {
+                  "215": 1,
+                  "14": 1
+                },
+                {
+                  "9": 1,
+                  "124": 1
+                }
+              ],
+              "p values (0-53)": [
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367,
+                0.5059053509639367
+              ]
+            }
+          }
+        ],
+        "entropy": {
+          "test name": "enctropy test",
+          "algorithm": "cryptocube_wrapper",
+          "number of samples": 2,
+          "plaintext length": 53,
+          "Summary": {
+            "average_entropy": 5.488638543810103,
+            "min_entropy": 5.407574770641924,
+            "max_entropy": 5.569702316978282
+          },
+          "details": {
+            "ciphertexts": [
+              "p1vuitDkECKhfNxpn35ihmX1mbb9WWPV/BS6R8y5sIscoy7943CYR5e0Ygdh/VYiip/J/Nys",
+              "ydIvUGX3M17I1ZINXiNpBn/h+uLkk1DvkJtkmE8K+JhC6GobZ4S+EftoRazARbEA+rK3h+W/"
+            ],
+            "entropies": [
+              5.407574770641924,
+              5.569702316978282
+            ]
+          }
+        }
+      }
+    ],
+    "critical_test_results": [
+      {
+        "Permutation Recovery Test": {
+          "attack_successful": false,
+          "success_rate": 0.0,
+          "recovered_permutations": 0,
+          "details": [
+            {
+              "attempt": 0,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            }
+          ],
+          "VERDICT": "Passed - Permutation not recoverable"
+        },
+        "IV Reuse Vulnerability": {
+          "leakage_detected": false,
+          "identical_permutations": 0,
+          "percentage": 0.0,
+          "details": [
+            {
+              "test": 0,
+              "IV": "f5b11cab9e39aee9",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            }
+          ],
+          "VERDICT": "IV reuse leaks information (detected in 0/1 cases) - This is EXPECTED for deterministic ciphers"
+        },
+        "Deterministic Keystream Test": {
+          "consistent": true,
+          "consistency_rate": 1.0,
+          "consistent_count": 1,
+          "inconsistent_count": 0,
+          "details": [],
+          "VERDICT": "Keystream is deterministic (expected behavior)"
+        }
+      }
+    ]
+  }
+}

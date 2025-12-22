@@ -1,0 +1,129 @@
+{
+  "1": {
+    "authentication": {
+      "stat_verify_auth": {
+        "sample size": 1000,
+        "verdict": "REJECT H\u2080\u2086: Failure rate < 0.003000 (95% confidence)",
+        "max_failure_rate": 0.003
+      }
+    },
+    "diffusion": [
+      {
+        "Diffusion_stat": {
+          "mean_hd": 0.49986898148148146,
+          "ci_99.9%": "[0.4987, 0.5010]",
+          "verdict": "PASS: Diffusion achieved (\u00b11% bias)",
+          "note": "Equivalence test (CI method)"
+        }
+      },
+      {
+        "Diffusion_stat": {
+          "mean_hd": 0.5001342592592594,
+          "ci_99.9%": "[0.4990, 0.5013]",
+          "verdict": "PASS: Diffusion achieved (\u00b11% bias)",
+          "note": "Equivalence test (CI method)"
+        }
+      },
+      {
+        "Diffusion_stat": {
+          "mean_hd": 0.5005490740740741,
+          "ci_99.9%": "[0.4994, 0.5017]",
+          "verdict": "PASS: Diffusion achieved (\u00b11% bias)",
+          "note": "Equivalence test (CI method)"
+        }
+      },
+      {
+        "Diffusion_stat": {
+          "mean_hd": 0.49949537037037034,
+          "ci_99.9%": "[0.4984, 0.5006]",
+          "verdict": "PASS: Diffusion achieved (\u00b11% bias)",
+          "note": "Equivalence test (CI method)"
+        }
+      },
+      {
+        "Diffusion_stat": {
+          "mean_hd": 0.49986527777777773,
+          "ci_99.9%": "[0.4987, 0.5010]",
+          "verdict": "PASS: Diffusion achieved (\u00b11% bias)",
+          "note": "Equivalence test (CI method)"
+        }
+      }
+    ],
+    "confusion": [
+      {
+        "Confusion_stat": {
+          "mean_hd": 0.5002819444444444,
+          "ci_99.9%": "[0.4991, 0.5014]",
+          "verdict": "PASS: Confusion achieved (\u00b11% bias)",
+          "note": "Equivalence test (CI method)"
+        }
+      },
+      {
+        "Confusion_stat": {
+          "mean_hd": 0.5003273148148147,
+          "ci_99.9%": "[0.4992, 0.5015]",
+          "verdict": "PASS: Confusion achieved (\u00b11% bias)",
+          "note": "Equivalence test (CI method)"
+        }
+      },
+      {
+        "Confusion_stat": {
+          "mean_hd": 0.49997268518518523,
+          "ci_99.9%": "[0.4989, 0.5011]",
+          "verdict": "PASS: Confusion achieved (\u00b11% bias)",
+          "note": "Equivalence test (CI method)"
+        }
+      },
+      {
+        "Confusion_stat": {
+          "mean_hd": 0.5002592592592592,
+          "ci_99.9%": "[0.4991, 0.5014]",
+          "verdict": "PASS: Confusion achieved (\u00b11% bias)",
+          "note": "Equivalence test (CI method)"
+        }
+      },
+      {
+        "Confusion_stat": {
+          "mean_hd": 0.5000375,
+          "ci_99.9%": "[0.4989, 0.5012]",
+          "verdict": "PASS: Confusion achieved (\u00b11% bias)",
+          "note": "Equivalence test (CI method)"
+        }
+      }
+    ],
+    "permutation recovery": [
+      {
+        "decision": "REJECT H\u2080\u2082",
+        "verdict": "PASS: Permutation not recoverable",
+        "max_recovery_prob": 0.06
+      },
+      {
+        "decision": "REJECT H\u2080\u2082",
+        "verdict": "PASS: Permutation not recoverable",
+        "max_recovery_prob": 0.06
+      },
+      {
+        "decision": "REJECT H\u2080\u2082",
+        "verdict": "PASS: Permutation not recoverable",
+        "max_recovery_prob": 0.06
+      }
+    ],
+    "IV reuse": [
+      {
+        "samples": 50,
+        "decision": "REJECT H\u2080\u2082",
+        "verdict": "PASS: No information leakage"
+      },
+      {
+        "samples": 50,
+        "decision": "REJECT H\u2080\u2082",
+        "verdict": "PASS: No information leakage"
+      },
+      {
+        "samples": 50,
+        "decision": "REJECT H\u2080\u2082",
+        "verdict": "PASS: No information leakage"
+      }
+    ]
+  }
+}

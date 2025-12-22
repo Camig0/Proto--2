@@ -1,0 +1,17 @@
+{
+    "1": {
+    "authentication_results": {
+      "Non-CTR Authentication": {
+        "test name": "authentication test",
+        "sample size": 1000,
+        "failed samples": 0,
+        "success rate": 1.0
+      },
+     "CTR Authentication": {
+        "test name": "authentication test (ctr)",
+        "sample size": 100,
+        "failed samples": 0,
+        "success rate": 1.0
+      }}
+    }
+    }

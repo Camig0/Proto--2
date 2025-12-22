@@ -44,7 +44,7 @@ def diffusion_test(cipher, samples:int = 1000, pt_size:int = 53):
     hamming_distances = []
     ciphertexts = []
     for run in range(samples):
-        if run % (samples / 20) == 0:
+        if run % (samples / 200) == 0:
             print(f"{run}/{samples}")
         PT = os.urandom(pt_size)
         # generate bit flipped PT
@@ -82,7 +82,7 @@ def key_confusion(cipher:callable, samples:int = 1000, pt_size:int = 53):
     hamming_distances = []
     ciphertexts = []
     for run in range(samples):
-        if run % (samples / 20) == 0:
+        if run % (samples / 200) == 0:
             print(f"{run}/{samples}")
 
         #generate base master keys
@@ -126,5 +126,5 @@ def full_test(samples:int = 1000):
             "confusion test":r2}
 
 if __name__ == "__main__":
-    result = full_test(10)
+    result = full_test(5000)
     log_test(result,"test results/Avalanche tests")

@@ -1,0 +1,2865 @@
+{
+  "1": {
+    "authentication_results": {
+      "Non-CTR Authentication": {
+        "test name": "authentication test",
+        "sample size": 10,
+        "failed samples": 0,
+        "success rate": 1.0
+      },
+      "CTR Authentication": {
+        "test name": "authentication test (ctr)",
+        "sample size": 1,
+        "failed samples": 0,
+        "success rate": 1.0
+      }
+    },
+    "avalanche_results": [
+      {
+        "diffusion test": {
+          "test_name": "diffusion test",
+          "samples": 5,
+          "Plaintext size": 53,
+          "avg hamming distance": 0.500462962962963,
+          "details": {
+            "hamming distance": [
+              0.5115740740740741,
+              0.4930555555555556,
+              0.5,
+              0.5046296296296297,
+              0.4930555555555556
+            ],
+            "ciphertext (base, flipepd)": {
+              "0": [
+                "5axK+AZWR5lmMLzNYphUZe6axSQ+vx/DoNtcayKO/PnV3sla/jkqG/DfRHM6td67YHAYVsRK",
+                "uHbGtIGeAmIYP7NDhLM7cHNMnGIbk1kq6tYqrjqymlk2OJmZtTQzBM8nlqU2PRjulJjmCCi+"
+              ],
+              "1": [
+                "azGCO2gbqIfbSxYSDsXnLO5ZjbmR+aHGRcH/OwRBxZZ0mqlH2i/3tqxoF0EEYKrq+X8h+52a",
+                "Ro6+QbmpUazGX0pg/3cqv1LxZ7PozwWpDGBA3xFqbwl1HA10X8HLLWj+rQI9XGTaXXC95Y26"
+              ],
+              "2": [
+                "XzPJiWgN/1k0cZuwc6lAwY+Z7mPhVsiUzE/eLsf9V1DvcA+J8kITqXVwo1nyB8gpJ2RQ+8Lt",
+                "NBpecMn5ymaytIo9m+VnqYKmQGp5ox9Lx0fTO6/DIOuYb8mhu7edMhHbw9EdVEx9Aw37fIFM"
+              ],
+              "3": [
+                "K+2RiXMAX//vqTBE7nOMDLY/7ZWhaLG6jKWpCjaN617pDpMzMvibPhC9zk4sMbdSN1KGd7Mx",
+                "SUoZulGibdH+fzeGSgvjXE6RRAPhpQoJzF7IV9B5lxURFkVGf786t8yLo7Rj2WGiNJ32XF3p"
+              ],
+              "4": [
+                "5/Yd6RjGcczie5Lx2OJzTlyjzq0YxUMgANaYWsp3lsTWGPQz+0rYo+KgDxXN4nPpsQaHVNhE",
+                "G4gf2GqN6ljUXUU5g7dy8CjxEmyCzMEJgbgUWaTCIBrIlVFJCLc8Julo2/BNJzGL3FmJvwPU"
+              ]
+            }
+          }
+        },
+        "confusion test": {
+          "test_name": "key confusion test",
+          "samples": 5,
+          "Plaintext size": 53,
+          "avg hamming distance": 0.4921296296296296,
+          "details": {
+            "hamming distance": [
+              0.47685185185185186,
+              0.47685185185185186,
+              0.4583333333333333,
+              0.5023148148148148,
+              0.5462962962962963
+            ],
+            "ciphertext (base, flipepd)": {
+              "0": [
+                "FsBEdqE8GGLDWogI/c/J2xAbxA7g0ghFksLkOmlpw3GzPULkxNg2fXuN/+LmSkIwzzRCaprn",
+                "9HJl52CMnL69uiEJuUhUOoWtm4JyXeU20XIdq2T3ExC9Z7y6kzNTPOi0qrJHX8A5oTIBvKyZ"
+              ],
+              "1": [
+                "JZ8MeK3kLzdgwwDI/DvsMYR5u7S8M2C7zjcnWSxDkx+b3ZX+lP7gSlhWdVUq6WCQP4mCEgr7",
+                "o6DBeIud1YYMetJpDA8pPhTqmfvYZ1DePOnBBylXnDiCoxsZs/TVRoxtAAy7Y75gFZmJQnXO"
+              ],
+              "2": [
+                "wyJaPA4M3X0y4llpDDq+IONYdK0KV+IRcCCcpP50EDsOnlArC6ij8iy0gUiinx+lBUf0xt3Y",
+                "ZOOQW2iFYxPj2R8LTOoKrqZ/UoivjFOzOQqXCO6YBW8KieoAlLAo+z1Nkk+heMWahD7SnltL"
+              ],
+              "3": [
+                "ihfFjQBDQZHeev1at/0NwUo6AI5bZNrFHCJQXgzQ4bkcwqhzO5qwleRh8rqcQW5307EAx67p",
+                "aDOB4mX/OkZMo5l3aTzkGYHrDEWHkTS54sUsfa5T44gUCpVOK8cnZRc8CquIk9p0usKq9Kur"
+              ],
+              "4": [
+                "Q5ocX+nvf1zmEKVoSXykpNdJotsbaOlj387JWaR6pjThKCmEwEaSqaSqh09w2yTrfs/dR5f1",
+                "e5GsQAzwnwXYGlsHjkwNVk1H/k6m0VOZQZZYboyXGBfe+7I7HL6KFpxzl3yLlaq30YNo8DdX"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "diffusion test": {
+          "test_name": "diffusion test",
+          "samples": 5,
+          "Plaintext size": 53,
+          "avg hamming distance": 0.5212962962962963,
+          "details": {
+            "hamming distance": [
+              0.5555555555555556,
+              0.5231481481481481,
+              0.49074074074074076,
+              0.49537037037037035,
+              0.5416666666666666
+            ],
+            "ciphertext (base, flipepd)": {
+              "0": [
+                "bFM5wZYPOIQTPie48XUBDT3gkty1pm14YYOXlY50753w18hTCqRm+Scf4cvp1gMocEYYlNU3",
+                "kKbkulXatgcNhNRWJ7+SvIqG2TDpguDQiIOAHuFzasZ4ICeq8v14NUhSUiXX98D8W/2bU7Xb"
+              ],
+              "1": [
+                "asnHgSwsg/UEpKqpGZm7P2eGISlUoqSU7Irw267PEsnUKCB4bTOQIRAn9UrlUx4ed3PIgDDU",
+                "yZ0bpFtdDDkFHdFo/6mdkU+VXUENmEwyKXm9tCYan/gX6VqbNooJbt/B/r+XwvbDEGq/9qp2"
+              ],
+              "2": [
+                "SDuIhKtJtG74nmY8xB+6dtJdCzBiV7InMfnzxQbu4QcX5KGKYkFxfv8KVaOHqTC7X+tPdhrd",
+                "S/tFYrawZuoRZB3Mxur22J9xEyyrEeWZILObiGoIJcWji/HZAEMwizD6wyViqu0LGMayGmhk"
+              ],
+              "3": [
+                "ou11vROsdmLIrXalEd/F3lHnUAY83I6AH0T96SfENN2wS+xTrBsKUjRBYnSNJlv72iiBqMbI",
+                "Fms4RvcJir5tHzSblSmtlxwKAxZ3C6aMx9Sl0ZBprUPgO1q10Ys1gLsek9X6IXFH1mNfuNdE"
+              ],
+              "4": [
+                "JWCIZq+/l4ictAKhYrM/8E1hh+J17gSMjNDEpyxsOJRHUDc8KlJpZokRX0GXs2XvSdVAC5wv",
+                "TaNi36TIoGwGHwSVlA5DKHCKBxwr9+QewAJyeJmfIEbCfsLgruf+s/7dx4DRbdxK3vTpFWD5"
+              ]
+            }
+          }
+        },
+        "confusion test": {
+          "test_name": "key confusion test",
+          "samples": 5,
+          "Plaintext size": 53,
+          "avg hamming distance": 0.4916666666666667,
+          "details": {
+            "hamming distance": [
+              0.5,
+              0.4699074074074074,
+              0.49537037037037035,
+              0.5092592592592593,
+              0.4837962962962963
+            ],
+            "ciphertext (base, flipepd)": {
+              "0": [
+                "LUqeR7CXt+fxLa9ZX/Y1xWUUqRBpgI5H3qFercQCzniEwbqBFOQs8Fu4tUoMbGPb2ktNshxr",
+                "McfQNVllM8kPaPoUqMenK4QiILZrf7ZwGqiTXmc5tpOI5NiJOKgnz7xtx2hjHR/t2XjLQ493"
+              ],
+              "1": [
+                "4PWviSY8aURxMomvVyjOoUv+rkyXg2gEoD/+9sqpPYKyvGUEn00PBvvYzaX1B+a6MAFQJxIH",
+                "/ODcJ5l8DlG9+7c70s6zotIJNX7coLv3bH+47bvtoroGGIGwXucP5yX6RybSTqdsYQl1zIFd"
+              ],
+              "2": [
+                "BF1l/0G4txB5JCKh6Em6MPZ1qFUJF1w22kayT5YWPhsXCuBqTf1xp8px6MGXgA35dbF+ic39",
+                "UzQWb3dSCibC9ncwL+Vbd8LRnXbZxBd6MuilT0Rp8mcGhzU/OPIKfOuzdG8blY9SxxpmkAfe"
+              ],
+              "3": [
+                "qdJz9/BtzHnW0FKAPmYIoQPaQD1W+xVnY82tAMwckjq34qynk/CCi+8Omv155LbeqJUiEN8b",
+                "GuW7Mtqv8YFJz0KHYJ/zS1rki03kjV8rGjD/EqEivCyhnNhRr4oh3cYniI5EtreejqhcGxRL"
+              ],
+              "4": [
+                "uBgc4eTSzF3odXUi87BBc375b9AKVijdInnqX9zNO1NeuXTqikOAQvVDnPPS670mzxMtTqox",
+                "ntNg1+wBnV3CJ7HSWF8Kaz6oLWp4dw4FeW0uMquDyZiwxIVOsgu6DtsNQuS8A6K7pmZjB14i"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "diffusion test": {
+          "test_name": "diffusion test",
+          "samples": 5,
+          "Plaintext size": 53,
+          "avg hamming distance": 0.5064814814814815,
+          "details": {
+            "hamming distance": [
+              0.5393518518518519,
+              0.4837962962962963,
+              0.49537037037037035,
+              0.4976851851851852,
+              0.5162037037037037
+            ],
+            "ciphertext (base, flipepd)": {
+              "0": [
+                "zFgb3ZJq3+7U7x3B1IeFyVMY2mn8dVLBhnvE7xXxb6J3Wgcc6tDBu+69gyHlZa09K3A6DSk6",
+                "PQbxwmXRWrELZPoiStAnWaVJ/Kcug9g228wy7uO9d5EZZGZH7ijT3/rw1vw2Co1giAMoLvwC"
+              ],
+              "1": [
+                "BLcHUWIYiYFX1Z3EbrAIdlKYTnyyl8ulPrvtzHObOIFdaSkJVffKiYi2dYssCyMEH/dyhk1F",
+                "8YWKbVIKH7zQuQk9MvCxb3zxKaenCsk1wUtKaU+9wSd+8KBi//RDASyoM/VuCda0REMb5/Mo"
+              ],
+              "2": [
+                "ojKcORoqxfLTP+qeAVQS4nf7cWPdSM0DQFReyz+wxv5YRWgE9yBKxn1izcbapwX3Yh1km0+3",
+                "Mxxp/kTAsdUuXmO7W4waJ1GXowQNKXdk6fITZDG6jxdMU606KMtXQZgnzSPUKl4HsVdsnDF+"
+              ],
+              "3": [
+                "U/ylsG9/DLSUDGZ9v0eYdN3IybLkbasCrQ4uBvG5kCLFa9Pz5wvCudAF/U/M2ja4fFR8VrhB",
+                "8ik33i9aNB5GHchnsXXDW4cRQ4PSbvJcnIhZBadyjHJ6t0lE3vwnKALFGlyri1NprWjvzdOv"
+              ],
+              "4": [
+                "LmK+1wvNviudaurod/siaxJ2OMEdYEFRG/bIMUM/wngaqqUpBrszrynFAG+IEKbL5KQ5IyRe",
+                "cMQ/RMrcP+ZhsN19Zi37toqwsAmuc6e83Pp2xiUAAdJpbitfz3SKzxCLV1Hd3SfjvpdAplzN"
+              ]
+            }
+          }
+        },
+        "confusion test": {
+          "test_name": "key confusion test",
+          "samples": 5,
+          "Plaintext size": 53,
+          "avg hamming distance": 0.5037037037037038,
+          "details": {
+            "hamming distance": [
+              0.5069444444444444,
+              0.4837962962962963,
+              0.49537037037037035,
+              0.5162037037037037,
+              0.5162037037037037
+            ],
+            "ciphertext (base, flipepd)": {
+              "0": [
+                "wolECzNvhVZO28YkFu2f3lMcv4NxHxcTavIKmjuVrWii5VBiFh1WGmU7buA8zevjjlGNAZ3W",
+                "GhkxmkvYynAxjDNRTi3MnZ2CYefJMtsK0usuJ0JPYvjfXqAQ8jtPeogCry9VxQBVlnmtOGOe"
+              ],
+              "1": [
+                "M6A8bp1zhyiFMyhqRLhSF73v45Z34bs6+LxcElZO0QpRxGfTX8ttAMqQAa590tU+QgqTB1wq",
+                "s7CzcTsausgV3GCOJDNB3pJ17Px2TJMtXtm0hzvrCrV7OIShfTa6lB7C3yEtzMNoVlzKB42B"
+              ],
+              "2": [
+                "QdXmdfRW7Al7T4UgIH40cwSso9fpRC3rumTnzE7r4NKldsEmWX8TeOi2oqJ/zAgk1WmdgcBj",
+                "dNZK03R+mpnDUlP9ubcNEJQmhlAZ8bOzmiktQrCO4g2UFVkLgiR8V6A+zKbdvweQ+sTjeRbU"
+              ],
+              "3": [
+                "/VsLqJV1Xu1zfZl18NunQX0O0yTFu32XT75Zl2UL8xVtHEsIk76Y/xV5WiNzQX9GQvS/edha",
+                "UDrKYS7kkGwA+JXOvR+bbarvpwc/xblWQJgbCBx77SpbQqrTUlJOOC3beNuA/LxPi2VWvA6o"
+              ],
+              "4": [
+                "xpkOAkeqJsoy9KPV9IfAtLsIs4BCysxigUdKTU5a1N2bK1XjxtZEHb1sO4sgyqArzaJd6gXt",
+                "Q1/Mwmyz0gf0R0EiH3fdEn6W0w8T/bc3Ar3wr/xsc2+LfItWMA2sWMnLqr8aKAt/Wuh938m/"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "diffusion test": {
+          "test_name": "diffusion test",
+          "samples": 5,
+          "Plaintext size": 53,
+          "avg hamming distance": 0.5013888888888889,
+          "details": {
+            "hamming distance": [
+              0.5092592592592593,
+              0.5231481481481481,
+              0.48148148148148145,
+              0.5162037037037037,
+              0.47685185185185186
+            ],
+            "ciphertext (base, flipepd)": {
+              "0": [
+                "Pk4TTj1BBGaZjztziUgNFz9pWwjbIliBp97th5d4LB6jJH7ncfSkrp6AWEZYXce+eQITQ5vh",
+                "RmYk8CdXCMVabEya3eF7bC2nz+5CodOUGVKwRvRVjItoOQ1D9kpNtZmrIvIDYAuVtvnLwtu5"
+              ],
+              "1": [
+                "fDBoXPlREtq7S86U0OIx3E2fGDtYDLMaZ4CxIt+3ZybeU+GQ6mFA3gaNU/9Gut2zSIiyiUVT",
+                "4sj6q6D+7CWEIESB5B/4q5dh+JIhuKUie6MVSiY0rnLJNhoIK3peURY54nKA+jWnJU456F7A"
+              ],
+              "2": [
+                "QXvj1bweg3cgL+dm4Jp/K2wJDGJKRG9KqrW1YCV3zUS5QIsWsC2TB3S+Xqv+Udz33q4nS1KW",
+                "Fz0WDlWT0tZd8gOVu4K9v+cF+cd29uY+pNTjaw7izo8O0YoA2dFYfcD91jZmLcZa5ip/Kxrg"
+              ],
+              "3": [
+                "9BBA1uLCVzdx4mP7npacoQCT++YR8UJjIX/kPiNaNvpZTPXMJfMQW920NX2B7irq1mMcSbyv",
+                "vd4RilDXEkRNW9upLS7oYSIEUjP1Dk755q0YcAPYz6+RIAl8wTxCEqfSYKKDj8eXSfzpIKbf"
+              ],
+              "4": [
+                "b95eksPRQQxZXB6QUsfW93+n0impS0Z7pyRX/8I+aM9ZYfXCnisjUMxiceE/vrCO0qBUemI9",
+                "cPQabpO4Ge44/vGq9FwKz+bsgEPx2WJn+sA284dci292xNcKF/upXirWqBeExTV8Afb3LlUR"
+              ]
+            }
+          }
+        },
+        "confusion test": {
+          "test_name": "key confusion test",
+          "samples": 5,
+          "Plaintext size": 53,
+          "avg hamming distance": 0.513888888888889,
+          "details": {
+            "hamming distance": [
+              0.5092592592592593,
+              0.5277777777777778,
+              0.5162037037037037,
+              0.49074074074074076,
+              0.5254629629629629
+            ],
+            "ciphertext (base, flipepd)": {
+              "0": [
+                "p0XIzQmUEuWA9C4pufJ54jpuwQcRh6sI+yh1ZQ85HBWhi6R8oXqdzVhIzlmST9cNRRXId+qt",
+                "EDJ716jRf39f/8QMSNEIGId6qGD1k/iAKjJHdzBebQ0TQFe45CtlYDjdx6DpleZSSEw8P0lI"
+              ],
+              "1": [
+                "QGPDdblECXgMf4C4ghYChYTYTYia7VswTc7puUmTI4GqLciF7gFg9sZ4GrMAilAcYTyj2/92",
+                "qIOcg2nwFlMKK/9Npc11X2R82JuqClwEDTelkeRXMhd6OiV2ZrKqU3+7gVSP+V+wVvgOZ2CO"
+              ],
+              "2": [
+                "P2kov5+ECgE9wRy1geKbYwwwOSv1xmI6VuxsiC+4rT3qMhKiPvk0ealoELr61Oge4hKr0wbR",
+                "IdG+QFeZXPgjxMZuVZG6Je0c0Zt5nxkpp9a2tMuBytF9xklTSwJ3JP70B7Pdq2v2YtIG1sTj"
+              ],
+              "3": [
+                "8NNcz1dMt6PMzlyleFcjS6s/XqBm5duMiN/IKKRxptn0eP7PLkSrg2d1BgRJoibav2i0Oj7d",
+                "mXvSUUHCRqYFoDBXoe1lieV/0bJXoyNrXMA+YRGvWa/QZXC5ZMTBpTZQLkCq+QCyN9IAVwU/"
+              ],
+              "4": [
+                "CM6LGRReE9FqMDBDR/scOvi4xA6izWOzoGkYiIXu6kbpP6tSGftKTv6hRjLIKOKp17lp+H/4",
+                "byn5pYFy+zAmW/TeV0yJbwr0UUwkue/vRLA+9TdcnZU34zg5pgBr9Od5rlDfmaN2FA/q4sSQ"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "diffusion test": {
+          "test_name": "diffusion test",
+          "samples": 5,
+          "Plaintext size": 53,
+          "avg hamming distance": 0.5,
+          "details": {
+            "hamming distance": [
+              0.4675925925925926,
+              0.5439814814814815,
+              0.5231481481481481,
+              0.4837962962962963,
+              0.48148148148148145
+            ],
+            "ciphertext (base, flipepd)": {
+              "0": [
+                "THnmJ6HD0clb5hMvLyAuh5XnQne47UksEU695w5IHfu0KqHMCPNstjoRdNs07JIu2tEU1dL6",
+                "ZHsdVVIbXtd+ChbP0xsr+KfbEwyScb2Gkrm+VsdC+yqkQeTAKbP0JJLEWnGbhrQC84OFG+Hp"
+              ],
+              "1": [
+                "msQUerRoNi023P7NkV/s7JR32Lnw3Rgqt3k4WaMA881o6hgQLnSqRbjE8BRG79HcYNPBgzBE",
+                "xrNCLkXdC5IZ8LkI4A7BCLsZ0izvL4VzO+a4ifTic08xBgWJ2shU1sxuPbckEnFjEja/+cQ5"
+              ],
+              "2": [
+                "6q5BAsxXhmtE5q4gM+8CptHWVSRl1kmbZM3J2tY+GpUediwmi89lF/0uiykSGd9E+A2mUTZP",
+                "pVYKoQ39vWi+dCQbyAiTQNnZDAi5PddQdxArxU73C5tFr+jkBoA6XymGUAxhSOmaOy46bu3X"
+              ],
+              "3": [
+                "BWbWoEOm66QYwKztJqhzMjeYmvCQMxGRXk9tZV7hMXs8XdehL2qomStPbqMqJen7MdUTyLjd",
+                "LPlwTdJHNgxIqsw2HNnNaJxCjzGOc0JCttFCqVcS4cZ3AWy1jOtqkieS+KD76uL3q3R94ilN"
+              ],
+              "4": [
+                "RKs1/Gf/uIFE7SU6P2vk2htxhybSBxY4nil8nR3ehtVjN3/cKWIvxNihjCIxNQPYHyoKUPBQ",
+                "/+UtGm35mVf+3+NQTdBgl7l3E+aL8/tSI6gs88cZLFQcS73B5T59yfTVjcVQ6lBTdgRBGZ1k"
+              ]
+            }
+          }
+        },
+        "confusion test": {
+          "test_name": "key confusion test",
+          "samples": 5,
+          "Plaintext size": 53,
+          "avg hamming distance": 0.5162037037037037,
+          "details": {
+            "hamming distance": [
+              0.5092592592592593,
+              0.5185185185185185,
+              0.5046296296296297,
+              0.5277777777777778,
+              0.5208333333333334
+            ],
+            "ciphertext (base, flipepd)": {
+              "0": [
+                "8tHkZlS/q1NdBLHISNvcd8MDk6jwhx3Z8GYUqyVX98fQ1zpt3neZxYLKjWOND4+dyms850Vj",
+                "x0ZkTBAiBfU3O3oQm6H+Srw6QxZlQTvl0lfoKmhiAmOE9bp9Y1aEDrjWd+DhtiorZB6DHQG8"
+              ],
+              "1": [
+                "KPxtq24xc7cp0klONssNSIo+6awN7M4574Snyy+zCr1tfFCnVzlW7jI9EI0pCyyOZEDTvdn5",
+                "k3eU5c3b+qoS1/wk/ZXl14DPZMdnKalJDqezMsg7ITo+6wH+8K6mvHNZTZjXF6NO0w7hjAHG"
+              ],
+              "2": [
+                "dE1xDkNm6acRV7ZaeykxXCgl249PMtj8MqK9KGwAJjb6iL70gWwwyQoZoJMVPQ5iqzMM5fbQ",
+                "7UGS9R9uRk8SVLfT6M0TzEDuVhAIZcbI/af3l5cN2af7XMtc+2rxbtrhSqVmO7WqdY3ynax1"
+              ],
+              "3": [
+                "JQ97Ik0E/Gd2176vV+omo+7qAO5pmHOvD0SMB339/GQKi0uBcABs338KbD1e2A5PCzF7CNcb",
+                "aWYnIdCTpwl6UjKYOQzO/EroSvKdMQ9xgSKytoHpj6nGz1d66T73zoCYv3HJVurwwUHcV/2i"
+              ],
+              "4": [
+                "U+vE+9hl0MR2mI7gtJTShRocMyf09qvfHiqd4vQV68/WX/r+7plxg37bP0Nfv4b1hY2gS4uA",
+                "iC0zWRjhGo6UaXWI7CWMcI3QYuPFfZnkG0103g6ymFjF2Xaogi42ET+ytFuwxN8EozkWjlf5"
+              ]
+            }
+          }
+        }
+      }
+    ],
+    "bug_test_results": {
+      "round trip": {
+        "test name": "round trip test",
+        "samples": 7,
+        "test cases (b64)": {
+          "0": "QQ==",
+          "1": "QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFB",
+          "2": "QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUE=",
+          "3": "QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQQ==",
+          "4": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+          "5": "/////////////////////////////////////w==",
+          "6": "TV4tBEvb9KYE/WcFWuT1ypkKO4birKfLSgfZwvuT3PeOnTv8QP8D6IbftsW3tW5ufMgcpZXbouaFGnJ1L0Lng+TDik+791Dc/FYoMJ3z3SExvSZcH9rBFpBO65hIC96ieMOMDw=="
+        }
+      },
+      "determinism test": true,
+      "key sensitivity": true
+    },
+    "statistical_randomness_results": [
+      {
+        "byte uniformity": [
+          {
+            "test": "chi-square byte uniformity",
+            "algorithm": "cryptocube_wrapper",
+            "summary": {
+              "sample": 10,
+              "positions tested": 54,
+              "expected": "0.0000898662, 0.6456864029",
+              "failed position": [
+                17
+              ]
+            },
+            "details": {
+              "position_counts": [
+                {
+                  "66": 1,
+                  "134": 1,
+                  "35": 1,
+                  "187": 1,
+                  "5": 1,
+                  "76": 1,
+                  "138": 1,
+                  "91": 1,
+                  "74": 1,
+                  "23": 1
+                },
+                {
+                  "83": 1,
+                  "37": 1,
+                  "216": 1,
+                  "80": 1,
+                  "101": 1,
+                  "11": 1,
+                  "14": 1,
+                  "211": 1,
+                  "78": 1,
+                  "210": 1
+                },
+                {
+                  "235": 2,
+                  "239": 1,
+                  "105": 1,
+                  "72": 1,
+                  "13": 1,
+                  "100": 1,
+                  "177": 1,
+                  "24": 1,
+                  "238": 1
+                },
+                {
+                  "109": 1,
+                  "172": 1,
+                  "64": 1,
+                  "16": 2,
+                  "5": 1,
+                  "165": 1,
+                  "80": 1,
+                  "219": 1,
+                  "65": 1
+                },
+                {
+                  "89": 1,
+                  "192": 1,
+                  "206": 1,
+                  "177": 2,
+                  "63": 1,
+                  "200": 1,
+                  "194": 1,
+                  "98": 1,
+                  "254": 1
+                },
+                {
+                  "168": 1,
+                  "45": 1,
+                  "99": 1,
+                  "88": 1,
+                  "7": 1,
+                  "39": 1,
+                  "104": 1,
+                  "90": 1,
+                  "180": 1,
+                  "231": 1
+                },
+                {
+                  "35": 1,
+                  "20": 1,
+                  "117": 1,
+                  "48": 1,
+                  "99": 1,
+                  "216": 1,
+                  "201": 1,
+                  "107": 1,
+                  "247": 1,
+                  "9": 1
+                },
+                {
+                  "203": 1,
+                  "139": 1,
+                  "104": 1,
+                  "50": 1,
+                  "85": 1,
+                  "249": 1,
+                  "111": 1,
+                  "90": 1,
+                  "109": 1,
+                  "28": 1
+                },
+                {
+                  "126": 1,
+                  "163": 2,
+                  "224": 1,
+                  "151": 1,
+                  "249": 1,
+                  "221": 1,
+                  "198": 1,
+                  "143": 1,
+                  "39": 1
+                },
+                {
+                  "41": 1,
+                  "105": 1,
+                  "215": 1,
+                  "73": 1,
+                  "239": 1,
+                  "67": 1,
+                  "176": 1,
+                  "58": 1,
+                  "255": 1,
+                  "114": 1
+                },
+                {
+                  "3": 1,
+                  "42": 2,
+                  "196": 1,
+                  "10": 1,
+                  "16": 1,
+                  "101": 1,
+                  "98": 1,
+                  "57": 1,
+                  "76": 1
+                },
+                {
+                  "130": 1,
+                  "102": 1,
+                  "222": 1,
+                  "152": 1,
+                  "59": 1,
+                  "100": 1,
+                  "50": 1,
+                  "192": 1,
+                  "128": 1,
+                  "194": 1
+                },
+                {
+                  "252": 1,
+                  "89": 1,
+                  "129": 1,
+                  "59": 1,
+                  "201": 1,
+                  "109": 1,
+                  "86": 1,
+                  "61": 1,
+                  "87": 1,
+                  "185": 1
+                },
+                {
+                  "246": 1,
+                  "125": 2,
+                  "39": 1,
+                  "62": 1,
+                  "181": 1,
+                  "136": 1,
+                  "66": 1,
+                  "71": 1,
+                  "229": 1
+                },
+                {
+                  "28": 2,
+                  "229": 1,
+                  "14": 1,
+                  "187": 1,
+                  "135": 1,
+                  "55": 1,
+                  "250": 1,
+                  "132": 1,
+                  "122": 1
+                },
+                {
+                  "112": 1,
+                  "111": 1,
+                  "245": 1,
+                  "252": 1,
+                  "155": 1,
+                  "120": 1,
+                  "31": 1,
+                  "13": 1,
+                  "60": 1,
+                  "205": 1
+                },
+                {
+                  "189": 1,
+                  "219": 1,
+                  "182": 1,
+                  "59": 2,
+                  "113": 1,
+                  "65": 1,
+                  "85": 1,
+                  "47": 1,
+                  "216": 1
+                },
+                {
+                  "203": 2,
+                  "176": 1,
+                  "46": 2,
+                  "34": 1,
+                  "60": 1,
+                  "127": 1,
+                  "7": 1,
+                  "5": 1
+                },
+                {
+                  "238": 1,
+                  "88": 1,
+                  "5": 1,
+                  "96": 1,
+                  "86": 1,
+                  "243": 1,
+                  "226": 1,
+                  "34": 1,
+                  "108": 1,
+                  "115": 1
+                },
+                {
+                  "222": 1,
+                  "176": 1,
+                  "52": 1,
+                  "9": 1,
+                  "228": 1,
+                  "247": 1,
+                  "233": 1,
+                  "39": 1,
+                  "80": 1,
+                  "59": 1
+                },
+                {
+                  "202": 1,
+                  "243": 1,
+                  "236": 1,
+                  "4": 1,
+                  "250": 1,
+                  "116": 1,
+                  "113": 1,
+                  "248": 1,
+                  "176": 1,
+                  "84": 1
+                },
+                {
+                  "144": 1,
+                  "241": 1,
+                  "230": 1,
+                  "14": 1,
+                  "89": 1,
+                  "235": 1,
+                  "192": 1,
+                  "172": 1,
+                  "124": 1,
+                  "193": 1
+                },
+                {
+                  "20": 1,
+                  "171": 1,
+                  "128": 1,
+                  "96": 1,
+                  "63": 2,
+                  "181": 1,
+                  "200": 1,
+                  "130": 1,
+                  "206": 1
+                },
+                {
+                  "5": 1,
+                  "104": 1,
+                  "109": 1,
+                  "28": 1,
+                  "119": 1,
+                  "0": 1,
+                  "149": 1,
+                  "158": 1,
+                  "173": 1,
+                  "99": 1
+                },
+                {
+                  "85": 1,
+                  "141": 1,
+                  "214": 2,
+                  "26": 1,
+                  "100": 1,
+                  "84": 1,
+                  "139": 1,
+                  "125": 1,
+                  "88": 1
+                },
+                {
+                  "217": 1,
+                  "181": 1,
+                  "115": 1,
+                  "149": 1,
+                  "212": 1,
+                  "13": 1,
+                  "145": 1,
+                  "0": 1,
+                  "120": 1,
+                  "147": 1
+                },
+                {
+                  "228": 1,
+                  "189": 1,
+                  "83": 1,
+                  "65": 1,
+                  "134": 1,
+                  "107": 1,
+                  "227": 1,
+                  "208": 1,
+                  "230": 1,
+                  "5": 1
+                },
+                {
+                  "37": 1,
+                  "195": 2,
+                  "0": 1,
+                  "50": 1,
+                  "104": 1,
+                  "26": 1,
+                  "27": 1,
+                  "245": 1,
+                  "80": 1
+                },
+                {
+                  "170": 2,
+                  "97": 1,
+                  "15": 1,
+                  "195": 1,
+                  "55": 1,
+                  "51": 1,
+                  "199": 1,
+                  "154": 1,
+                  "67": 1
+                },
+                {
+                  "179": 1,
+                  "51": 1,
+                  "162": 1,
+                  "190": 1,
+                  "211": 1,
+                  "199": 1,
+                  "136": 1,
+                  "26": 1,
+                  "34": 1,
+                  "246": 1
+                },
+                {
+                  "152": 1,
+                  "173": 1,
+                  "159": 1,
+                  "178": 1,
+                  "157": 1,
+                  "244": 1,
+                  "94": 1,
+                  "174": 1,
+                  "131": 1,
+                  "52": 1
+                },
+                {
+                  "125": 1,
+                  "246": 1,
+                  "148": 1,
+                  "32": 1,
+                  "163": 1,
+                  "77": 1,
+                  "81": 1,
+                  "72": 1,
+                  "59": 1,
+                  "248": 1
+                },
+                {
+                  "37": 1,
+                  "222": 1,
+                  "139": 1,
+                  "104": 1,
+                  "86": 1,
+                  "161": 1,
+                  "244": 1,
+                  "107": 1,
+                  "234": 1,
+                  "243": 1
+                },
+                {
+                  "218": 1,
+                  "52": 1,
+                  "19": 1,
+                  "113": 2,
+                  "169": 1,
+                  "157": 1,
+                  "110": 1,
+                  "54": 1,
+                  "50": 1
+                },
+                {
+                  "244": 1,
+                  "119": 1,
+                  "66": 1,
+                  "241": 1,
+                  "205": 1,
+                  "229": 1,
+                  "146": 1,
+                  "151": 1,
+                  "5": 1,
+                  "107": 1
+                },
+                {
+                  "132": 1,
+                  "195": 1,
+                  "143": 1,
+                  "81": 1,
+                  "121": 1,
+                  "86": 1,
+                  "107": 1,
+                  "95": 1,
+                  "224": 1,
+                  "55": 1
+                },
+                {
+                  "33": 1,
+                  "241": 1,
+                  "98": 2,
+                  "201": 1,
+                  "74": 1,
+                  "90": 1,
+                  "132": 1,
+                  "101": 1,
+                  "215": 1
+                },
+                {
+                  "49": 1,
+                  "184": 1,
+                  "173": 1,
+                  "155": 1,
+                  "6": 1,
+                  "238": 1,
+                  "105": 1,
+                  "127": 1,
+                  "189": 1,
+                  "28": 1
+                },
+                {
+                  "62": 1,
+                  "51": 1,
+                  "89": 1,
+                  "105": 1,
+                  "73": 1,
+                  "167": 1,
+                  "57": 1,
+                  "115": 1,
+                  "218": 1,
+                  "80": 1
+                },
+                {
+                  "166": 1,
+                  "216": 1,
+                  "116": 1,
+                  "27": 1,
+                  "172": 1,
+                  "244": 1,
+                  "95": 1,
+                  "145": 1,
+                  "43": 1,
+                  "237": 1
+                },
+                {
+                  "213": 1,
+                  "155": 1,
+                  "59": 1,
+                  "76": 2,
+                  "238": 1,
+                  "117": 1,
+                  "4": 1,
+                  "63": 1,
+                  "103": 1
+                },
+                {
+                  "173": 1,
+                  "212": 1,
+                  "73": 1,
+                  "113": 1,
+                  "144": 1,
+                  "43": 1,
+                  "178": 1,
+                  "180": 1,
+                  "5": 1,
+                  "52": 1
+                },
+                {
+                  "200": 1,
+                  "63": 1,
+                  "171": 1,
+                  "29": 1,
+                  "162": 1,
+                  "66": 1,
+                  "209": 1,
+                  "107": 1,
+                  "97": 1,
+                  "153": 1
+                },
+                {
+                  "141": 1,
+                  "31": 1,
+                  "212": 2,
+                  "94": 1,
+                  "216": 1,
+                  "98": 1,
+                  "245": 1,
+                  "50": 1,
+                  "1": 1
+                },
+                {
+                  "74": 1,
+                  "66": 1,
+                  "152": 1,
+                  "146": 1,
+                  "60": 1,
+                  "217": 1,
+                  "42": 1,
+                  "167": 1,
+                  "15": 1,
+                  "233": 1
+                },
+                {
+                  "252": 1,
+                  "129": 1,
+                  "186": 1,
+                  "120": 1,
+                  "242": 1,
+                  "170": 1,
+                  "104": 1,
+                  "9": 1,
+                  "52": 1,
+                  "236": 1
+                },
+                {
+                  "115": 1,
+                  "218": 1,
+                  "135": 1,
+                  "23": 2,
+                  "196": 1,
+                  "225": 1,
+                  "222": 1,
+                  "171": 1,
+                  "28": 1
+                },
+                {
+                  "181": 1,
+                  "126": 1,
+                  "228": 1,
+                  "219": 1,
+                  "120": 1,
+                  "192": 1,
+                  "2": 1,
+                  "130": 1,
+                  "202": 1,
+                  "19": 1
+                },
+                {
+                  "217": 1,
+                  "146": 1,
+                  "250": 1,
+                  "193": 1,
+                  "94": 1,
+                  "231": 1,
+                  "121": 1,
+                  "134": 1,
+                  "29": 1,
+                  "87": 1
+                },
+                {
+                  "222": 1,
+                  "182": 1,
+                  "19": 1,
+                  "159": 1,
+                  "69": 1,
+                  "253": 1,
+                  "1": 1,
+                  "67": 1,
+                  "121": 1,
+                  "70": 1
+                },
+                {
+                  "115": 1,
+                  "43": 1,
+                  "198": 1,
+                  "192": 1,
+                  "57": 1,
+                  "141": 1,
+                  "14": 1,
+                  "40": 1,
+                  "7": 1,
+                  "177": 1
+                },
+                {
+                  "161": 1,
+                  "203": 1,
+                  "105": 1,
+                  "220": 1,
+                  "25": 1,
+                  "151": 1,
+                  "118": 1,
+                  "27": 1,
+                  "207": 1,
+                  "156": 1
+                },
+                {
+                  "179": 1,
+                  "145": 1,
+                  "0": 1,
+                  "90": 1,
+                  "175": 1,
+                  "164": 1,
+                  "15": 1,
+                  "199": 1,
+                  "21": 1,
+                  "207": 1
+                },
+                {
+                  "18": 1,
+                  "242": 1,
+                  "102": 1,
+                  "186": 1,
+                  "4": 1,
+                  "235": 1,
+                  "58": 1,
+                  "79": 1,
+                  "179": 1,
+                  "27": 1
+                }
+              ],
+              "p values (0-53)": [
+                0.6456864029044693,
+                0.6456864029044693,
+                0.035643999714636006,
+                0.035643999714636006,
+                0.03564399971463583,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.03564399971463583,
+                0.6456864029044693,
+                0.035643999714636006,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.03564399971463583,
+                0.03564399971463583,
+                0.6456864029044693,
+                0.03564399971463583,
+                8.986615410161716e-05,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044698,
+                0.03564399971463583,
+                0.6456864029044693,
+                0.03564399971463583,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.03564399971463583,
+                0.035643999714636006,
+                0.6456864029044693,
+                0.6456864029044698,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.03564399971463583,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.03564399971463583,
+                0.6456864029044693,
+                0.6456864029044698,
+                0.6456864029044693,
+                0.03564399971463583,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.03564399971463583,
+                0.6456864029044698,
+                0.6456864029044693,
+                0.03564399971463583,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044693
+              ]
+            }
+          }
+        ],
+        "entropy": {
+          "test name": "enctropy test",
+          "algorithm": "cryptocube_wrapper",
+          "number of samples": 10,
+          "plaintext length": 53,
+          "Summary": {
+            "average_entropy": 5.528471460484782,
+            "min_entropy": 5.421554168830135,
+            "max_entropy": 5.606739354015319
+          },
+          "details": {
+            "ciphertexts": [
+              "Wt8ml2VkckUfHZIC/0peNuFgwwMNqBbdZvjKbUZtvf3uymlgmezNHqqnu+via5+5FmYwPg/S",
+              "rcZuWweMxc6WH3SUh8in7R0aQVLUxL7Myp3O52KgUDf5ZNMmqh94X8ePIsG2Ve6HKEf9gY/D",
+              "nMQE7QIgaDaoV6oGOQQPmv0QePQoemQL8+IEw7IcJDh8fW8scfuU24gv5y823DplH6fbdUeG",
+              "I4NyhKDMoXsbFHqhderzHlyHkYxPuGU+XI2bd5SphqZHRfqIG7CvS6b2IrKxZEOCpYKs7UKs",
+              "yFXDkeP2imLSVigiStZw1LjdQQZAuJwxDiNZ6mOvxrNIME01glRHY1AQMwpIE9liGNAq+eeR",
+              "1+wzYYY3U962uXcgWHZYUiXaoLlSSA3xu7QeqBjuU4Mgju5N4mjofuKKpkEp+IXkN8dZtJFn",
+              "v06emL8ODhP5MgRo+DWIz2cTW1gwj/3wZ5+GLp/lxgJt5QjVZ4pJXo037R9WyLX4QqupS7wQ",
+              "dGmghYM0GNtt8w+onyKquZDmwP9rh92nfCXhNKBO2dLFEF41Ljz7EIbVJt6jFZGfCX8bljBT",
+              "kmk5w/UfSrtJsb0p1kchkxY1vYwRvM2xWUEVt9FyfQbgfaLP0puWPT1zZDEMEyXIZ45RZArW",
+              "mWuvoeORU4id6W2fIf2TmgSTgMfdgIjsrtQsx7kiAo3sAKqH+j71QHZa1AaVYpeZk8OM0dnQ"
+            ],
+            "entropies": [
+              5.569702316978282,
+              5.606739354015319,
+              5.555722918790071,
+              5.532665279941246,
+              5.569702316978281,
+              5.421554168830135,
+              5.44461180767896,
+              5.6067393540153185,
+              5.532665279941246,
+              5.44461180767896
+            ]
+          }
+        }
+      },
+      {
+        "byte uniformity": [
+          {
+            "test": "chi-square byte uniformity",
+            "algorithm": "cryptocube_wrapper",
+            "summary": {
+              "sample": 10,
+              "positions tested": 54,
+              "expected": "0.0356439997, 0.6456864029",
+              "failed position": []
+            },
+            "details": {
+              "position_counts": [
+                {
+                  "164": 1,
+                  "90": 1,
+                  "140": 1,
+                  "23": 1,
+                  "246": 1,
+                  "1": 1,
+                  "218": 1,
+                  "51": 1,
+                  "13": 1,
+                  "229": 1
+                },
+                {
+                  "75": 1,
+                  "141": 1,
+                  "142": 1,
+                  "71": 1,
+                  "202": 1,
+                  "80": 1,
+                  "33": 1,
+                  "151": 1,
+                  "199": 1,
+                  "23": 1
+                },
+                {
+                  "230": 1,
+                  "216": 1,
+                  "111": 1,
+                  "139": 1,
+                  "205": 1,
+                  "40": 1,
+                  "179": 1,
+                  "120": 1,
+                  "128": 1,
+                  "217": 1
+                },
+                {
+                  "32": 1,
+                  "246": 1,
+                  "138": 1,
+                  "69": 1,
+                  "108": 1,
+                  "198": 1,
+                  "104": 1,
+                  "234": 1,
+                  "44": 1,
+                  "21": 1
+                },
+                {
+                  "100": 1,
+                  "248": 1,
+                  "39": 1,
+                  "158": 1,
+                  "181": 1,
+                  "72": 1,
+                  "210": 1,
+                  "221": 1,
+                  "143": 1,
+                  "214": 1
+                },
+                {
+                  "37": 1,
+                  "219": 1,
+                  "138": 1,
+                  "248": 1,
+                  "163": 1,
+                  "106": 1,
+                  "4": 1,
+                  "187": 1,
+                  "216": 1,
+                  "43": 1
+                },
+                {
+                  "15": 1,
+                  "8": 2,
+                  "72": 1,
+                  "210": 1,
+                  "53": 1,
+                  "175": 1,
+                  "85": 1,
+                  "26": 1,
+                  "211": 1
+                },
+                {
+                  "140": 1,
+                  "93": 1,
+                  "0": 1,
+                  "198": 1,
+                  "205": 1,
+                  "34": 1,
+                  "196": 1,
+                  "165": 1,
+                  "1": 1,
+                  "189": 1
+                },
+                {
+                  "104": 1,
+                  "69": 1,
+                  "190": 1,
+                  "171": 1,
+                  "232": 1,
+                  "73": 1,
+                  "150": 1,
+                  "81": 1,
+                  "75": 1,
+                  "13": 1
+                },
+                {
+                  "3": 1,
+                  "188": 1,
+                  "69": 1,
+                  "224": 1,
+                  "52": 1,
+                  "132": 1,
+                  "254": 1,
+                  "74": 1,
+                  "121": 1,
+                  "17": 1
+                },
+                {
+                  "124": 1,
+                  "76": 1,
+                  "5": 1,
+                  "135": 1,
+                  "20": 1,
+                  "221": 1,
+                  "226": 1,
+                  "42": 1,
+                  "194": 1,
+                  "160": 1
+                },
+                {
+                  "120": 1,
+                  "152": 1,
+                  "75": 1,
+                  "119": 1,
+                  "164": 1,
+                  "140": 1,
+                  "234": 1,
+                  "80": 1,
+                  "198": 1,
+                  "171": 1
+                },
+                {
+                  "60": 1,
+                  "113": 1,
+                  "185": 1,
+                  "121": 1,
+                  "21": 1,
+                  "84": 1,
+                  "59": 1,
+                  "35": 1,
+                  "219": 1,
+                  "85": 1
+                },
+                {
+                  "161": 1,
+                  "58": 1,
+                  "37": 1,
+                  "46": 1,
+                  "128": 1,
+                  "87": 1,
+                  "55": 1,
+                  "137": 1,
+                  "32": 1,
+                  "251": 1
+                },
+                {
+                  "56": 1,
+                  "200": 1,
+                  "188": 1,
+                  "129": 1,
+                  "103": 1,
+                  "243": 1,
+                  "168": 1,
+                  "75": 1,
+                  "240": 1,
+                  "126": 1
+                },
+                {
+                  "255": 1,
+                  "150": 1,
+                  "81": 1,
+                  "70": 1,
+                  "32": 1,
+                  "159": 1,
+                  "120": 1,
+                  "184": 1,
+                  "90": 1,
+                  "111": 1
+                },
+                {
+                  "206": 1,
+                  "18": 1,
+                  "245": 1,
+                  "195": 1,
+                  "161": 1,
+                  "86": 1,
+                  "253": 1,
+                  "203": 1,
+                  "108": 1,
+                  "229": 1
+                },
+                {
+                  "232": 1,
+                  "246": 1,
+                  "243": 1,
+                  "234": 1,
+                  "224": 1,
+                  "255": 1,
+                  "98": 1,
+                  "236": 1,
+                  "100": 1,
+                  "75": 1
+                },
+                {
+                  "206": 1,
+                  "135": 1,
+                  "69": 1,
+                  "194": 1,
+                  "251": 2,
+                  "119": 1,
+                  "208": 1,
+                  "181": 1,
+                  "219": 1
+                },
+                {
+                  "179": 1,
+                  "153": 1,
+                  "83": 1,
+                  "241": 1,
+                  "147": 1,
+                  "250": 1,
+                  "78": 1,
+                  "84": 1,
+                  "183": 1,
+                  "48": 1
+                },
+                {
+                  "39": 1,
+                  "130": 1,
+                  "32": 1,
+                  "34": 1,
+                  "198": 1,
+                  "178": 1,
+                  "182": 1,
+                  "22": 1,
+                  "107": 1,
+                  "0": 1
+                },
+                {
+                  "97": 1,
+                  "75": 1,
+                  "240": 1,
+                  "41": 1,
+                  "137": 1,
+                  "146": 1,
+                  "133": 1,
+                  "190": 1,
+                  "18": 1,
+                  "47": 1
+                },
+                {
+                  "213": 1,
+                  "43": 1,
+                  "184": 2,
+                  "109": 1,
+                  "37": 1,
+                  "250": 1,
+                  "138": 1,
+                  "148": 1,
+                  "132": 1
+                },
+                {
+                  "254": 1,
+                  "50": 1,
+                  "173": 1,
+                  "156": 1,
+                  "178": 1,
+                  "24": 1,
+                  "170": 1,
+                  "249": 1,
+                  "190": 1,
+                  "106": 1
+                },
+                {
+                  "40": 1,
+                  "217": 1,
+                  "223": 1,
+                  "255": 1,
+                  "254": 2,
+                  "51": 1,
+                  "64": 1,
+                  "135": 1,
+                  "41": 1
+                },
+                {
+                  "155": 1,
+                  "39": 1,
+                  "158": 1,
+                  "100": 1,
+                  "143": 1,
+                  "27": 1,
+                  "203": 1,
+                  "241": 1,
+                  "44": 1,
+                  "189": 1
+                },
+                {
+                  "204": 1,
+                  "47": 1,
+                  "166": 1,
+                  "119": 1,
+                  "33": 1,
+                  "103": 1,
+                  "91": 1,
+                  "84": 1,
+                  "205": 1,
+                  "251": 1
+                },
+                {
+                  "232": 1,
+                  "38": 1,
+                  "89": 1,
+                  "108": 1,
+                  "86": 1,
+                  "27": 1,
+                  "79": 1,
+                  "136": 1,
+                  "6": 1,
+                  "62": 1
+                },
+                {
+                  "56": 2,
+                  "192": 1,
+                  "217": 1,
+                  "210": 1,
+                  "214": 1,
+                  "196": 1,
+                  "88": 1,
+                  "150": 1,
+                  "38": 1
+                },
+                {
+                  "81": 1,
+                  "22": 1,
+                  "224": 1,
+                  "147": 1,
+                  "209": 1,
+                  "213": 1,
+                  "7": 1,
+                  "131": 1,
+                  "113": 1,
+                  "200": 1
+                },
+                {
+                  "203": 1,
+                  "252": 2,
+                  "100": 1,
+                  "21": 1,
+                  "190": 1,
+                  "59": 1,
+                  "170": 1,
+                  "88": 1,
+                  "71": 1
+                },
+                {
+                  "70": 1,
+                  "142": 1,
+                  "176": 1,
+                  "189": 1,
+                  "181": 1,
+                  "127": 1,
+                  "161": 1,
+                  "170": 1,
+                  "55": 1,
+                  "233": 1
+                },
+                {
+                  "212": 1,
+                  "12": 1,
+                  "47": 1,
+                  "1": 1,
+                  "50": 1,
+                  "105": 1,
+                  "136": 1,
+                  "19": 1,
+                  "143": 1,
+                  "106": 1
+                },
+                {
+                  "180": 1,
+                  "128": 1,
+                  "100": 1,
+                  "66": 1,
+                  "48": 1,
+                  "67": 1,
+                  "24": 1,
+                  "29": 1,
+                  "234": 1,
+                  "34": 1
+                },
+                {
+                  "15": 1,
+                  "72": 1,
+                  "92": 1,
+                  "138": 1,
+                  "247": 1,
+                  "43": 1,
+                  "77": 1,
+                  "44": 1,
+                  "253": 1,
+                  "111": 1
+                },
+                {
+                  "148": 1,
+                  "186": 1,
+                  "15": 1,
+                  "17": 1,
+                  "112": 1,
+                  "47": 1,
+                  "46": 1,
+                  "106": 1,
+                  "140": 1,
+                  "78": 1
+                },
+                {
+                  "61": 1,
+                  "110": 1,
+                  "116": 1,
+                  "216": 1,
+                  "85": 1,
+                  "236": 1,
+                  "198": 1,
+                  "217": 1,
+                  "255": 1,
+                  "222": 1
+                },
+                {
+                  "173": 1,
+                  "255": 1,
+                  "233": 1,
+                  "226": 1,
+                  "95": 1,
+                  "35": 1,
+                  "180": 1,
+                  "192": 1,
+                  "161": 1,
+                  "200": 1
+                },
+                {
+                  "9": 1,
+                  "219": 1,
+                  "128": 1,
+                  "13": 1,
+                  "244": 1,
+                  "82": 1,
+                  "96": 1,
+                  "101": 1,
+                  "26": 1,
+                  "43": 1
+                },
+                {
+                  "115": 1,
+                  "16": 1,
+                  "24": 1,
+                  "59": 1,
+                  "1": 1,
+                  "58": 1,
+                  "95": 1,
+                  "145": 1,
+                  "147": 1,
+                  "82": 1
+                },
+                {
+                  "185": 1,
+                  "183": 1,
+                  "133": 1,
+                  "3": 1,
+                  "195": 1,
+                  "80": 1,
+                  "27": 1,
+                  "56": 1,
+                  "169": 1,
+                  "233": 1
+                },
+                {
+                  "207": 1,
+                  "53": 1,
+                  "232": 1,
+                  "141": 1,
+                  "190": 1,
+                  "208": 1,
+                  "246": 1,
+                  "243": 1,
+                  "109": 1,
+                  "94": 1
+                },
+                {
+                  "76": 1,
+                  "121": 1,
+                  "98": 1,
+                  "86": 1,
+                  "99": 1,
+                  "132": 1,
+                  "41": 1,
+                  "136": 1,
+                  "194": 1,
+                  "47": 1
+                },
+                {
+                  "93": 1,
+                  "205": 1,
+                  "173": 1,
+                  "21": 1,
+                  "20": 1,
+                  "149": 1,
+                  "29": 1,
+                  "44": 1,
+                  "254": 1,
+                  "208": 1
+                },
+                {
+                  "96": 1,
+                  "11": 1,
+                  "175": 1,
+                  "120": 1,
+                  "35": 1,
+                  "147": 1,
+                  "174": 1,
+                  "190": 1,
+                  "86": 1,
+                  "92": 1
+                },
+                {
+                  "100": 1,
+                  "145": 1,
+                  "227": 1,
+                  "176": 1,
+                  "24": 1,
+                  "72": 1,
+                  "108": 1,
+                  "107": 1,
+                  "171": 1,
+                  "193": 1
+                },
+                {
+                  "229": 1,
+                  "169": 1,
+                  "72": 1,
+                  "112": 1,
+                  "20": 1,
+                  "207": 1,
+                  "222": 1,
+                  "97": 1,
+                  "254": 1,
+                  "246": 1
+                },
+                {
+                  "92": 1,
+                  "85": 1,
+                  "9": 1,
+                  "86": 1,
+                  "101": 1,
+                  "254": 1,
+                  "185": 1,
+                  "45": 1,
+                  "162": 1,
+                  "124": 1
+                },
+                {
+                  "234": 1,
+                  "201": 1,
+                  "132": 1,
+                  "219": 1,
+                  "52": 1,
+                  "136": 1,
+                  "218": 1,
+                  "206": 1,
+                  "41": 1,
+                  "27": 1
+                },
+                {
+                  "87": 1,
+                  "43": 1,
+                  "240": 1,
+                  "254": 1,
+                  "97": 1,
+                  "235": 1,
+                  "88": 1,
+                  "104": 1,
+                  "216": 1,
+                  "102": 1
+                },
+                {
+                  "85": 1,
+                  "184": 1,
+                  "208": 1,
+                  "221": 1,
+                  "135": 1,
+                  "248": 1,
+                  "27": 1,
+                  "237": 1,
+                  "193": 1,
+                  "206": 1
+                },
+                {
+                  "59": 1,
+                  "202": 1,
+                  "100": 1,
+                  "161": 1,
+                  "241": 1,
+                  "255": 1,
+                  "58": 1,
+                  "234": 1,
+                  "128": 1,
+                  "232": 1
+                },
+                {
+                  "45": 1,
+                  "96": 1,
+                  "2": 1,
+                  "241": 1,
+                  "39": 1,
+                  "99": 1,
+                  "179": 1,
+                  "76": 1,
+                  "115": 1,
+                  "250": 1
+                },
+                {
+                  "119": 1,
+                  "5": 1,
+                  "145": 1,
+                  "204": 1,
+                  "123": 1,
+                  "196": 1,
+                  "183": 1,
+                  "208": 1,
+                  "7": 1,
+                  "201": 1
+                }
+              ],
+              "p values (0-53)": [
+                0.6456864029044698,
+                0.6456864029044698,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.03564399971463583,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044698,
+                0.6456864029044693,
+                0.6456864029044698,
+                0.6456864029044693,
+                0.6456864029044698,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.035643999714636006,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044698,
+                0.03564399971463583,
+                0.6456864029044693,
+                0.03564399971463583,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044698,
+                0.03564399971463583,
+                0.6456864029044693,
+                0.035643999714636006,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044698,
+                0.6456864029044693,
+                0.6456864029044698,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044698,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044698,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044698,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044693
+              ]
+            }
+          }
+        ],
+        "entropy": {
+          "test name": "enctropy test",
+          "algorithm": "cryptocube_wrapper",
+          "number of samples": 10,
+          "plaintext length": 53,
+          "Summary": {
+            "average_entropy": 5.527073520665961,
+            "min_entropy": 5.347480094756062,
+            "max_entropy": 5.643776391052357
+          },
+          "details": {
+            "ciphertexts": [
+              "4XSFoAsj0Ru8rrnVZcQcNGuctC+1O7NARJb24HsHK0K9UrfpQ0srX/vZap7pDdrpmgvnx3uD",
+              "i4sSkb6W8G3D2adbshWHYnqDgLTttxp5FU+POJ61kBT33A8hrSnlo1ERCXsEVDNxT6OcTaAI",
+              "IXroRgGPrHwarHWvFm2CkMGXChiIsvDaiNhU4SoLjauABAscjv8AdkebS2GWuTnmERf0Dkl5",
+              "dijLmMnYzv8BWRXI9QvMLBWK/cbOfgEPKO5Z6Jys/acsGLdrtQMmvs9vC8HXyGPTStltxn4y",
+              "LUecGIIIQDyFIax5YusLgvYD9h5DpocnGKJD3BqYLZ00+KkQ1+kwVPrtAUSm8MX6buUO97s/",
+              "8ioudFJJVYurYKpXxab0DOyFH/UwLsBm9ft1mucp79XnbP6kV6je+MEXPJoWCwH9J3hQEYZS",
+              "SCVciWCaNg1ed8sbASwKKU37GhphLjNU1q4+19wDe7lMN3XpJMC5+ywIac33JJNB4JIs8LVB",
+              "lFtY4L+RUhBA8lwIiuoMQfebT3yudsezEF1+W2jmv2YaG623j3jHXT1a9NZ2pBIPdT83nW++",
+              "Zz/z/hzvQBCf45dMuSXNa6ICjJnC2GVv45EM+NbuTsm5DtudKhlXZlUPSYqkE/wKV9DA5Lfj",
+              "Dzre02St7RifmXA20v7wow0ZAUcf8FsN0CrJfDU1rV8TDlTvpFIsroiaedU1QHqWKjfE4ojL"
+            ],
+            "entropies": [
+              5.55572291879007,
+              5.606739354015319,
+              5.643776391052357,
+              5.347480094756062,
+              5.49562824290421,
+              5.532665279941246,
+              5.4816488447159974,
+              5.532665279941246,
+              5.592759955827107,
+              5.481648844715997
+            ]
+          }
+        }
+      },
+      {
+        "byte uniformity": [
+          {
+            "test": "chi-square byte uniformity",
+            "algorithm": "cryptocube_wrapper",
+            "summary": {
+              "sample": 10,
+              "positions tested": 54,
+              "expected": "0.0356439997, 0.6456864029",
+              "failed position": []
+            },
+            "details": {
+              "position_counts": [
+                {
+                  "49": 1,
+                  "152": 1,
+                  "52": 1,
+                  "183": 1,
+                  "187": 1,
+                  "184": 1,
+                  "235": 1,
+                  "139": 1,
+                  "1": 1,
+                  "193": 1
+                },
+                {
+                  "175": 1,
+                  "43": 1,
+                  "222": 1,
+                  "0": 1,
+                  "18": 1,
+                  "220": 1,
+                  "111": 1,
+                  "158": 1,
+                  "229": 1,
+                  "142": 1
+                },
+                {
+                  "157": 1,
+                  "188": 1,
+                  "203": 1,
+                  "23": 1,
+                  "106": 1,
+                  "3": 1,
+                  "217": 1,
+                  "47": 1,
+                  "220": 1,
+                  "127": 1
+                },
+                {
+                  "12": 1,
+                  "244": 1,
+                  "183": 1,
+                  "59": 1,
+                  "95": 1,
+                  "68": 1,
+                  "117": 1,
+                  "151": 1,
+                  "192": 1,
+                  "44": 1
+                },
+                {
+                  "119": 1,
+                  "14": 1,
+                  "123": 1,
+                  "113": 1,
+                  "149": 1,
+                  "12": 1,
+                  "200": 1,
+                  "49": 1,
+                  "189": 1,
+                  "181": 1
+                },
+                {
+                  "167": 1,
+                  "41": 1,
+                  "144": 1,
+                  "13": 1,
+                  "176": 1,
+                  "88": 1,
+                  "47": 1,
+                  "132": 1,
+                  "34": 1,
+                  "175": 1
+                },
+                {
+                  "92": 1,
+                  "233": 1,
+                  "65": 1,
+                  "74": 1,
+                  "205": 1,
+                  "7": 1,
+                  "151": 1,
+                  "211": 1,
+                  "17": 1,
+                  "210": 1
+                },
+                {
+                  "37": 1,
+                  "56": 1,
+                  "18": 1,
+                  "240": 1,
+                  "227": 1,
+                  "243": 1,
+                  "235": 1,
+                  "187": 1,
+                  "64": 1,
+                  "28": 1
+                },
+                {
+                  "47": 1,
+                  "136": 1,
+                  "15": 1,
+                  "67": 1,
+                  "228": 1,
+                  "165": 1,
+                  "160": 1,
+                  "78": 1,
+                  "144": 1,
+                  "157": 1
+                },
+                {
+                  "72": 1,
+                  "203": 1,
+                  "48": 1,
+                  "207": 1,
+                  "175": 1,
+                  "96": 1,
+                  "200": 1,
+                  "251": 1,
+                  "16": 1,
+                  "94": 1
+                },
+                {
+                  "239": 1,
+                  "132": 1,
+                  "241": 1,
+                  "20": 1,
+                  "188": 1,
+                  "19": 1,
+                  "246": 1,
+                  "143": 1,
+                  "13": 1,
+                  "192": 1
+                },
+                {
+                  "9": 1,
+                  "229": 1,
+                  "84": 1,
+                  "131": 1,
+                  "42": 1,
+                  "29": 1,
+                  "55": 2,
+                  "137": 1,
+                  "24": 1
+                },
+                {
+                  "49": 1,
+                  "135": 1,
+                  "7": 1,
+                  "202": 2,
+                  "134": 1,
+                  "142": 1,
+                  "119": 1,
+                  "189": 1,
+                  "173": 1
+                },
+                {
+                  "111": 1,
+                  "40": 1,
+                  "93": 1,
+                  "206": 1,
+                  "216": 1,
+                  "84": 1,
+                  "209": 1,
+                  "242": 1,
+                  "1": 1,
+                  "210": 1
+                },
+                {
+                  "158": 1,
+                  "116": 1,
+                  "140": 1,
+                  "15": 1,
+                  "108": 1,
+                  "13": 1,
+                  "91": 1,
+                  "208": 1,
+                  "54": 1,
+                  "154": 1
+                },
+                {
+                  "121": 1,
+                  "83": 1,
+                  "233": 1,
+                  "190": 1,
+                  "125": 1,
+                  "207": 1,
+                  "95": 1,
+                  "242": 1,
+                  "120": 1,
+                  "14": 1
+                },
+                {
+                  "13": 1,
+                  "82": 1,
+                  "9": 1,
+                  "249": 1,
+                  "117": 1,
+                  "12": 1,
+                  "161": 1,
+                  "47": 1,
+                  "218": 1,
+                  "170": 1
+                },
+                {
+                  "15": 1,
+                  "36": 1,
+                  "50": 1,
+                  "187": 1,
+                  "226": 1,
+                  "77": 2,
+                  "206": 1,
+                  "159": 1,
+                  "188": 1
+                },
+                {
+                  "81": 1,
+                  "113": 1,
+                  "193": 1,
+                  "49": 1,
+                  "157": 1,
+                  "108": 1,
+                  "178": 1,
+                  "74": 1,
+                  "126": 1,
+                  "201": 1
+                },
+                {
+                  "108": 1,
+                  "240": 1,
+                  "179": 1,
+                  "230": 1,
+                  "120": 1,
+                  "213": 1,
+                  "155": 1,
+                  "232": 1,
+                  "136": 1,
+                  "104": 1
+                },
+                {
+                  "172": 1,
+                  "76": 1,
+                  "101": 1,
+                  "75": 1,
+                  "71": 1,
+                  "114": 1,
+                  "85": 1,
+                  "209": 1,
+                  "65": 1,
+                  "146": 1
+                },
+                {
+                  "39": 1,
+                  "140": 1,
+                  "43": 1,
+                  "90": 1,
+                  "166": 1,
+                  "15": 1,
+                  "107": 1,
+                  "187": 1,
+                  "108": 1,
+                  "100": 1
+                },
+                {
+                  "40": 1,
+                  "14": 1,
+                  "143": 1,
+                  "181": 1,
+                  "153": 1,
+                  "148": 1,
+                  "147": 1,
+                  "245": 1,
+                  "32": 1,
+                  "63": 1
+                },
+                {
+                  "34": 1,
+                  "150": 1,
+                  "243": 1,
+                  "21": 1,
+                  "32": 1,
+                  "195": 1,
+                  "165": 1,
+                  "247": 1,
+                  "100": 1,
+                  "127": 1
+                },
+                {
+                  "227": 1,
+                  "129": 1,
+                  "146": 1,
+                  "175": 1,
+                  "199": 1,
+                  "221": 1,
+                  "166": 1,
+                  "189": 1,
+                  "172": 1,
+                  "29": 1
+                },
+                {
+                  "195": 1,
+                  "4": 1,
+                  "212": 1,
+                  "89": 1,
+                  "168": 1,
+                  "128": 1,
+                  "138": 1,
+                  "120": 1,
+                  "7": 1,
+                  "26": 1
+                },
+                {
+                  "150": 1,
+                  "98": 1,
+                  "136": 1,
+                  "11": 1,
+                  "77": 1,
+                  "79": 1,
+                  "110": 1,
+                  "240": 1,
+                  "140": 1,
+                  "24": 1
+                },
+                {
+                  "78": 1,
+                  "254": 1,
+                  "150": 1,
+                  "246": 1,
+                  "13": 1,
+                  "184": 1,
+                  "140": 1,
+                  "174": 1,
+                  "27": 1,
+                  "255": 1
+                },
+                {
+                  "147": 1,
+                  "62": 1,
+                  "133": 1,
+                  "64": 1,
+                  "152": 1,
+                  "91": 1,
+                  "105": 1,
+                  "108": 1,
+                  "236": 1,
+                  "88": 1
+                },
+                {
+                  "39": 1,
+                  "5": 1,
+                  "17": 1,
+                  "182": 1,
+                  "208": 1,
+                  "150": 1,
+                  "118": 1,
+                  "119": 1,
+                  "75": 1,
+                  "184": 1
+                },
+                {
+                  "208": 1,
+                  "251": 1,
+                  "23": 1,
+                  "118": 1,
+                  "202": 1,
+                  "57": 1,
+                  "182": 1,
+                  "1": 1,
+                  "71": 1,
+                  "89": 1
+                },
+                {
+                  "53": 1,
+                  "47": 1,
+                  "8": 1,
+                  "131": 1,
+                  "109": 1,
+                  "40": 1,
+                  "89": 1,
+                  "81": 1,
+                  "213": 1,
+                  "111": 1
+                },
+                {
+                  "36": 1,
+                  "137": 1,
+                  "76": 1,
+                  "167": 1,
+                  "246": 1,
+                  "93": 1,
+                  "240": 1,
+                  "20": 1,
+                  "140": 1,
+                  "124": 1
+                },
+                {
+                  "207": 1,
+                  "222": 1,
+                  "126": 1,
+                  "111": 1,
+                  "14": 1,
+                  "202": 1,
+                  "90": 1,
+                  "137": 1,
+                  "99": 1,
+                  "79": 1
+                },
+                {
+                  "112": 1,
+                  "212": 1,
+                  "198": 1,
+                  "243": 1,
+                  "92": 1,
+                  "90": 1,
+                  "54": 1,
+                  "108": 1,
+                  "52": 1,
+                  "118": 1
+                },
+                {
+                  "180": 1,
+                  "35": 1,
+                  "19": 1,
+                  "210": 1,
+                  "88": 1,
+                  "253": 1,
+                  "183": 1,
+                  "51": 1,
+                  "255": 1,
+                  "17": 1
+                },
+                {
+                  "158": 1,
+                  "53": 1,
+                  "202": 1,
+                  "204": 1,
+                  "121": 1,
+                  "28": 1,
+                  "113": 1,
+                  "4": 1,
+                  "95": 1,
+                  "65": 1
+                },
+                {
+                  "188": 1,
+                  "32": 1,
+                  "165": 1,
+                  "12": 1,
+                  "213": 1,
+                  "179": 1,
+                  "34": 1,
+                  "33": 1,
+                  "57": 1,
+                  "77": 1
+                },
+                {
+                  "164": 1,
+                  "42": 1,
+                  "69": 1,
+                  "9": 1,
+                  "163": 1,
+                  "137": 1,
+                  "226": 1,
+                  "167": 1,
+                  "68": 1,
+                  "27": 1
+                },
+                {
+                  "188": 1,
+                  "195": 1,
+                  "146": 1,
+                  "102": 1,
+                  "52": 1,
+                  "189": 1,
+                  "255": 1,
+                  "238": 1,
+                  "251": 1,
+                  "141": 1
+                },
+                {
+                  "152": 1,
+                  "194": 1,
+                  "241": 1,
+                  "50": 1,
+                  "30": 1,
+                  "217": 1,
+                  "85": 1,
+                  "59": 1,
+                  "61": 1,
+                  "32": 1
+                },
+                {
+                  "141": 1,
+                  "130": 1,
+                  "6": 1,
+                  "129": 1,
+                  "51": 1,
+                  "195": 1,
+                  "196": 1,
+                  "18": 1,
+                  "84": 1,
+                  "216": 1
+                },
+                {
+                  "183": 1,
+                  "44": 1,
+                  "172": 1,
+                  "191": 1,
+                  "164": 1,
+                  "62": 1,
+                  "216": 1,
+                  "206": 1,
+                  "235": 1,
+                  "252": 1
+                },
+                {
+                  "238": 1,
+                  "156": 1,
+                  "221": 1,
+                  "37": 1,
+                  "158": 1,
+                  "83": 1,
+                  "36": 1,
+                  "67": 1,
+                  "217": 1,
+                  "138": 1
+                },
+                {
+                  "223": 1,
+                  "0": 1,
+                  "85": 1,
+                  "43": 1,
+                  "47": 1,
+                  "183": 1,
+                  "74": 1,
+                  "176": 1,
+                  "97": 1,
+                  "231": 1
+                },
+                {
+                  "102": 1,
+                  "217": 1,
+                  "131": 1,
+                  "24": 1,
+                  "174": 1,
+                  "156": 1,
+                  "251": 1,
+                  "113": 1,
+                  "39": 1,
+                  "2": 1
+                },
+                {
+                  "180": 1,
+                  "130": 1,
+                  "213": 1,
+                  "244": 1,
+                  "12": 1,
+                  "58": 1,
+                  "147": 1,
+                  "93": 1,
+                  "137": 1,
+                  "37": 1
+                },
+                {
+                  "118": 1,
+                  "21": 1,
+                  "126": 1,
+                  "107": 1,
+                  "77": 1,
+                  "42": 1,
+                  "135": 1,
+                  "183": 1,
+                  "33": 1,
+                  "16": 1
+                },
+                {
+                  "119": 1,
+                  "78": 1,
+                  "205": 1,
+                  "206": 1,
+                  "130": 1,
+                  "172": 1,
+                  "238": 1,
+                  "29": 1,
+                  "83": 1,
+                  "228": 1
+                },
+                {
+                  "206": 1,
+                  "186": 1,
+                  "183": 1,
+                  "47": 1,
+                  "82": 2,
+                  "229": 1,
+                  "17": 1,
+                  "126": 1,
+                  "96": 1
+                },
+                {
+                  "163": 1,
+                  "54": 1,
+                  "205": 1,
+                  "119": 1,
+                  "247": 1,
+                  "252": 1,
+                  "20": 1,
+                  "164": 1,
+                  "92": 1,
+                  "62": 1
+                },
+                {
+                  "143": 1,
+                  "224": 1,
+                  "46": 1,
+                  "200": 1,
+                  "210": 2,
+                  "215": 1,
+                  "16": 1,
+                  "82": 1,
+                  "209": 1
+                },
+                {
+                  "88": 1,
+                  "144": 1,
+                  "74": 1,
+                  "63": 1,
+                  "95": 1,
+                  "167": 1,
+                  "119": 1,
+                  "117": 1,
+                  "246": 1,
+                  "125": 1
+                },
+                {
+                  "164": 1,
+                  "209": 1,
+                  "59": 1,
+                  "245": 1,
+                  "176": 1,
+                  "24": 1,
+                  "238": 1,
+                  "239": 1,
+                  "45": 1,
+                  "117": 1
+                }
+              ],
+              "p values (0-53)": [
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044698,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044698,
+                0.6456864029044693,
+                0.6456864029044698,
+                0.6456864029044693,
+                0.03564399971463583,
+                0.03564399971463583,
+                0.6456864029044698,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.035643999714636006,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044698,
+                0.6456864029044693,
+                0.6456864029044698,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044698,
+                0.6456864029044698,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044698,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044698,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044698,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044693,
+                0.6456864029044698,
+                0.6456864029044693,
+                0.03564399971463583,
+                0.6456864029044698,
+                0.03564399971463583,
+                0.6456864029044693,
+                0.6456864029044693
+              ]
+            }
+          }
+        ],
+        "entropy": {
+          "test name": "enctropy test",
+          "algorithm": "cryptocube_wrapper",
+          "number of samples": 10,
+          "plaintext length": 53,
+          "Summary": {
+            "average_entropy": 5.550203566954243,
+            "min_entropy": 5.407574770641922,
+            "max_entropy": 5.680813428089393
+          },
+          "details": {
+            "ciphertexts": [
+              "MP+vIElkrL4pDuv2pXoSS6rAal0EgjKR1PwgvzxkT8/tGjUH12f5ym1/hJ8A+oUzfjGCURmC",
+              "ZA/5c48x8me2Ifio7ejPkG/lE+As+kKYL62KhNh2Uv+wWwxB0r10eJcAUgqJKBbdaZe2V6um",
+              "mvTxKHUBBpa7AjRxOyyoX9VB/y5tRXghlI5hnq+ffgwZ+HptU5JIGChTRSxfBdRGEQdDlzlF",
+              "GGKcA2rzarUXV5uMN+Ehph4AIKEjlTSsAxDcn1kyxlMm0rJN3Cyj/sHKTZ8uc/48ZsXoP/oe",
+              "fqArQ6TfsPKWsW71PYB7//vxp9wFa8hEaXrzacQSsR7KaW7eCQaEzPtolGCEM3oNvGoNvJrj",
+              "xWJSEQa9UeQI+k00iO24bm7JRLrd1dpiFDXp8xUOBZMmfaEhS7gfv6Kvmf0kHPVI6CNnObnN",
+              "rLuN3I/vhLKWFGCchC2a0k2+skan3hBBbwYkWsghn+8gE3WaSl15qH6TeahcRfaaNgzJsWvf",
+              "pO1ZgyCb5zCt4lnbFD8aNUnyISuOJ8EJ9WClSE/Gf85dx4oKvq+7UQfnOonJquHeOG3WA7Fh",
+              "dfe8AYGhFkE877YP/yorhHvUYe5SD4tMp7kEN4AUCe0kf8Oc+vwEqRtN7xFUj8E4BGMnGP4M",
+              "vJLZPh6H3QfdXI4FqQmFhMzwwO0I2Hp9+w0PAYq5Apf8UvD2zAW5ngngU7k7v6cmf1p8jzM5"
+            ],
+            "entropies": [
+              5.592759955827106,
+              5.643776391052356,
+              5.481648844715996,
+              5.49562824290421,
+              5.407574770641922,
+              5.643776391052356,
+              5.481648844715997,
+              5.680813428089393,
+              5.592759955827107,
+              5.4816488447159974
+            ]
+          }
+        }
+      }
+    ],
+    "critical_test_results": [
+      {
+        "Permutation Recovery Test": {
+          "attack_successful": false,
+          "success_rate": 0.0,
+          "recovered_permutations": 0,
+          "details": [
+            {
+              "attempt": 0,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 1,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 2,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            }
+          ],
+          "VERDICT": "Passed - Permutation not recoverable"
+        },
+        "IV Reuse Vulnerability": {
+          "leakage_detected": false,
+          "identical_permutations": 0,
+          "percentage": 0.0,
+          "details": [
+            {
+              "test": 0,
+              "IV": "db615f5d2bcc23a6",
+              "pattern_preserved": true,
+              "matching_positions": 2,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 1,
+              "IV": "b92f5929c3080a32",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 2,
+              "IV": "56221b3865b64e97",
+              "pattern_preserved": true,
+              "matching_positions": 3,
+              "same_permutation_likely": false
+            }
+          ],
+          "VERDICT": "IV reuse leaks information (detected in 0/3 cases) - This is EXPECTED for deterministic ciphers"
+        },
+        "Deterministic Keystream Test": {
+          "consistent": true,
+          "consistency_rate": 1.0,
+          "consistent_count": 3,
+          "inconsistent_count": 0,
+          "details": [],
+          "VERDICT": "Keystream is deterministic (expected behavior)"
+        }
+      },
+      {
+        "Permutation Recovery Test": {
+          "attack_successful": false,
+          "success_rate": 0.0,
+          "recovered_permutations": 0,
+          "details": [
+            {
+              "attempt": 0,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 1,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 2,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            }
+          ],
+          "VERDICT": "Passed - Permutation not recoverable"
+        },
+        "IV Reuse Vulnerability": {
+          "leakage_detected": false,
+          "identical_permutations": 0,
+          "percentage": 0.0,
+          "details": [
+            {
+              "test": 0,
+              "IV": "d8d67c0488736ea1",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 1,
+              "IV": "d9f8ffff91c85160",
+              "pattern_preserved": false,
+              "matching_positions": 0,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 2,
+              "IV": "1abeedb9191b9ad6",
+              "pattern_preserved": true,
+              "matching_positions": 1,
+              "same_permutation_likely": false
+            }
+          ],
+          "VERDICT": "IV reuse leaks information (detected in 0/3 cases) - This is EXPECTED for deterministic ciphers"
+        },
+        "Deterministic Keystream Test": {
+          "consistent": true,
+          "consistency_rate": 1.0,
+          "consistent_count": 3,
+          "inconsistent_count": 0,
+          "details": [],
+          "VERDICT": "Keystream is deterministic (expected behavior)"
+        }
+      },
+      {
+        "Permutation Recovery Test": {
+          "attack_successful": false,
+          "success_rate": 0.0,
+          "recovered_permutations": 0,
+          "details": [
+            {
+              "attempt": 0,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 1,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            },
+            {
+              "attempt": 2,
+              "status": "Attack failed - cipher uses substitution/transformation",
+              "recovery_success": false,
+              "permutation_valid": false
+            }
+          ],
+          "VERDICT": "Passed - Permutation not recoverable"
+        },
+        "IV Reuse Vulnerability": {
+          "leakage_detected": false,
+          "identical_permutations": 0,
+          "percentage": 0.0,
+          "details": [
+            {
+              "test": 0,
+              "IV": "e8873bb57768ffad",
+              "pattern_preserved": true,
+              "matching_positions": 4,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 1,
+              "IV": "324f77a579d6da1e",
+              "pattern_preserved": true,
+              "matching_positions": 3,
+              "same_permutation_likely": false
+            },
+            {
+              "test": 2,
+              "IV": "ae2e5507e0469972",
+              "pattern_preserved": true,
+              "matching_positions": 3,
+              "same_permutation_likely": false
+            }
+          ],
+          "VERDICT": "IV reuse leaks information (detected in 0/3 cases) - This is EXPECTED for deterministic ciphers"
+        },
+        "Deterministic Keystream Test": {
+          "consistent": true,
+          "consistency_rate": 1.0,
+          "consistent_count": 3,
+          "inconsistent_count": 0,
+          "details": [],
+          "VERDICT": "Keystream is deterministic (expected behavior)"
+        }
+      }
+    ]
+  }
+}

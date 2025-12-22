@@ -34,6 +34,8 @@ def test_permutation_recovery_attack(cipher: CryptoCube, samples: int = 10):
     details = []
     
     for attempt in range(samples):
+        if attempt % (samples//100) == 0:
+            print(f"{attempt}/{samples}")
         # Step 1: Attacker knows a plaintext-ciphertext pair
         # FIXED: 53 bytes max (not 54)
         known_plaintext = bytes(range(53))  # Known pattern [0,1,2,...,52]
@@ -338,39 +340,7 @@ def full_test(
 
 def main():
     # Example usage
-    KEYS1 = [
-        mCube(3, "BYGWYYBBRYGWRRGORGRRWYGOYWBGRYGOWOYORBROBWBOGOBYGWOWBW"), 
-        mCube(3, "YGBRGWWWYOBGWRYORBROBRWORBRRBOGOBYWBWYGYYROYGWOGGBGWOY"), 
-        mCube(3, "GOBRGGBOORWOYRBWBOWWYOWYWBBGWYGOYYGROGYOYBWYGGRRWBRRRB")
-    ]
-    cipher = CryptoCube(KEYS1, "bytes", whitten=True)
-    
-    print("\n" + "="*70)
-    print("CRYPTOGRAPHIC SECURITY TEST SUITE")
-    print("NOTE: Cipher accepts 53-byte plaintext, outputs 54-byte ciphertext")
-    print("="*70)
-    
-    print("\n[TEST 1] Permutation Recovery Attack")
-    print("-" * 70)
-    result1 = test_permutation_recovery_attack(cipher, samples=10)
-    pprint(result1)
-    
-    print("\n[TEST 2] IV Reuse Vulnerability")
-    print("-" * 70)
-    result2 = test_iv_reuse_vulnerability(cipher, samples=20)
-    pprint(result2)
-    
-    print("\n[TEST 3] Deterministic Keystream Verification")
-    print("-" * 70)
-    result3 = test_deterministic_keystream(cipher, samples=50)
-    pprint(result3)
-    
-    print("\n" + "="*70)
-    print("SUMMARY")
-    print("="*70)
-    print(f"Permutation Recovery: {result1['VERDICT']}")
-    print(f"IV Reuse: {result2['VERDICT']}")
-    print(f"Determinism: {result3['VERDICT']}")
+    full_test(perm_recovery_samples=10_000)
 
 
 if __name__ == "__main__":

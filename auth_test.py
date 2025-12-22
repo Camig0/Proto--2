@@ -70,8 +70,8 @@ def test_auth_ctr(samples:int = 1000, max_pt_size:int = 1024):
 
     failed_auth = 0
     for run in range(samples):
-        if run % (samples // 20) == 0:
-            print(f"{run}/{samples}")
+        # if run % (samples // 20) == 0:
+        #     print(f"{run}/{samples}")
 
         pt = os.urandom(randint(1,max_pt_size))
         KEYS1 = [mCube(3, "BYGWYYBBRYGWRRGORGRRWYGOYWBGRYGOWOYORBROBWBOGOBYGWOWBW"), mCube(3, "YGBRGWWWYOBGWRYORBROBRWORBRRBOGOBYWBWYGYYROYGWOGGBGWOY"), mCube(3,"GOBRGGBOORWOYRBWBOWWYOWYWBBGWYGOYYGROGYOYBWYGGRRWBRRRB")]
